@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:inversa/src/common_widgets/primary_button.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
+import 'package:inversa/src/features/authentication/presentation/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
+  static Future<Route<LoginScreen>> route() async {
+    return MaterialPageRoute(builder: (context) => const LoginScreen());
+  }
+
   const LoginScreen({super.key});
 
   @override
@@ -19,17 +24,17 @@ class LoginScreen extends StatelessWidget {
           children: <Widget>[
             const TextField(
               decoration: InputDecoration(
-                hintText: "Enter email",
+                hintText: "email",
               ),
             ),
             const TextField(
               decoration: InputDecoration(
-                hintText: "Enter password",
+                hintText: "password",
               ),
             ),
             gapH24,
             PrimaryButton(
-              text: "Login",
+              text: "LOGIN",
               onPressed: () {},
             ),
             gapH12,
@@ -45,6 +50,12 @@ class LoginScreen extends StatelessWidget {
                   icon: const Icon(FontAwesomeIcons.google),
                 ),
               ],
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(context, SignupScreen.route());
+              },
+              child: const Text("SIGNUP"),
             ),
           ],
         ),
