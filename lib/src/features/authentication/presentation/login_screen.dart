@@ -5,7 +5,7 @@ import 'package:inversa/src/constants/app_sizes.dart';
 import 'package:inversa/src/features/authentication/presentation/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  static Future<Route<LoginScreen>> route() async {
+  static Route<LoginScreen> route() {
     return MaterialPageRoute(builder: (context) => const LoginScreen());
   }
 
