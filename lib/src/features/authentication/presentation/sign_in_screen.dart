@@ -57,6 +57,12 @@ class LoginScreen extends StatelessWidget {
               },
               child: const Text("SIGNUP"),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(context, SignupScreen.route());
+              },
+              child: const Text("Sign"),
+            ),
           ],
         ),
       ),
