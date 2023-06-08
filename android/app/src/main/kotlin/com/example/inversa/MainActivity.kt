@@ -1,4 +1,4 @@
-package com.example.inversa
+package com.example.flutterlogin
 
 import io.flutter.embedding.android.FlutterActivity
 
