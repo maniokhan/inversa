@@ -16,6 +16,11 @@ class PrimaryButton extends StatelessWidget {
     return SizedBox(
       height: Sizes.p48,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFF2AB0B6),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+            )),
         onPressed: onPressed,
         child: isLoading
             ? const CircularProgressIndicator()
