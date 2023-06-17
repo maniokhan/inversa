@@ -21,7 +21,7 @@ class CommonRadioButton<T> extends StatelessWidget {
           color: Colors.white,
           shape: BoxShape.circle,
           border: Border.all(
-            color: isSelected ? ConfigColors.checkboxGrey : Colors.transparent,
+            // color: isSelected ? ConfigColors.checkboxGrey : Colors.transparent,
           ),
         ),
         child: Padding(
@@ -30,15 +30,15 @@ class CommonRadioButton<T> extends StatelessWidget {
             duration: const Duration(milliseconds: 500),
             curve: Curves.fastOutSlowIn,
             decoration: BoxDecoration(
-              color: isSelected ? ConfigColors.synappPrimary : Colors.white,
+              // color: isSelected ? ConfigColors.synappPrimary : Colors.white,
               shape: BoxShape.circle,
               border: Border.all(
-                color: isSelected ? Colors.transparent : ConfigColors.textGrey,
-                width: isSelected ? 1 : 2,
+                // color: isSelected ? Colors.transparent : ConfigColors.textGrey,
+                // width: isSelected ? 1 : 2,
               ),
             ),
             child: Visibility(
-              visible: isSelected,
+              // visible: isSelected,
               maintainSize: true,
               maintainState: true,
               maintainAnimation: true,

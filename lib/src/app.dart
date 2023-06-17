@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:inversa/src/features/store_home/store_home_screen.dart';
+import 'package:inversa/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:inversa/src/theme/data.dart';
 import 'package:inversa/src/theme/theme.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -21,7 +22,7 @@ class App extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: const StoreHomeScreen(),
+      home: const LoginScreen(),
       builder: (BuildContext context, Widget? child) {
         return AppTheme(
           data: const AppThemeData(),

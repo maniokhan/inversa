@@ -72,7 +72,7 @@ class AppTextStyleData with _$AppTextStyleData {
     TextStyle titleS32,
     @Default(
       TextStyle(
-        fontFamily:FontFamily.montserrat,
+        fontFamily: FontFamily.montserrat,
         fontWeight: FontWeight.w400,
         fontSize: 9,
         decoration: TextDecoration.none,
