@@ -1,34 +1,5 @@
 {
   "@@locale": "en",
-  "toLogIn" : "To log in" ,
-  "register" :  "Register",
-  "niceToSeeYouAgain" : "Nice to see you again !",
-  "iIdentifyMySelfDifferently" : "I identify myself differently",
-  "thePasswordIsIncorrectTryAgainOrSelectForgotPassword" : "The password is incorrect. \nTry again or select “Forgot password”",
-  "enterYourPhoneNumberOrTheEmailAddressAssociatedWithYourAccount"  : "Enter your phone number or the email address \nassociated with your account",
-  "youWillBeAskedToLogIn" : "You will be asked to log in.",
-  "newPassword" : "New Password",
-  "atLeast8Characters" : "At least 8 characters",
-  "yourEmailIsNotVerifiedAuthenticationIsOnlyPossibleWithYourPhoneNumber" : "Your email is not verified. \nAuthentication is only possible with your phone number.",
-  "writeDownYourPhoneNumberAndChooseYourPassword" : "Write down your phone number \nand choose your password",
-  "communicationsWillBeAssociatedWithThisPhoneNumberAndWillAllowYouToConnect" : "Communications will be associated with this phone number and will allow you to connect.",
-  "chooseYourPassword" : "Choose your password",
-  "welcomeLetsMeetYouAre" : "Welcome ! \nLet's meet, you are:",
-  "checkOrCompleteYourInformation" : "Check or complete your information",
-  "addExerciseMode"  : "+ Add exercise mode",
-  "theEmailAddressIsNotCorrect"  :  "The email address is not correct",
-  "thanksHabibYourAccountHasBeenCreated"  : "Thanks Habib, \nYour account has been \ncreated !",
-  "soonFinishedCompleteTheInformation"   : "Soon finished! \nComplete the \ninformation",
-  "someMoreInformationToGetToKnowYouBetter"  : "Some more information to get to know you better.",
-  "completeYourInformation" : "Complete your information",
-  "forgotYourPassword"  : "Forgot your password?",
-
-
-
-
-
-
-
   "password": "Password",
   "validate": "Validate",
   "or": "Or",
@@ -36,7 +7,7 @@
   "emailAdress": "Email adress",
   "onboardingCarouselPage1": "The only instant messenger designed by and for healthcare professionals",
   "onboardingCarouselPage2": "Custom designed medical features",
-  "onboardingCarouselPage3": "An ultra-secure architecture: encrypted exchanges, French servers",
+  "onboardingCarouselPage3": "An ultra-secure architecture: encrypted exchanges, French servers 🇫🇷",
   "welcome": "Welcome",
   "iLogin": "I login",
   "iDoNotHaveAnAccount": "I don't have an account",
@@ -61,8 +32,6 @@
   "invalidCredential": "Your credential is incorrect.",
   "findYourCountry": "Find your country",
   "howToReceiveAuthenticationCode": "How do you want to received your authentification code ?",
-  "howToReceiveAuthentication": "How do you want to received \nyour authentification code ?",
-
   "byEmail": "By email",
   "onMyPhoneNumber": "On my phone number",
   "other": "Other",
@@ -288,7 +257,6 @@
   "advancedPracticeNurseMentalHealth": "Advanced Practice Nurse - Mental Health",
   "advancedPracticeNurseEmergency": "Advanced Practice Nurse - Emergency",
   "functionalTesting": "Functional Testing",
-  "exppratartRduCSPThérapieCellulaire": "Exp. prat. art. R.- du CSP Thérapie Cellulaire",
   "fetalPathology": "Fetal Pathology",
   "gastroenterologyHepatology": "Gastroenterology & Hepatology",
   "obstetricsGynaecologyMedicalGynaecology": "Obstetrics & Gynaecology - Medical Gynaecology",
@@ -406,6 +374,7 @@
   "takePhoto": "Take\na photo",
   "takeVideo": "Take\na video",
   "scanOneDocument": "Scan one\ndocument",
+  "camera" : "Camera",
   "pictures": "Pictures",
   "videos": "Videos",
   "documents": "Documents",
@@ -707,5 +676,23 @@
   "shortcutContact": "Contact shortcuts",
   "newUpdateAvailable": "A new version of Synapp with improvements is available",
   "goToUpdate": "Update",
-  "later": "Later"
+  "later": "Later",
+  "submitAQuiz": "Submit a quiz",
+  "submitAQuizConsent" : "By sending this clinical case, you confirm that you have anonymized the case or have obtained the patient's consent.*",
+  "send": "Send",
+  "askAQuestion": "Ask a question",
+  "question1": "Question 1",
+  "askYouQuestion": "Ask your question",
+  "answers": "Answers",
+  "correctAnswer": "Correct answer",
+  "wrongAnswer": "Wrong answer",
+  "addAnotherAnswer": "Add another answer",
+  "explainTheCorrectAnswer": "Explain the correct answer",
+  "newQuiz": "New quiz",
+  "existingQuiz": "Existing quiz",
+  "finaAQuiz": "Find A Quiz",
+  "editQuiz": "Edit Quiz",
+  "options": "Options",
+  "option": "Option",
+  "addMoreOption": "Add more option"
 }
