@@ -7,8 +7,8 @@ import 'package:inversa/src/constants/app_sizes.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
-class StoreProfileScreen extends StatelessWidget {
-  const StoreProfileScreen({super.key});
+class ClientProfileScreen extends StatelessWidget {
+  const ClientProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,13 @@ class StoreProfileScreen extends StatelessWidget {
         ),
         centerTitle: true,
         title: const AppText.titleS20(
-          "Store",
+          "Client",
           color: ConfigColors.white,
           fontWeight: FontWeight.w600,
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 25, 16, 0),
+        padding: const EdgeInsets.fromLTRB(16, 26, 16, 0),
         children: [
           CommonCard(
             backgroundColor: ConfigColors.primary2,
@@ -40,7 +40,7 @@ class StoreProfileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const AppText.titleS20(
-                        "Store Name",
+                        "Client Name",
                         color: ConfigColors.white,
                       ),
                       CommonCard(
@@ -84,24 +84,19 @@ class StoreProfileScreen extends StatelessWidget {
           gapH16,
           // TODO: add shadow arround cards
           CommonListTile(
-            onTap: () {},
             leading: CommonCard(
               customRadius: BorderRadius.circular(10),
               showShadow: false,
               backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
-              padding: const EdgeInsets.all(6),
-              //TODO: client image not shown error
+              padding: const EdgeInsets.all(10),
               child: Assets.store.svg(color: const Color(0xFFC379FF)),
             ),
             title: const AppText.paragraphI16(
-              "Client",
+              "Store",
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
-            trailing: const Icon(
-              Icons.arrow_circle_right_outlined,
-              color: ConfigColors.slateGray,
-            ),
+            trailing: Assets.outlinedForwardArrow.svg(),
           ),
           gapH12,
           CommonListTile(

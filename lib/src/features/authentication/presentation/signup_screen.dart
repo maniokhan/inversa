@@ -6,10 +6,9 @@ import 'package:inversa/src/common_widgets/common_password.dart';
 import 'package:inversa/src/common_widgets/common_text_field.dart';
 import 'package:inversa/src/common_widgets/common_text_field_title.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/home_screen.dart';
+import 'package:inversa/src/features/store/store_home_screen.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
-
 
 class SignupScreen extends StatefulWidget {
   static Route<SignupScreen> route() {
@@ -37,7 +36,7 @@ class _SignupScreenState extends State<SignupScreen> {
       print('User ID: ${user?.uid}');
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
+          builder: (context) => const StoreHomeScreen(),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -148,7 +147,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ],
             ),
             gapH48,
-            SynappButton(
+            CommonButton(
               text: "Register",
               onPress: () {},
             ),

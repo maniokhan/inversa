@@ -27,43 +27,41 @@ class StoreBusinessProfileFormScreen extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
-        child: ListView(
-          children: [
-            CommonTextFieldTitle(
-              leading: Assets.store.svg(color: ConfigColors.primary2),
-              text: 'Name of Store',
-            ),
-            gapH8,
-            const CommonTextField(
-              hintText: "Add Store",
-              textInputType: TextInputType.name,
-            ),
-            gapH24,
-            CommonTextFieldTitle(
-              leading: Assets.address.svg(),
-              text: 'Address',
-            ),
-            gapH8,
-            const CommonTextField(
-              hintText: "Add Address",
-              textInputType: TextInputType.streetAddress,
-            ),
-            gapH24,
-            CommonTextFieldTitle(
-              leading: Assets.emailGreen.svg(),
-              text: 'Email',
-            ),
-            gapH8,
-            const CommonTextField(
-              hintText: "info@gmail.com",
-              textInputType: TextInputType.emailAddress,
-            ),
-            const SizedBox(height: 241),
-            SynappButton(text: "Save", onPress: () {}),
-          ],
-        ),
+        children: [
+          CommonTextFieldTitle(
+            leading: Assets.store.svg(color: ConfigColors.primary2),
+            text: 'Name of Store',
+          ),
+          gapH8,
+          const CommonTextField(
+            hintText: "Add Store",
+            textInputType: TextInputType.name,
+          ),
+          gapH24,
+          CommonTextFieldTitle(
+            leading: Assets.address.svg(),
+            text: 'Address',
+          ),
+          gapH8,
+          const CommonTextField(
+            hintText: "Add Address",
+            textInputType: TextInputType.streetAddress,
+          ),
+          gapH24,
+          CommonTextFieldTitle(
+            leading: Assets.emailGreen.svg(),
+            text: 'Email',
+          ),
+          gapH8,
+          const CommonTextField(
+            hintText: "info@gmail.com",
+            textInputType: TextInputType.emailAddress,
+          ),
+          const SizedBox(height: 241),
+          CommonButton(text: "Save", onPress: () {}),
+        ],
       ),
     );
   }

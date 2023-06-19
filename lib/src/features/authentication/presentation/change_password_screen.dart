@@ -27,37 +27,35 @@ class ChangePasswordScreen extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
-        child: ListView(
-          children: [
-            CommonTextFieldTitle(
-              leading: Assets.lock.svg(),
-              text: 'Current Password',
-            ),
-            gapH8,
-            const CommonPasswordInput(),
-            gapH24,
-            CommonTextFieldTitle(
-              leading: Assets.lock.svg(),
-              text: 'New Password',
-            ),
-            gapH8,
-            const CommonPasswordInput(),
-            gapH24,
-            CommonTextFieldTitle(
-              leading: Assets.lock.svg(),
-              text: 'Confirm Password',
-            ),
-            gapH8,
-            const CommonPasswordInput(),
-            const SizedBox(height: 241),
-            SynappButton(
-              text: "Save",
-              onPress: () {},
-            ),
-          ],
-        ),
+        children: [
+          CommonTextFieldTitle(
+            leading: Assets.lock.svg(),
+            text: 'Current Password',
+          ),
+          gapH8,
+          const CommonPasswordInput(),
+          gapH24,
+          CommonTextFieldTitle(
+            leading: Assets.lock.svg(),
+            text: 'New Password',
+          ),
+          gapH8,
+          const CommonPasswordInput(),
+          gapH24,
+          CommonTextFieldTitle(
+            leading: Assets.lock.svg(),
+            text: 'Confirm Password',
+          ),
+          gapH8,
+          const CommonPasswordInput(),
+          const SizedBox(height: 241),
+          CommonButton(
+            text: "Save",
+            onPress: () {},
+          ),
+        ],
       ),
     );
   }

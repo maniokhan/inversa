@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:inversa/src/theme/config_colors.dart';
@@ -5,6 +6,7 @@ import 'package:inversa/src/theme/config_colors.dart';
 class CommonDottedBorderCard extends StatelessWidget {
   final double strokeWidth;
   final void Function()? onTap;
+  final Color borderColor;
   final List<double> dashPattern;
   final bool showShadow;
   final Color backgroundColor;
@@ -14,18 +16,19 @@ class CommonDottedBorderCard extends StatelessWidget {
   final AlignmentGeometry? alignment;
   final List<BoxShadow>? customBoxShadow;
   const CommonDottedBorderCard({
-    super.key,
-    required this.child,
-    this.alignment,
-    this.customRadius,
-    this.padding = const EdgeInsets.all(18),
-    this.backgroundColor = ConfigColors.backgroundGrey,
-    this.showShadow = true,
-    this.customBoxShadow,
-    this.onTap,
-    this.dashPattern = const <double>[5, 3],
+    Key? key,
     this.strokeWidth = 1.6,
-  });
+    this.onTap,
+    this.borderColor = ConfigColors.hintGreyColor,
+    this.dashPattern = const <double>[5, 3],
+    this.showShadow = true,
+    this.backgroundColor = ConfigColors.backgroundGrey,
+    this.padding = const EdgeInsets.all(18),
+    required this.child,
+    this.customRadius,
+    this.alignment,
+    this.customBoxShadow,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class CommonDottedBorderCard extends StatelessWidget {
         padding: EdgeInsets.zero,
         borderPadding: EdgeInsets.zero,
         strokeWidth: strokeWidth,
-        color: ConfigColors.hintGreyColor,
+        color: borderColor,
         borderType: BorderType.RRect,
         radius: customRadius ?? const Radius.circular(12),
         child: Container(
