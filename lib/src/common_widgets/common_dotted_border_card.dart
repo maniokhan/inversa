@@ -1,9 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+
 import 'package:inversa/src/theme/config_colors.dart';
 
 class CommonDottedBorderCard extends StatelessWidget {
+  final double? height;
+  final double? width;
   final double strokeWidth;
   final void Function()? onTap;
   final Color borderColor;
@@ -17,6 +20,8 @@ class CommonDottedBorderCard extends StatelessWidget {
   final List<BoxShadow>? customBoxShadow;
   const CommonDottedBorderCard({
     Key? key,
+    this.height,
+    this.width,
     this.strokeWidth = 1.6,
     this.onTap,
     this.borderColor = ConfigColors.hintGreyColor,
@@ -43,6 +48,8 @@ class CommonDottedBorderCard extends StatelessWidget {
         borderType: BorderType.RRect,
         radius: customRadius ?? const Radius.circular(12),
         child: Container(
+          height: height,
+          width: width,
           padding: padding,
           decoration: BoxDecoration(
             borderRadius:

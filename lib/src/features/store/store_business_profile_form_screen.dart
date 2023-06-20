@@ -8,6 +8,9 @@ import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
 class StoreBusinessProfileFormScreen extends StatelessWidget {
+  static Route<StoreBusinessProfileFormScreen> route() {
+    return MaterialPageRoute(builder: (context) => const StoreBusinessProfileFormScreen());
+  }
   const StoreBusinessProfileFormScreen({super.key});
 
   @override

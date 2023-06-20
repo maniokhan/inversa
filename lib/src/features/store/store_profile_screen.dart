@@ -4,6 +4,7 @@ import 'package:inversa/src/common_widgets/common_card.dart';
 import 'package:inversa/src/common_widgets/common_list_tile.dart';
 import 'package:inversa/src/common_widgets/common_text_field_title.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
+import 'package:inversa/src/features/store/store_business_profile_form_screen.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
@@ -44,6 +45,7 @@ class StoreProfileScreen extends StatelessWidget {
                         color: ConfigColors.white,
                       ),
                       CommonCard(
+                        onTap: () => Navigator.push(context, StoreBusinessProfileFormScreen.route()),
                         showShadow: false,
                         showBorder: true,
                         shape: BoxShape.circle,
@@ -98,10 +100,8 @@ class StoreProfileScreen extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
-            trailing: const Icon(
-              Icons.arrow_circle_right_outlined,
-              color: ConfigColors.slateGray,
-            ),
+                        trailing: Assets.outlinedForwardArrow.svg(),
+
           ),
           gapH12,
           CommonListTile(

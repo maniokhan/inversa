@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:inversa/src/features/store/restock_screen.dart';
+import 'package:inversa/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:inversa/src/theme/data.dart';
 import 'package:inversa/src/theme/theme.dart';
 
@@ -23,7 +23,7 @@ class App extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       // home: const LoginScreen(),
-      home: const RestockScreen(),
+      home: const LoginScreen(),
       builder: (BuildContext context, Widget? child) {
         return AppTheme(
           data: const AppThemeData(),

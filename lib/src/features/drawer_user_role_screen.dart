@@ -8,6 +8,9 @@ import 'package:inversa/src/theme/text.dart';
 enum Role { store, client }
 
 class DrawerUserRoleScreen extends StatefulWidget {
+  static Route<DrawerUserRoleScreen> route() {
+    return MaterialPageRoute(builder: (context) => const DrawerUserRoleScreen());
+  }
   const DrawerUserRoleScreen({super.key});
 
   @override

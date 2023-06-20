@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 
 class CommonCard extends StatelessWidget {
+  final double? height;
+  final double? width;
   final void Function()? onTap;
   final BoxShape? shape;
   final bool showShadow;
@@ -16,6 +18,8 @@ class CommonCard extends StatelessWidget {
   final List<BoxShadow>? customBoxShadow;
   const CommonCard({
     Key? key,
+    this.height,
+    this.width,
     this.onTap,
     this.shape,
     this.showShadow = true,
@@ -34,6 +38,8 @@ class CommonCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
+        height: height,
+        width: width,
         padding: padding,
         alignment: alignment,
         decoration: BoxDecoration(

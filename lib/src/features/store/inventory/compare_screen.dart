@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/store/inventory/tabs/category_tab_view.dart';
-import 'package:inversa/src/features/store/inventory/tabs/list_tab_view.dart';
-import 'package:inversa/src/features/store/inventory/tabs/scan_tab_view.dart';
+import 'package:inversa/src/features/store/inventory/tabs/new_list_tab_view.dart';
+import 'package:inversa/src/features/store/inventory/tabs/old_list_tab_view.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
-class InventoryHomeScreen extends StatefulWidget {
-  static Route<InventoryHomeScreen> route() {
-    return MaterialPageRoute(builder: (context) => const InventoryHomeScreen());
+class CompareScreen extends StatefulWidget {
+  static Route<CompareScreen> route() {
+    return MaterialPageRoute(builder: (context) => const CompareScreen());
   }
 
-  const InventoryHomeScreen({super.key});
+  const CompareScreen({super.key});
 
   @override
-  State<InventoryHomeScreen> createState() => _InventoryHomeScreenState();
+  State<CompareScreen> createState() => _CompareScreenState();
 }
 
-class _InventoryHomeScreenState extends State<InventoryHomeScreen>
+class _CompareScreenState extends State<CompareScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -48,7 +47,7 @@ class _InventoryHomeScreenState extends State<InventoryHomeScreen>
         ),
         centerTitle: true,
         title: const AppText.titleS20(
-          "Inventory",
+          "Compare",
           color: ConfigColors.white,
           fontWeight: FontWeight.w600,
         ),
@@ -75,13 +74,10 @@ class _InventoryHomeScreenState extends State<InventoryHomeScreen>
               ),
               tabs: const [
                 Tab(
-                  text: 'Category',
+                  text: 'Old List',
                 ),
                 Tab(
-                  text: 'List',
-                ),
-                Tab(
-                  text: 'Scan',
+                  text: 'New List',
                 ),
               ],
             ),
@@ -90,9 +86,8 @@ class _InventoryHomeScreenState extends State<InventoryHomeScreen>
             child: TabBarView(
               controller: tabController,
               children: const [
-                CategoryTabView(),
-                ListTabView(),
-                ScanTabView(),
+                OldListTabView(),
+                NewListTabView(),
               ],
             ),
           ),

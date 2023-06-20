@@ -5,6 +5,7 @@ import 'package:inversa/src/common_widgets/common_card.dart';
 import 'package:inversa/src/common_widgets/common_order_placement_card.dart';
 import 'package:inversa/src/common_widgets/common_text_field.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
+import 'package:inversa/src/features/client/shopping_cart_screen.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
@@ -17,9 +18,12 @@ class OrderPlacementScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back_ios_new_outlined,
-          color: ConfigColors.white,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
         ),
         centerTitle: true,
         title: const AppText.titleS20(
@@ -28,7 +32,10 @@ class OrderPlacementScreen extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
         actions: [
-          Assets.basketWhite.svg(height: 20),
+          InkWell(
+            onTap: () => Navigator.push(context, ShoppingCartScreen.route()),
+            child: Assets.basketWhite.svg(height: 20),
+          ),
           gapW8,
           CommonCard(
             onTap: () {},

@@ -4,6 +4,7 @@ import 'package:inversa/src/common_widgets/common_card.dart';
 import 'package:inversa/src/common_widgets/common_list_tile.dart';
 import 'package:inversa/src/common_widgets/common_text_field_title.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
+import 'package:inversa/src/features/store/store_business_profile_form_screen.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
@@ -16,9 +17,12 @@ class ClientProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back_ios_new_outlined,
-          color: ConfigColors.white,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
         ),
         centerTitle: true,
         title: const AppText.titleS20(
@@ -44,6 +48,8 @@ class ClientProfileScreen extends StatelessWidget {
                         color: ConfigColors.white,
                       ),
                       CommonCard(
+                        onTap: () => Navigator.push(
+                            context, StoreBusinessProfileFormScreen.route()),
                         showShadow: false,
                         showBorder: true,
                         shape: BoxShape.circle,

@@ -7,6 +7,8 @@ class CommonListTile extends StatelessWidget {
   final Widget trailing;
   final Widget? subTitle;
   final void Function()? onTap;
+  final EdgeInsetsGeometry padding;
+
   const CommonListTile({
     super.key,
     required this.leading,
@@ -14,6 +16,7 @@ class CommonListTile extends StatelessWidget {
     required this.trailing,
     this.onTap,
     this.subTitle,
+    this.padding = const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
   });
 
   @override
@@ -21,7 +24,7 @@ class CommonListTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: CommonCard(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+        padding: padding,
         child: Row(
           children: [
             leading,

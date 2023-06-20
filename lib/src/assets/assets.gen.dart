@@ -3,13 +3,13 @@
 ///  FlutterGen
 /// *****************************************************
 
+import 'package:flutter/services.dart';
 // coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/services.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -43,10 +43,13 @@ class Assets {
   Assets._();
 
   static const SvgGenImage address = SvgGenImage('assets/address.svg');
+  static const AssetGenImage menu = AssetGenImage('assets/menu.png');
   static const SvgGenImage appLogo = SvgGenImage('assets/app_logo.svg');
   static const AssetGenImage bakeryItems =
       AssetGenImage('assets/bakery_items.png');
   static const AssetGenImage banana = AssetGenImage('assets/banana.png');
+  static const SvgGenImage cardIcon = SvgGenImage('assets/paymentcard.svg');
+  static const AssetGenImage cashIcon = AssetGenImage('assets/cash.png');
   static const SvgGenImage bankLightOrange =
       SvgGenImage('assets/bank_light_orange.svg');
   static const SvgGenImage basketWhite = SvgGenImage('assets/basket_white.svg');
@@ -55,6 +58,7 @@ class Assets {
   static const AssetGenImage cake = AssetGenImage('assets/cake.png');
   static const AssetGenImage cheese = AssetGenImage('assets/cheese.png');
   static const SvgGenImage client = SvgGenImage('assets/client.svg');
+  static const AssetGenImage clientPng = AssetGenImage('assets/client.png');
   static const SvgGenImage closeGrey = SvgGenImage('assets/close_grey.svg');
   static const AssetGenImage coke = AssetGenImage('assets/coke.png');
   static const SvgGenImage correct = SvgGenImage('assets/correct.svg');
@@ -74,6 +78,10 @@ class Assets {
       SvgGenImage('assets/expenses_ferozi.svg');
   static const SvgGenImage facebook = SvgGenImage('assets/facebook.svg');
   static const SvgGenImage google = SvgGenImage('assets/google.svg');
+  static const SvgGenImage sale = SvgGenImage('assets/sale.svg');
+  static const AssetGenImage salePng = AssetGenImage('assets/sale.png');
+  static const AssetGenImage restock = AssetGenImage('assets/restock.png');
+
   static const SvgGenImage helpLightGreen =
       SvgGenImage('assets/help_light_green.svg');
   static const SvgGenImage home = SvgGenImage('assets/home.svg');
@@ -90,7 +98,7 @@ class Assets {
       AssetGenImage('assets/milk_bottle.png');
   static const SvgGenImage minusGrey = SvgGenImage('assets/minus_grey.svg');
   static const AssetGenImage nescafeCoffee =
-      AssetGenImage('assets/nescafe_coffee.png');
+      AssetGenImage('assets/nescafeCoffee.png');
   static const AssetGenImage netIncomeDarkPinkPng =
       AssetGenImage('assets/net_income_dark_pink.png');
   static const SvgGenImage netIncomeDarkPinkSvg =
@@ -120,6 +128,27 @@ class Assets {
       SvgGenImage('assets/total_sale_light_red.svg');
   static const SvgGenImage twitter = SvgGenImage('assets/twitter.svg');
   static const AssetGenImage yogurt = AssetGenImage('assets/yogurt.png');
+  static const AssetGenImage statistic = AssetGenImage('assets/statistic.png');
+  static const AssetGenImage map = AssetGenImage('assets/map.png');
+  static const AssetGenImage coupon = AssetGenImage('assets/coupon.png');
+  static const AssetGenImage search = AssetGenImage('assets/search.png');
+  static const AssetGenImage correctIconWithDot =
+      AssetGenImage('assets/correctDot.png');
+  static const AssetGenImage orderPlace =
+      AssetGenImage('assets/order_place.png');
+  static const AssetGenImage personalCare =
+      AssetGenImage('assets/personalCare.png');
+  static const AssetGenImage pantryStaple =
+      AssetGenImage('assets/pantryStaples.png');
+  static const AssetGenImage meatSeaFood =
+      AssetGenImage('assets/meat&Seafood.png');
+  static const AssetGenImage frozenFood =
+      AssetGenImage('assets/frozenFood.png');
+  static const AssetGenImage freshProduct =
+      AssetGenImage('assets/freshProduct.png');
+  static const AssetGenImage dairyEgg = AssetGenImage('assets/dairy&egg.png');
+  static const AssetGenImage beverage = AssetGenImage('assets/beverage.png');
+  static const AssetGenImage bakery = AssetGenImage('assets/bakery.png');
 
   /// List of all assets
   List<dynamic> get values => [
@@ -154,6 +183,7 @@ class Assets {
         iceCream,
         launcherIcon,
         lock,
+        lock,
         lockLightRed,
         logoutLightRed,
         milkBottle,
@@ -176,7 +206,28 @@ class Assets {
         termConditionFerozi,
         totalSaleLightRed,
         twitter,
-        yogurt
+        yogurt,
+        cardIcon,
+        cashIcon,
+        menu,
+        clientPng,
+        sale,
+        salePng,
+        restock,
+        statistic,
+        map,
+        coupon,
+        orderPlace,
+        correctIconWithDot,
+        personalCare,
+        pantryStaple,
+        meatSeaFood,
+        frozenFood,
+        freshProduct,
+        dairyEgg,
+        beverage,
+        bakery,
+        search
       ];
 }
 

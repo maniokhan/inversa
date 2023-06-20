@@ -149,7 +149,7 @@ class _SignupScreenState extends State<SignupScreen> {
             gapH48,
             CommonButton(
               text: "Register",
-              onPress: () {},
+              onPress: () => Navigator.push(context, StoreHomeScreen.route()),
             ),
             gapH32,
           ],
