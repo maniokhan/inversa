@@ -9,8 +9,10 @@ enum Role { store, client }
 
 class DrawerUserRoleScreen extends StatefulWidget {
   static Route<DrawerUserRoleScreen> route() {
-    return MaterialPageRoute(builder: (context) => const DrawerUserRoleScreen());
+    return MaterialPageRoute(
+        builder: (context) => const DrawerUserRoleScreen());
   }
+
   const DrawerUserRoleScreen({super.key});
 
   @override
@@ -29,6 +31,7 @@ class _DrawerUserRoleScreenState extends State<DrawerUserRoleScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 23),
             child: CommonCard(
+              onTap: () => Navigator.of(context).pop(),
               padding: const EdgeInsets.all(8),
               shape: BoxShape.circle,
               backgroundColor: ConfigColors.primary2,

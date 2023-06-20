@@ -10,6 +10,11 @@ import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
 class OrderPlacementScreen extends StatelessWidget {
+  static Route<OrderPlacementScreen> route() {
+    return MaterialPageRoute(
+        builder: (context) => const OrderPlacementScreen());
+  }
+
   const OrderPlacementScreen({super.key});
 
   @override

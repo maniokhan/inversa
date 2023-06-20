@@ -10,7 +10,7 @@ import 'package:inversa/src/common_widgets/common_password.dart';
 import 'package:inversa/src/common_widgets/common_text_field.dart';
 import 'package:inversa/src/common_widgets/common_text_field_title.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/authentication/presentation/signup_screen.dart';
+import 'package:inversa/src/features/home_screen.dart';
 import 'package:inversa/src/features/store/store_home_screen.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
               gapH32,
               CommonButton(
                 text: "Log In",
-                onPress: () => Navigator.push(context, StoreHomeScreen.route()),
+                onPress: () => Navigator.push(context, HomeScreen.route()),
               ),
               gapH20,
               Row(
@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: ConfigColors.lightText,
                   ),
                   InkWell(
-                    onTap: () => Navigator.push(context, SignupScreen.route()),
+                    onTap: () => Navigator.push(context, HomeScreen.route()),
                     child: const AppText.paragraphI12(
                       "Register here",
                       fontWeight: FontWeight.w700,

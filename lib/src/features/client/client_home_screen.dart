@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inversa/src/assets/assets.gen.dart';
 import 'package:inversa/src/common_widgets/common_card.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
+import 'package:inversa/src/features/client/order_placement_screen.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
@@ -63,7 +64,8 @@ class ClientHomeScreen extends StatelessWidget {
                   height: 123,
                   width: 163,
                   padding: const EdgeInsets.all(16),
-                  onTap: () {},
+                  onTap: () =>
+                      Navigator.push(context, OrderPlacementScreen.route()),
                   backgroundColor: ConfigColors.primary,
                   customRadius: BorderRadius.circular(20),
                   child: Column(

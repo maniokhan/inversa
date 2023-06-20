@@ -7,19 +7,12 @@ import 'package:inversa/src/features/store/inventory/inventory_home_screen.dart'
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
-class StoreHomeScreen extends StatefulWidget {
+class StoreHomeScreen extends StatelessWidget {
   static Route<StoreHomeScreen> route() {
     return MaterialPageRoute(builder: (context) => const StoreHomeScreen());
   }
 
   const StoreHomeScreen({super.key});
-
-  @override
-  State<StoreHomeScreen> createState() => _StoreHomeScreenState();
-}
-
-class _StoreHomeScreenState extends State<StoreHomeScreen> {
-  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -366,36 +359,6 @@ class _StoreHomeScreenState extends State<StoreHomeScreen> {
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: NavigationBar(
-        elevation: 3,
-        height: 77,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        backgroundColor: const Color(0xFFFCFCFD),
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        selectedIndex: currentPageIndex,
-        destinations: <Widget>[
-          NavigationDestination(
-            icon: Assets.store.svg(
-              color: ConfigColors.primary2,
-            ),
-            label: 'Store',
-          ),
-          NavigationDestination(
-            icon: Assets.clientPng.image(
-              height: 26,
-            ),
-            label: 'Client',
-          ),
-          NavigationDestination(
-            icon: Assets.person.svg(),
-            label: 'Profile',
           ),
         ],
       ),

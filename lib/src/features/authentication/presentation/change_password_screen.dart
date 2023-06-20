@@ -8,6 +8,10 @@ import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
+   static Route<ChangePasswordScreen> route() {
+    return MaterialPageRoute(
+        builder: (context) => const ChangePasswordScreen());
+  }
   const ChangePasswordScreen({super.key});
 
   @override
