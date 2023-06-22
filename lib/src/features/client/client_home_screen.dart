@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inversa/src/assets/assets.gen.dart';
 import 'package:inversa/src/common_widgets/common_card.dart';
@@ -12,9 +13,9 @@ class ClientHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
+      // drawer: const Drawer(),
       appBar: AppBar(
-        // leading: Assets.menu.image(height: 5),
+        leading: const Icon(CupertinoIcons.line_horizontal_3, size: 26),
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         centerTitle: true,
@@ -25,7 +26,7 @@ class ClientHomeScreen extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 24, 16, 60),
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
         children: [
           Row(
             children: [
@@ -35,7 +36,7 @@ class ClientHomeScreen extends StatelessWidget {
                   width: 163,
                   padding: const EdgeInsets.all(16),
                   onTap: () {},
-                  backgroundColor: const Color(0xFF3AC3AF),
+                  backgroundColor: const Color(0xFF14BEF0),
                   customRadius: BorderRadius.circular(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,8 +44,6 @@ class ClientHomeScreen extends StatelessWidget {
                     children: [
                       CommonCard(
                         showShadow: false,
-                        showBorder: true,
-                        borderColor: ConfigColors.primary2,
                         padding: const EdgeInsets.all(6),
                         shape: BoxShape.circle,
                         child: Assets.coupon.image(height: 20),
@@ -66,22 +65,20 @@ class ClientHomeScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   onTap: () =>
                       Navigator.push(context, OrderPlacementScreen.route()),
-                  backgroundColor: ConfigColors.primary,
+                  backgroundColor: const Color(0xFF3AC3AF),
                   customRadius: BorderRadius.circular(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       CommonCard(
-                        showBorder: true,
                         showShadow: false,
-                        borderColor: ConfigColors.primary2,
                         padding: const EdgeInsets.all(6),
                         shape: BoxShape.circle,
                         child: Assets.orderPlace.image(height: 20),
                       ),
                       const AppText.paragraphI16(
-                        "Orders Placement",
+                        "Order Placement",
                         fontWeight: FontWeight.w600,
                         color: ConfigColors.white,
                       ),
@@ -96,7 +93,7 @@ class ClientHomeScreen extends StatelessWidget {
             height: 100,
             width: 343,
             padding: const EdgeInsets.all(24),
-            onTap: () {},
+            onTap: () => showBottomSheet(context),
             customRadius: BorderRadius.circular(18),
             backgroundColor: const Color(0xFF3CC0B8),
             child: Row(
@@ -146,6 +143,85 @@ class ClientHomeScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  showBottomSheet(context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CommonCard(
+                height: 4,
+                width: 75,
+                backgroundColor: const Color(0xFFC4C4C4),
+                customRadius: BorderRadius.circular(5),
+                child: const Text(""),
+              ),
+              gapH20,
+              CommonCard(
+                height: 190,
+                width: 343,
+                backgroundColor: ConfigColors.primary2,
+                showShadow: false,
+                customRadius: BorderRadius.circular(6),
+                padding: const EdgeInsets.only(
+                    left: 3, right: 3, top: 2, bottom: 15),
+                child: Column(
+                  children: [
+                    CommonCard(
+                      padding: const EdgeInsets.all(0),
+                      customRadius: BorderRadius.circular(6),
+                      height: 31,
+                      width: 337,
+                      alignment: Alignment.center,
+                      child: const AppText.paragraphI16(
+                        "Virtual Card",
+                        fontWeight: FontWeight.w500,
+                        color: ConfigColors.primary2,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 18),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Assets.appLogo.svg(width: 160),
+                          const Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              AppText.paragraphI14(
+                                "Amount Points",
+                                fontWeight: FontWeight.w500,
+                                color: ConfigColors.white,
+                              ),
+                              AppText.paragraphI16(
+                                "300",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: ConfigColors.black,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Assets.barCode.image(width: 213, height: 65),
+                  ],
+                ),
+              ),
+              gapH32,
+            ],
+          ),
+        );
+      },
     );
   }
 }

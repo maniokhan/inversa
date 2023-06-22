@@ -4,6 +4,8 @@ import 'package:inversa/src/common_widgets/common_button.dart';
 import 'package:inversa/src/common_widgets/common_card.dart';
 import 'package:inversa/src/common_widgets/common_list_tile.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
+import 'package:inversa/src/features/store/other_expenses_screen.dart';
+import 'package:inversa/src/features/store/store_sale_screen.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 import 'package:inversa/src/utilities/synapp_widget_size.dart';
@@ -17,9 +19,12 @@ class StoreExpensesScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back_ios_new_outlined,
-          color: ConfigColors.white,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
         ),
         centerTitle: true,
         title: const AppText.titleS20(
@@ -77,7 +82,7 @@ class StoreExpensesScreen extends StatelessWidget {
           gapH16,
           // TODO: add shadow arround cards
           CommonListTile(
-            onTap: () {},
+            onTap: () => Navigator.push(context, SaleScreen.route()),
             leading: CommonCard(
               customRadius: BorderRadius.circular(10),
               showShadow: false,
@@ -121,7 +126,7 @@ class StoreExpensesScreen extends StatelessWidget {
           ),
           gapH12,
           CommonListTile(
-            onTap: () {},
+            onTap: () => Navigator.push(context, OtherExpensesScreen.route()),
             leading: CommonCard(
               customRadius: BorderRadius.circular(10),
               showShadow: false,

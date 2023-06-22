@@ -216,6 +216,7 @@ class ShoppingCartScreen extends StatelessWidget {
             text: "Go to Checkout",
           ),
         ],
+        
       ),
     );
   }

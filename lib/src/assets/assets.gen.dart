@@ -48,6 +48,18 @@ class Assets {
   static const AssetGenImage bakeryItems =
       AssetGenImage('assets/bakery_items.png');
   static const AssetGenImage banana = AssetGenImage('assets/banana.png');
+  static const AssetGenImage education1 =
+      AssetGenImage('assets/education1.png');
+  static const AssetGenImage education2 =
+      AssetGenImage('assets/education2.png');
+  static const AssetGenImage education3 =
+      AssetGenImage('assets/education3.png');
+  static const AssetGenImage education4 =
+      AssetGenImage('assets/education4.png');
+  static const AssetGenImage education5 =
+      AssetGenImage('assets/education5.png');
+  static const AssetGenImage education6 =
+      AssetGenImage('assets/education6.png');
   static const SvgGenImage cardIcon = SvgGenImage('assets/paymentcard.svg');
   static const AssetGenImage cashIcon = AssetGenImage('assets/cash.png');
   static const SvgGenImage bankLightOrange =
@@ -81,6 +93,8 @@ class Assets {
   static const SvgGenImage sale = SvgGenImage('assets/sale.svg');
   static const AssetGenImage salePng = AssetGenImage('assets/sale.png');
   static const AssetGenImage restock = AssetGenImage('assets/restock.png');
+  static const AssetGenImage barCode = AssetGenImage('assets/bar_code.png');
+  static const AssetGenImage calendar = AssetGenImage('assets/calendar.png');
 
   static const SvgGenImage helpLightGreen =
       SvgGenImage('assets/help_light_green.svg');
@@ -149,6 +163,17 @@ class Assets {
   static const AssetGenImage dairyEgg = AssetGenImage('assets/dairy&egg.png');
   static const AssetGenImage beverage = AssetGenImage('assets/beverage.png');
   static const AssetGenImage bakery = AssetGenImage('assets/bakery.png');
+  static const AssetGenImage expensesChart =
+      AssetGenImage('assets/expenses_chart.png');
+  static const AssetGenImage waterFlash =
+      AssetGenImage('assets/water_flash.png');
+  static const AssetGenImage rent = AssetGenImage('assets/rent.png');
+  static const AssetGenImage sort = AssetGenImage('assets/sort.png');
+  static const AssetGenImage other = AssetGenImage('assets/others.png');
+  static const AssetGenImage maintenance =
+      AssetGenImage('assets/maintenance.png');
+  static const AssetGenImage lightBulb = AssetGenImage('assets/lightbulb.png');
+  static const AssetGenImage employees = AssetGenImage('assets/employees.png');
 
   /// List of all assets
   List<dynamic> get values => [
@@ -166,6 +191,7 @@ class Assets {
         closeGrey,
         coke,
         correct,
+        calendar,
         donut,
         editWhite,
         eggNoodles,
@@ -176,6 +202,7 @@ class Assets {
         emailGreen,
         expensesFeroziPng,
         expensesFeroziSvg,
+        expensesChart,
         facebook,
         google,
         helpLightGreen,
@@ -187,6 +214,7 @@ class Assets {
         lockLightRed,
         logoutLightRed,
         milkBottle,
+        barCode,
         minusGrey,
         nescafeCoffee,
         netIncomeDarkPinkPng,
@@ -227,7 +255,20 @@ class Assets {
         dairyEgg,
         beverage,
         bakery,
-        search
+        search,
+        education1,
+        education2,
+        education3,
+        education4,
+        education5,
+        education6,
+        waterFlash,
+        sort,
+        rent,
+        other,
+        maintenance,
+        lightBulb,
+        employees
       ];
 }
 

@@ -41,7 +41,7 @@ class OrderPlacementScreen extends StatelessWidget {
             onTap: () => Navigator.push(context, ShoppingCartScreen.route()),
             child: Assets.basketWhite.svg(height: 20),
           ),
-          gapW8,
+          gapW12,
           CommonCard(
             onTap: () {},
             shape: BoxShape.circle,
@@ -57,16 +57,17 @@ class OrderPlacementScreen extends StatelessWidget {
       body: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.fromLTRB(16, 24, 16, 0),
+            padding: EdgeInsets.fromLTRB(16, 24, 16, 24),
             child: CommonTextField(
               prefixIcon: Icons.search,
               hintText: 'Search',
               suffixIcon: Icons.close,
             ),
           ),
+          gapH16,
           Expanded(
             child: GridView.count(
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
               shrinkWrap: true,
               crossAxisCount: 2,
               mainAxisSpacing: 12,

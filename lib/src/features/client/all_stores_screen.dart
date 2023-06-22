@@ -6,6 +6,10 @@ import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
 class AllStoresScreen extends StatelessWidget {
+  static Route<AllStoresScreen> route() {
+    return MaterialPageRoute(builder: (context) => const AllStoresScreen());
+  }
+
   const AllStoresScreen({super.key});
 
   @override
@@ -14,9 +18,12 @@ class AllStoresScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back_ios_new_outlined,
-          color: ConfigColors.white,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
         ),
         centerTitle: true,
         title: const AppText.titleS20(

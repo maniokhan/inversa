@@ -109,6 +109,9 @@ class _DrawerUserRoleScreenState extends State<DrawerUserRoleScreen> {
                 children: [
                   Assets.store.svg(
                     height: 40,
+                    color: selcectedRole == Role.store
+                        ? ConfigColors.primary2
+                        : ConfigColors.slateGray,
                   ),
                   gapH16,
                   const AppText.paragraphI16(
@@ -139,9 +142,11 @@ class _DrawerUserRoleScreenState extends State<DrawerUserRoleScreen> {
               child: Column(
                 children: [
                   // TODO:  Client icon not shown
-                  Assets.client.svg(
+                  Assets.clientPng.image(
                     height: 40,
-                    color: ConfigColors.primary2,
+                    color: selcectedRole == Role.client
+                        ? ConfigColors.primary2
+                        : ConfigColors.slateGray,
                   ),
                   gapH16,
                   const AppText.paragraphI16(

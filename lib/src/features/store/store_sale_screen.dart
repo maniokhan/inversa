@@ -12,6 +12,9 @@ import 'package:inversa/src/theme/text.dart';
 import 'package:inversa/src/utilities/synapp_widget_size.dart';
 
 class SaleScreen extends StatelessWidget {
+  static Route<SaleScreen> route() {
+    return MaterialPageRoute(builder: (context) => const SaleScreen());
+  }
   const SaleScreen({super.key});
 
   @override
@@ -20,9 +23,12 @@ class SaleScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back_ios_new_outlined,
-          color: ConfigColors.white,
+         leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
         ),
         centerTitle: true,
         title: const AppText.titleS20(

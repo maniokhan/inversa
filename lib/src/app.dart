@@ -11,6 +11,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       locale: const Locale('en'),
       supportedLocales: const <Locale>[
         Locale('fr'),
@@ -22,7 +23,6 @@ class App extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      // home: const LoginScreen(),
       home: const LoginScreen(),
       builder: (BuildContext context, Widget? child) {
         return AppTheme(

@@ -8,10 +8,11 @@ import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-   static Route<ChangePasswordScreen> route() {
+  static Route<ChangePasswordScreen> route() {
     return MaterialPageRoute(
         builder: (context) => const ChangePasswordScreen());
   }
+
   const ChangePasswordScreen({super.key});
 
   @override
@@ -20,9 +21,12 @@ class ChangePasswordScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back_ios_new_outlined,
-          color: ConfigColors.white,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
         ),
         centerTitle: true,
         title: const AppText.titleS20(
@@ -32,7 +36,7 @@ class ChangePasswordScreen extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 60),
         children: [
           CommonTextFieldTitle(
             leading: Assets.lock.svg(),

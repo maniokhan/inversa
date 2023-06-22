@@ -6,6 +6,7 @@ import 'package:inversa/src/common_widgets/common_password.dart';
 import 'package:inversa/src/common_widgets/common_text_field.dart';
 import 'package:inversa/src/common_widgets/common_text_field_title.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
+import 'package:inversa/src/features/home_screen.dart';
 import 'package:inversa/src/features/store/store_home_screen.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
@@ -59,6 +60,13 @@ class _SignupScreenState extends State<SignupScreen> {
           toolbarHeight: 90,
           backgroundColor: const Color(0xFF2AB0B6),
           elevation: 0,
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const Icon(
+              Icons.arrow_back_ios_new_outlined,
+              color: ConfigColors.white,
+            ),
+          ),
           centerTitle: true,
           title: Column(
             children: [
@@ -70,90 +78,85 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 34, 16, 0),
-        child: ListView(
-          children: [
-            const AppText.titleS20(
-              "Register",
-              fontSize: 24,
-              color: ConfigColors.black,
-              fontWeight: FontWeight.w700,
-            ),
-            gapH4,
-            const AppText.paragraphI14(
-              "Please register to continue.",
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-              color: ConfigColors.slateGray,
-            ),
-            gapH24,
-            const CommonTextFieldTitle(
-              leading: Icon(Icons.person, color: ConfigColors.primary2),
-              text: 'Name',
-            ),
-            gapH8,
-            const CommonTextField(
-              hintText: "Add Name",
-              textInputType: TextInputType.name,
-            ),
-            gapH20,
-            const CommonTextFieldTitle(
-              leading: Icon(Icons.phone, color: ConfigColors.primary2),
-              text: 'Phone Number',
-            ),
-            gapH8,
-            const CommonTextField(
-              hintText: "Add Phone Number",
-              textInputType: TextInputType.number,
-            ),
-            gapH20,
-            CommonTextFieldTitle(
-              leading: Assets.emailGreen.svg(),
-              text: 'Email',
-            ),
-            gapH8,
-            const CommonTextField(
-              hintText: "Add Email Address",
-              textInputType: TextInputType.emailAddress,
-            ),
-            gapH20,
-            CommonTextFieldTitle(
-              leading: Assets.lock.svg(),
-              text: 'Password',
-            ),
-            gapH8,
-            const CommonPasswordInput(),
-            gapH20,
-            CommonTextFieldTitle(
-              leading: Assets.lock.svg(),
-              text: 'Confirm Password',
-            ),
-            gapH8,
-            const CommonPasswordInput(),
-            gapH26,
-            Row(
-              children: [
-                Checkbox(
-                  value: true,
-                  onChanged: (value) {},
-                  activeColor: ConfigColors.primary2,
-                ),
-                const AppText.paragraphI14(
-                  'I agree with the terms and conditions',
-                  fontWeight: FontWeight.w500,
-                  color: ConfigColors.slateGray,
-                ),
-              ],
-            ),
-            gapH48,
-            CommonButton(
-              text: "Register",
-              onPress: () => Navigator.push(context, StoreHomeScreen.route()),
-            ),
-            gapH32,
-          ],
-        ),
+        children: [
+          const AppText.titleS24(
+            "Register",
+            fontWeight: FontWeight.w700,
+          ),
+          gapH4,
+          const AppText.paragraphI16(
+            "Please register to continue.",
+            fontWeight: FontWeight.w500,
+            color: ConfigColors.slateGray,
+          ),
+          gapH24,
+          const CommonTextFieldTitle(
+            leading: Icon(Icons.person, color: ConfigColors.primary2),
+            text: 'Name',
+          ),
+          gapH8,
+          const CommonTextField(
+            hintText: "Add Name",
+            textInputType: TextInputType.name,
+          ),
+          gapH20,
+          const CommonTextFieldTitle(
+            leading: Icon(Icons.phone, color: ConfigColors.primary2),
+            text: 'Phone Number',
+          ),
+          gapH8,
+          const CommonTextField(
+            hintText: "Add Phone Number",
+            textInputType: TextInputType.number,
+          ),
+          gapH20,
+          CommonTextFieldTitle(
+            leading: Assets.emailGreen.svg(),
+            text: 'Email',
+          ),
+          gapH8,
+          const CommonTextField(
+            hintText: "Add Email Address",
+            textInputType: TextInputType.emailAddress,
+          ),
+          gapH20,
+          CommonTextFieldTitle(
+            leading: Assets.lock.svg(),
+            text: 'Password',
+          ),
+          gapH8,
+          const CommonPasswordInput(),
+          gapH20,
+          CommonTextFieldTitle(
+            leading: Assets.lock.svg(),
+            text: 'Confirm Password',
+          ),
+          gapH8,
+          const CommonPasswordInput(),
+          gapH26,
+          Row(
+            children: [
+              Checkbox(
+                value: true,
+                onChanged: (value) {},
+                activeColor: ConfigColors.primary2,
+              ),
+              const AppText.paragraphI14(
+                'I agree with the terms and conditions',
+                fontWeight: FontWeight.w500,
+                color: ConfigColors.slateGray,
+              ),
+            ],
+          ),
+          gapH48,
+          CommonButton(
+            text: "Register",
+            onPress: () => Navigator.push(context, HomeScreen.route()),
+          ),
+          gapH32,
+        ],
       ),
     );
   }

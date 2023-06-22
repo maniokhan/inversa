@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:inversa/src/assets/assets.gen.dart';
 import 'package:inversa/src/common_widgets/common_button.dart';
 import 'package:inversa/src/common_widgets/common_card.dart';
+import 'package:inversa/src/common_widgets/common_counter.dart';
 import 'package:inversa/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversa/src/common_widgets/common_text_field.dart';
 import 'package:inversa/src/common_widgets/common_text_field_title.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
-import 'package:inversa/src/utilities/synapp_widget_size.dart';
 
 class RestockScreen extends StatelessWidget {
+  static Route route() {
+    return MaterialPageRoute(builder: (context) => const RestockScreen());
+  }
+
   const RestockScreen({super.key});
 
   @override
@@ -19,9 +23,12 @@ class RestockScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back_ios_new_outlined,
-          color: ConfigColors.white,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
         ),
         centerTitle: true,
         title: const AppText.titleS20(
@@ -33,8 +40,9 @@ class RestockScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 32),
         children: [
+          gapH16,
           CommonDottedBorderCard(
-            borderColor: ConfigColors.lightText,
+            borderColor: ConfigColors.blueGrey,
             strokeWidth: 0.5,
             onTap: () {},
             padding: const EdgeInsets.all(32),
@@ -62,173 +70,14 @@ class RestockScreen extends StatelessWidget {
             ),
           ),
           gapH20,
-          Row(
-            children: [
-              const Expanded(
-                flex: 2,
-                child: CommonTextField(
-                  prefixIcon: Icons.search,
-                  hintText: 'Search',
-                  suffixIcon: Icons.close,
-                ),
-              ),
-              gapW8,
-              Expanded(
-                child: CommonButton(
-                  borderRadiusCustom: BorderRadius.circular(6),
-                  synappWidgetSize: SynappWidgetSize.semiMedium,
-                  text: "Add",
-                  onPress: () {},
-                  synappButtonColor: SynappButtonColor.primary,
-                ),
-              ),
-            ],
-          ),
-          gapH20,
-          CommonDottedBorderCard(
-            borderColor: ConfigColors.lightText,
-            strokeWidth: 0.5,
-            onTap: () {},
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-            customRadius: const Radius.circular(6),
-            backgroundColor: ConfigColors.lightGreen,
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppText.paragraphI14(
-                      "Search",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                    ),
-                    Row(
-                      children: [
-                        AppText.paragraphI14(
-                          "#7",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: ConfigColors.primary2,
-                        ),
-                        gapW24,
-                        AppText.paragraphI14(
-                          "\$25",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: ConfigColors.primary2,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                gapH24,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppText.paragraphI14(
-                      "Cake",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                    ),
-                    Row(
-                      children: [
-                        AppText.paragraphI14(
-                          "#1",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: ConfigColors.primary2,
-                        ),
-                        gapW24,
-                        AppText.paragraphI14(
-                          "\$10",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: ConfigColors.primary2,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          gapH20,
-          Row(
-            children: [
-              Expanded(
-                child: CommonTextFieldTitle(
-                  leading: Assets.lock.svg(),
-                  text: 'Price / Unit',
-                ),
-              ),
-              gapW16,
-              Expanded(
-                child: CommonTextFieldTitle(
-                  leading: Assets.lock.svg(),
-                  text: 'Cost / Unit',
-                ),
-              ),
-            ],
-          ),
-          gapH8,
-          const Row(
-            children: [
-              Expanded(
-                child: CommonTextField(
-                  textInputType: TextInputType.number,
-                  hintText: 'Add Price',
-                ),
-              ),
-              gapW16,
-              Expanded(
-                child: CommonTextField(
-                  textInputType: TextInputType.number,
-                  hintText: 'Add Price',
-                ),
-              ),
-            ],
-          ),
-          gapH20,
-          Row(
-            children: [
-              Expanded(
-                child: CommonTextFieldTitle(
-                  leading: Assets.lock.svg(),
-                  text: '# Of Unit',
-                ),
-              ),
-              gapW16,
-              Expanded(
-                child: CommonTextFieldTitle(
-                  leading: Assets.lock.svg(),
-                  text: 'Unit Type',
-                ),
-              ),
-            ],
-          ),
-          gapH8,
-          const Row(
-            children: [
-              Expanded(
-                child: CommonTextField(
-                  textInputType: TextInputType.number,
-                  hintText: 'Add Unit',
-                ),
-              ),
-              gapW16,
-              Expanded(
-                child: CommonTextField(
-                  textInputType: TextInputType.number,
-                  hintText: 'Select Unit',
-                  suffixIcon: Icons.keyboard_arrow_down_sharp,
-                ),
-              ),
-            ],
+          const CommonTextField(
+            prefixIcon: Icons.search,
+            hintText: 'Search',
+            suffixIcon: Icons.close,
           ),
           gapH20,
           CommonTextFieldTitle(
-            leading: Assets.lock.svg(),
+            leading: Assets.calendar.image(height: 22),
             text: 'Expiration Date',
           ),
           gapH8,
@@ -236,11 +85,115 @@ class RestockScreen extends StatelessWidget {
             textInputType: TextInputType.number,
             hintText: 'Add Expiration Date',
           ),
+          gapH18,
+          CommonCard(
+            padding: const EdgeInsets.fromLTRB(2, 2, 2, 16),
+            height: 179,
+            width: 343,
+            showShadow: false,
+            showBorder: true,
+            borderColor: ConfigColors.primary2,
+            customRadius: BorderRadius.circular(14),
+            backgroundColor: const Color.fromRGBO(42, 176, 182, 0.08),
+            child: Column(
+              children: [
+                CommonCard(
+                  padding: const EdgeInsets.all(5),
+                  showShadow: false,
+                  customRadius: BorderRadius.circular(14),
+                  height: 68,
+                  width: 335,
+                  alignment: Alignment.center,
+                  child: Assets.barCode.image(),
+                ),
+                gapH20,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CommonCard(
+                        padding: const EdgeInsets.all(5),
+                        showShadow: false,
+                        customRadius: BorderRadius.circular(14),
+                        height: 71,
+                        width: 76,
+                        alignment: Alignment.center,
+                        child: Assets.bread.image(),
+                      ),
+                      const AppText.paragraphI16(
+                        "Bread",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      CommonCounter(
+                        value: '00',
+                        onMinus: () {},
+                        onPlus: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          gapH18,
+          CommonCard(
+            padding: const EdgeInsets.fromLTRB(2, 2, 2, 16),
+            height: 179,
+            width: 343,
+            showShadow: false,
+            showBorder: true,
+            borderColor: ConfigColors.primary2,
+            customRadius: BorderRadius.circular(14),
+            backgroundColor: const Color.fromRGBO(42, 176, 182, 0.08),
+            child: Column(
+              children: [
+                CommonCard(
+                  padding: const EdgeInsets.all(5),
+                  showShadow: false,
+                  customRadius: BorderRadius.circular(14),
+                  height: 68,
+                  width: 335,
+                  alignment: Alignment.center,
+                  child: Assets.barCode.image(),
+                ),
+                gapH20,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CommonCard(
+                        padding: const EdgeInsets.all(5),
+                        showShadow: false,
+                        customRadius: BorderRadius.circular(14),
+                        height: 71,
+                        width: 76,
+                        alignment: Alignment.center,
+                        child: Assets.iceCream.image(),
+                      ),
+                      const AppText.paragraphI16(
+                        "Ice-cream",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      CommonCounter(
+                        value: '00',
+                        onMinus: () {},
+                        onPlus: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           gapH32,
           CommonButton(
             onPress: () {},
             synappButtonColor: SynappButtonColor.primary,
-            text: 'Save',
+            text: 'Add',
           ),
         ],
       ),
