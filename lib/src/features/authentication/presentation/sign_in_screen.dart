@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:inversa/src/assets/assets.gen.dart';
 import 'package:inversa/src/common_widgets/common_button.dart';
 import 'package:inversa/src/common_widgets/common_card.dart';
@@ -11,10 +10,11 @@ import 'package:inversa/src/common_widgets/common_password.dart';
 import 'package:inversa/src/common_widgets/common_text_field.dart';
 import 'package:inversa/src/common_widgets/common_text_field_title.dart';
 import 'package:inversa/src/constants/app_sizes.dart';
+import 'package:inversa/src/features/authentication/presentation/signup_screen.dart';
+import 'package:inversa/src/features/home_screen.dart';
+import 'package:inversa/src/features/store/store_home_screen.dart';
 import 'package:inversa/src/theme/config_colors.dart';
 import 'package:inversa/src/theme/text.dart';
-
-import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static Route<LoginScreen> route() {
@@ -50,10 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => HomeScreen(
-            username: userData['name'],
-            profilePicUrl: userData['picture']['data']['url'],
-          ),
+          builder: (context) => const StoreHomeScreen(),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -108,98 +105,98 @@ class _LoginScreenState extends State<LoginScreen> {
           title: Column(
             children: [
               gapH12,
-              SvgPicture.asset(Assets.appLogo.path, height: 30, width: 30),
+              Assets.appLogo.svg(height: 30, width: 30),
               gapH4,
               const AppText.paragraphI14('monitor the inventories'),
             ],
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 34),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(16, 34, 16, 0),
+        children: [
+          const AppText.titleS24(
+            "Welcome Back!",
+            color: ConfigColors.black,
+            fontWeight: FontWeight.w700,
+          ),
+          gapH4,
+          const AppText.paragraphI16(
+            "Please log in to continue.",
+            fontWeight: FontWeight.w500,
+            color: ConfigColors.slateGray,
+          ),
+          gapH24,
+          CommonTextFieldTitle(
+            leading: Assets.emailGreen.svg(),
+            text: 'Email',
+          ),
+          gapH8,
+          const CommonTextField(
+            hintText: "Add Email Address",
+            textInputType: TextInputType.emailAddress,
+          ),
+          gapH20,
+          CommonTextFieldTitle(
+            leading: Assets.lock.svg(),
+            text: 'Password',
+          ),
+          gapH8,
+          const CommonPasswordInput(),
+          gapH32,
+          CommonButton(
+            text: "Log In",
+            onPress: () => Navigator.push(context, HomeScreen.route()),
+          ),
+          gapH20,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const AppText.titleS20(
-                "Welcome Back!",
-                fontSize: 24,
-                color: ConfigColors.black,
-                fontWeight: FontWeight.w700,
-              ),
-              gapH4,
-              const AppText.paragraphI14(
-                "Please log in to continue.",
+              const AppText.paragraphI12(
+                "Don't have an account yet? ",
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
-                color: ConfigColors.slateGray,
+                // fontSize: 12,
+                color: ConfigColors.lightText,
               ),
-              gapH24,
-              CommonTextFieldTitle(
-                leading: Assets.emailGreen.svg(),
-                text: 'Email',
-              ),
-              gapH8,
-              const CommonTextField(
-                hintText: "Add Email Address",
-                textInputType: TextInputType.emailAddress,
-              ),
-              gapH20,
-              CommonTextFieldTitle(
-                leading: Assets.lock.svg(),
-                text: 'Password',
-              ),
-              gapH8,
-              const CommonPasswordInput(),
-              gapH32,
-              SynappButton(
-                text: "Log In",
-                onPress: () {},
-              ),
-              gapH20,
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppText.paragraphI12(
-                    "Don't have an account yet? ",
-                    fontWeight: FontWeight.w500,
-                    // fontSize: 12,
-                    color: ConfigColors.lightText,
-                  ),
-                  AppText.paragraphI12(
-                    "Register here",
-                    fontWeight: FontWeight.w700,
-                    color: ConfigColors.primary2,
-                    // decoration: TextDecoration.underline,
-                  ),
-                ],
-              ),
-              gapH24,
-              const AppText.paragraphI14(
-                "- - - - - - - - - - - - - -  - -  Or  - - - - - - - - - - - - - - - - - ",
-                textAlign: TextAlign.center,
-                color: ConfigColors.blueGrey,
-              ),
-              gapH16,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CommonCard(
-                    padding: const EdgeInsets.all(14),
-                    showBorder: true,
-                    child: Assets.facebook.svg(),
-                  ),
-                  gapW16,
-                  CommonCard(
-                    padding: const EdgeInsets.all(14),
-                    showBorder: true,
-                    child: Assets.google.svg(),
-                  ),
-                ],
+              InkWell(
+                onTap: () => Navigator.push(context, SignupScreen.route()),
+                child: const AppText.paragraphI12(
+                  "Register here",
+                  fontWeight: FontWeight.w700,
+                  color: ConfigColors.primary2,
+                  // decoration: TextDecoration.underline,
+                ),
               ),
             ],
           ),
-        ),
+          gapH24,
+          const AppText.paragraphI14(
+            "- - - - - - - - - - - - - -  - -  Or  - - - - - - - - - - - - - - - - - ",
+            textAlign: TextAlign.center,
+            color: ConfigColors.blueGrey,
+          ),
+          gapH16,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CommonCard(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(14),
+                customRadius: BorderRadius.circular(14),
+                showBorder: true,
+                child: Assets.facebook.svg(),
+              ),
+              gapW16,
+              CommonCard(
+                alignment: Alignment.center,
+                customRadius: BorderRadius.circular(14),
+                padding: const EdgeInsets.all(14),
+                showBorder: true,
+                child: Assets.google.svg(),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

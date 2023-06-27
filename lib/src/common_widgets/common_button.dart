@@ -44,8 +44,8 @@ enum SynappButtonColor {
   final bool hasBorder;
 }
 
-class SynappButton extends StatelessWidget {
-  const SynappButton({
+class CommonButton extends StatelessWidget {
+  const CommonButton({
     required this.text,
     this.onPress,
     this.synappButtonColor = SynappButtonColor.primary,
