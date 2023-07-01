@@ -4,7 +4,6 @@ import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/client/all_stores_screen.dart';
-import 'package:inversaapp/src/features/client/order_placement_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -14,7 +13,6 @@ class ClientHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: const Drawer(),
       appBar: AppBar(
         leading: const Icon(CupertinoIcons.line_horizontal_3, size: 26),
         backgroundColor: const Color(0xFF2AB0B6),
@@ -64,8 +62,7 @@ class ClientHomeScreen extends StatelessWidget {
                   height: 123,
                   width: 163,
                   padding: const EdgeInsets.all(16),
-                  onTap: () =>
-                      Navigator.push(context, AllStoresScreen.route()),
+                  onTap: () => Navigator.push(context, AllStoresScreen.route()),
                   backgroundColor: const Color(0xFF3AC3AF),
                   customRadius: BorderRadius.circular(20),
                   child: Column(

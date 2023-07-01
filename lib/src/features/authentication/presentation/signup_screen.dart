@@ -6,8 +6,8 @@ import 'package:inversaapp/src/common_widgets/common_password.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/home_screen.dart';
 import 'package:inversaapp/src/features/store/store_home_screen.dart';
+import 'package:inversaapp/src/features/user_role_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -183,7 +183,7 @@ class _SignupScreenState extends State<SignupScreen> {
           gapH48,
           CommonButton(
             text: "Register",
-            onPress: () => Navigator.push(context, HomeScreen.route()),
+            onPress: () => Navigator.push(context, UserRoleScreen.route()),
           ),
           gapH32,
         ],

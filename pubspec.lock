@@ -589,15 +589,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.0"
-  inversa_sdk:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: main
-      resolved-ref: "6a166a537bddb388d4ba9002df77b54b2f4c446a"
-      url: "git@github.com:Abubakarshaikh/inversa_sdk.git"
-    source: git
-    version: "0.0.1"
   io:
     dependency: transitive
     description:

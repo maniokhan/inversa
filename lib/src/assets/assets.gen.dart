@@ -44,6 +44,10 @@ class Assets {
 
   static const SvgGenImage address = SvgGenImage('assets/address.svg');
   static const AssetGenImage menu = AssetGenImage('assets/menu.png');
+  static const AssetGenImage clientRole =
+      AssetGenImage('assets/client_Role.png');
+  static const AssetGenImage clientRoleGreen =
+      AssetGenImage('assets/client_Role_Green.png');
   static const SvgGenImage appLogo = SvgGenImage('assets/app_logo.svg');
   static const AssetGenImage bakeryItems =
       AssetGenImage('assets/bakery_items.png');
@@ -192,6 +196,8 @@ class Assets {
         client,
         closeGrey,
         coke,
+        clientRole,
+        clientRoleGreen,
         correct,
         calendar,
         donut,
