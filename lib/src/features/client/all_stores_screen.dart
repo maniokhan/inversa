@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/assets.gen.dart';
-import 'package:inversa/src/common_widgets/common_list_tile.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/client/order_placement_screen.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class AllStoresScreen extends StatelessWidget {
   static Route<AllStoresScreen> route() {
@@ -36,7 +37,7 @@ class AllStoresScreen extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
         children: [
           CommonListTile(
-            onTap: () {},
+            onTap: () => Navigator.push(context, OrderPlacementScreen.route()),
             leading: SizedBox(
               height: 71,
               width: 76,
@@ -63,7 +64,7 @@ class AllStoresScreen extends StatelessWidget {
           ),
           gapH16,
           CommonListTile(
-            onTap: () {},
+            onTap: () => Navigator.push(context, OrderPlacementScreen.route()),
             leading: SizedBox(
               height: 71,
               width: 76,
@@ -90,7 +91,7 @@ class AllStoresScreen extends StatelessWidget {
           ),
           gapH16,
           CommonListTile(
-            onTap: () {},
+            onTap: () => Navigator.push(context, OrderPlacementScreen.route()),
             leading: SizedBox(
               height: 71,
               width: 76,
@@ -117,7 +118,7 @@ class AllStoresScreen extends StatelessWidget {
           ),
           gapH16,
           CommonListTile(
-            onTap: () {},
+            onTap: () => Navigator.push(context, OrderPlacementScreen.route()),
             leading: SizedBox(
               height: 71,
               width: 76,

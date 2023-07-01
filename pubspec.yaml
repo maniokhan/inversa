@@ -1,4 +1,4 @@
-name: inversa
+name: inversaapp
 description: A new Flutter project.
 publish_to: "none" 
 version: 1.0.0+1
@@ -15,7 +15,7 @@ dependencies:
   firebase_core: ^2.13.1
   font_awesome_flutter: ^10.4.0
   firebase_auth: ^4.6.2
-  flutter_facebook_auth: ^5.0.11
+  # flutter_facebook_auth: ^6.0.0
   google_sign_in: ^6.1.4
   cloud_firestore: ^4.8.0
   cached_network_image: ^3.2.3

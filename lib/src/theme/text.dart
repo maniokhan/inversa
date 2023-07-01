@@ -1,6 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:inversa/src/theme/data.dart';
-import 'package:inversa/src/theme/theme.dart';
+import 'package:inversaapp/src/theme/data.dart';
+import 'package:inversaapp/src/theme/theme.dart';
 
 enum AppTextLevel {
   paragraphS10,
@@ -27,6 +28,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.paragraphS10;
 
   const AppText.paragraphS14(
@@ -37,6 +39,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.paragraphS14;
 
   const AppText.paragraphS16(
@@ -47,6 +50,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.paragraphS16;
 
   const AppText.titleS20(
@@ -57,6 +61,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.titleS20;
   const AppText.titleS24(
     this.data, {
@@ -66,6 +71,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.titleS24;
 
   const AppText.titleS32(
@@ -76,6 +82,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.titleS32;
 
   const AppText.paragraphI9(
@@ -86,6 +93,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.paragraphI9;
 
   const AppText.paragraphI10(
@@ -96,6 +104,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.textAlign,
     this.fontWeight,
+    this.textDecoration,
   }) : level = AppTextLevel.paragraphI10;
 
   const AppText.paragraphI12(
@@ -106,6 +115,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.paragraphI12;
   const AppText.paragraphI14(
     this.data, {
@@ -115,6 +125,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.paragraphI14;
   const AppText.paragraphI16(
     this.data, {
@@ -124,6 +135,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.paragraphI16;
   const AppText.titleI32(
     this.data, {
@@ -133,6 +145,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.fontWeight,
     this.textAlign,
+    this.textDecoration,
   }) : level = AppTextLevel.titleI32;
 
   final String data;
@@ -142,6 +155,18 @@ class AppText extends StatelessWidget {
   final int? maxLines;
   final FontWeight? fontWeight;
   final TextAlign? textAlign;
+  final TextDecoration? textDecoration;
+  const AppText({
+    Key? key,
+    required this.data,
+    required this.level,
+    this.color,
+    this.fontSize,
+    this.maxLines,
+    this.fontWeight,
+    this.textAlign,
+    this.textDecoration,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -184,6 +209,7 @@ class AppText extends StatelessWidget {
         color: color,
         fontSize: fontSize,
         fontWeight: fontWeight,
+        decoration: textDecoration,
       ),
       maxLines: maxLines,
     );

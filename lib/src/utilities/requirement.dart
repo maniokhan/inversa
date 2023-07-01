@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/l10n/l10n.dart';
+import 'package:inversaapp/src/l10n/l10n.dart';
 
 enum Requirement {
   atLeast12Character(r'^.{12,}$'),

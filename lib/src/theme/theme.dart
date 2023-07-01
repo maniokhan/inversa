@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/theme/data.dart';
+import 'package:inversaapp/src/theme/data.dart';
 
 class AppTheme extends InheritedWidget {
   const AppTheme({

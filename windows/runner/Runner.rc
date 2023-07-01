@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "inversa" "\0"
+            VALUE "CompanyName", "com.inversaapp" "\0"
+            VALUE "FileDescription", "com.inversaapp" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "inversa" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "inversa.exe" "\0"
-            VALUE "ProductName", "inversa" "\0"
+            VALUE "InternalName", "com.inversaapp" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.inversaapp. All rights reserved." "\0"
+            VALUE "OriginalFilename", "com.inversaapp.exe" "\0"
+            VALUE "ProductName", "com.inversaapp" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

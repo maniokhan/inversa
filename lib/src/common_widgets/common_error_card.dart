@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/fonts.gen.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/theme/config_colors.dart';
+import 'package:inversaapp/src/assets/fonts.gen.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
 
 class SynappErrorCard extends StatefulWidget {
   const SynappErrorCard({

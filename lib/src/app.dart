@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:inversa/src/features/authentication/presentation/sign_in_screen.dart';
-import 'package:inversa/src/theme/data.dart';
-import 'package:inversa/src/theme/theme.dart';
+import 'package:inversaapp/src/features/authentication/presentation/sign_in_screen.dart';
+import 'package:inversaapp/src/theme/data.dart';
+import 'package:inversaapp/src/theme/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

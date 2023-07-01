@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class CommonTextFieldTitle extends StatelessWidget {
   final Widget leading;

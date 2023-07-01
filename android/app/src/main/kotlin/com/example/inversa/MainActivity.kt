@@ -1,4 +1,4 @@
-package com.example.flutterlogin
+package com.abubakar.inversaapp
 
 import io.flutter.embedding.android.FlutterActivity
 

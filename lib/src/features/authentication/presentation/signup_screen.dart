@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/assets.gen.dart';
-import 'package:inversa/src/common_widgets/common_button.dart';
-import 'package:inversa/src/common_widgets/common_password.dart';
-import 'package:inversa/src/common_widgets/common_text_field.dart';
-import 'package:inversa/src/common_widgets/common_text_field_title.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/home_screen.dart';
-import 'package:inversa/src/features/store/store_home_screen.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_button.dart';
+import 'package:inversaapp/src/common_widgets/common_password.dart';
+import 'package:inversaapp/src/common_widgets/common_text_field.dart';
+import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/home_screen.dart';
+import 'package:inversaapp/src/features/store/store_home_screen.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class SignupScreen extends StatefulWidget {
   static Route<SignupScreen> route() {
@@ -73,7 +73,10 @@ class _SignupScreenState extends State<SignupScreen> {
               gapH12,
               Assets.appLogo.svg(height: 30, width: 30),
               gapH4,
-              const AppText.paragraphI14('monitor the inventories'),
+              const AppText.paragraphI14(
+                'monitor the inventories',
+                color: ConfigColors.white,
+              ),
             ],
           ),
         ),
@@ -143,11 +146,38 @@ class _SignupScreenState extends State<SignupScreen> {
                 onChanged: (value) {},
                 activeColor: ConfigColors.primary2,
               ),
-              const AppText.paragraphI14(
-                'I agree with the terms and conditions',
-                fontWeight: FontWeight.w500,
-                color: ConfigColors.slateGray,
+              RichText(
+                text: const TextSpan(
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w500,
+                    color: ConfigColors.slateGray,
+                  ),
+                  text: 'I agree with the',
+                  children: [
+                    TextSpan(
+                      style: TextStyle(
+                        color: ConfigColors.primary2,
+                      ),
+                      text: ' terms',
+                    ),
+                    TextSpan(
+                      text: ' and',
+                    ),
+                    TextSpan(
+                      style: TextStyle(
+                        color: ConfigColors.primary2,
+                      ),
+                      text: ' conditions',
+                    ),
+                  ],
+                ),
               ),
+              // const AppText.paragraphI14(
+              //   'I agree with the terms and conditions',
+              //   fontWeight: FontWeight.w500,
+              //   color: ConfigColors.slateGray,
+              // ),
             ],
           ),
           gapH48,

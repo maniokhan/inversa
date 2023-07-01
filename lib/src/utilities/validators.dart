@@ -1,4 +1,4 @@
-import 'package:inversa/src/utilities/requirement.dart';
+import 'package:inversaapp/src/utilities/requirement.dart';
 
 class Validators {
   static bool required(String? value) {

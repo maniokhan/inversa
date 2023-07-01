@@ -1,20 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:inversa/src/assets/assets.gen.dart';
-import 'package:inversa/src/common_widgets/common_button.dart';
-import 'package:inversa/src/common_widgets/common_card.dart';
-import 'package:inversa/src/common_widgets/common_password.dart';
-import 'package:inversa/src/common_widgets/common_text_field.dart';
-import 'package:inversa/src/common_widgets/common_text_field_title.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/authentication/presentation/signup_screen.dart';
-import 'package:inversa/src/features/home_screen.dart';
-import 'package:inversa/src/features/store/store_home_screen.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_button.dart';
+import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/common_widgets/common_password.dart';
+import 'package:inversaapp/src/common_widgets/common_text_field.dart';
+import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/authentication/presentation/signup_screen.dart';
+import 'package:inversaapp/src/features/home_screen.dart';
+import 'package:inversaapp/src/features/store/store_home_screen.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class LoginScreen extends StatefulWidget {
   static Route<LoginScreen> route() {
@@ -37,17 +36,12 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoggedIn = true;
     });
     try {
-      final result = await FacebookAuth.instance.login();
-      final userData = await FacebookAuth.instance.getUserData();
-      final facebookAuthCredential =
-          FacebookAuthProvider.credential(result.accessToken!.token);
-      await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      // final result = await FacebookAuth.instance.login();
+      // final userData = await FacebookAuth.instance.getUserData();
+      // final facebookAuthCredential =
+      //     FacebookAuthProvider.credential(result.accessToken!.token);
+      // await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
 
-      await FirebaseFirestore.instance.collection("users").add({
-        'email': userData['email'],
-        'imageUrl': userData['picture']['data']['url'],
-        'name': userData['name'],
-      });
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const StoreHomeScreen(),
@@ -107,7 +101,10 @@ class _LoginScreenState extends State<LoginScreen> {
               gapH12,
               Assets.appLogo.svg(height: 30, width: 30),
               gapH4,
-              const AppText.paragraphI14('monitor the inventories'),
+              const AppText.paragraphI14(
+                'monitor the inventories',
+                color: ConfigColors.white,
+              ),
             ],
           ),
         ),
@@ -164,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   "Register here",
                   fontWeight: FontWeight.w700,
                   color: ConfigColors.primary2,
-                  // decoration: TextDecoration.underline,
+                  textDecoration: TextDecoration.underline,
                 ),
               ),
             ],
@@ -180,6 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CommonCard(
+                onTap: () {},
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(14),
                 customRadius: BorderRadius.circular(14),
@@ -188,6 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               gapW16,
               CommonCard(
+                onTap: () {},
                 alignment: Alignment.center,
                 customRadius: BorderRadius.circular(14),
                 padding: const EdgeInsets.all(14),

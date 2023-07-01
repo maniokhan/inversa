@@ -68,7 +68,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'flutter-login-app-19fad.appspot.com',
     iosClientId:
         '838768765778-8hg3v08kem3jgq4s1jco5ps1t9okqkdn.apps.googleusercontent.com',
-    iosBundleId: 'com.example.flutterlogin',
+    iosBundleId: 'com.abubakar.inversaapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -79,6 +79,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'flutter-login-app-19fad.appspot.com',
     iosClientId:
         '838768765778-uco38fgfkaavgr3umjtukpuf5kbfffl9.apps.googleusercontent.com',
-    iosBundleId: 'com.example.flutterlogin.RunnerTests',
+    iosBundleId: 'com.abubakar.inversaapp.RunnerTests',
   );
 }

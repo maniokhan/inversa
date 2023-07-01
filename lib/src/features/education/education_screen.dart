@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/assets.gen.dart';
-import 'package:inversa/src/common_widgets/common_card.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class EducationScreen extends StatelessWidget {
   static Route<EducationScreen> route() {

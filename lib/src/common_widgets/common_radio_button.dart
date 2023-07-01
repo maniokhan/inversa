@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
 
 class CommonRadioButton<T> extends StatelessWidget {
   final T value;
@@ -21,8 +21,8 @@ class CommonRadioButton<T> extends StatelessWidget {
           color: Colors.white,
           shape: BoxShape.circle,
           border: Border.all(
-            // color: isSelected ? ConfigColors.checkboxGrey : Colors.transparent,
-          ),
+              // color: isSelected ? ConfigColors.checkboxGrey : Colors.transparent,
+              ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(2.0),
@@ -33,9 +33,9 @@ class CommonRadioButton<T> extends StatelessWidget {
               // color: isSelected ? ConfigColors.synappPrimary : Colors.white,
               shape: BoxShape.circle,
               border: Border.all(
-                // color: isSelected ? Colors.transparent : ConfigColors.textGrey,
-                // width: isSelected ? 1 : 2,
-              ),
+                  // color: isSelected ? Colors.transparent : ConfigColors.textGrey,
+                  // width: isSelected ? 1 : 2,
+                  ),
             ),
             child: Visibility(
               // visible: isSelected,

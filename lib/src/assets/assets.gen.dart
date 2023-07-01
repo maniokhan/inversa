@@ -95,6 +95,8 @@ class Assets {
   static const AssetGenImage restock = AssetGenImage('assets/restock.png');
   static const AssetGenImage barCode = AssetGenImage('assets/bar_code.png');
   static const AssetGenImage calendar = AssetGenImage('assets/calendar.png');
+  static const AssetGenImage priceTag = AssetGenImage('assets/price_tag.png');
+  static const AssetGenImage profile = AssetGenImage('assets/profile.png');
 
   static const SvgGenImage helpLightGreen =
       SvgGenImage('assets/help_light_green.svg');
@@ -268,7 +270,9 @@ class Assets {
         other,
         maintenance,
         lightBulb,
-        employees
+        employees,
+        priceTag,
+        profile,
       ];
 }
 

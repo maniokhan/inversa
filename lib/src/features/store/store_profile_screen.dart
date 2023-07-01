@@ -1,13 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/assets.gen.dart';
-import 'package:inversa/src/common_widgets/common_card.dart';
-import 'package:inversa/src/common_widgets/common_list_tile.dart';
-import 'package:inversa/src/common_widgets/common_text_field_title.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/authentication/presentation/change_password_screen.dart';
-import 'package:inversa/src/features/store/store_business_profile_form_screen.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
+import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/authentication/presentation/change_password_screen.dart';
+import 'package:inversaapp/src/features/store/store_business_profile_form_screen.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class StoreProfileScreen extends StatelessWidget {
   static Route<StoreProfileScreen> route() {
@@ -102,7 +103,11 @@ class StoreProfileScreen extends StatelessWidget {
               backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
               padding: const EdgeInsets.all(6),
               //TODO: client image not shown error
-              child: Assets.store.svg(color: const Color(0xFFC379FF)),
+              child: Assets.clientPng.image(
+                color: const Color(0xFFC379FF),
+                height: 26,
+                width: 26,
+              ),
             ),
             title: const AppText.paragraphI16(
               "Client",
@@ -182,7 +187,7 @@ class StoreProfileScreen extends StatelessWidget {
           ),
           gapH12,
           CommonListTile(
-            onTap: () {},
+            onTap: () => showCupertinoDialog(context),
             leading: CommonCard(
               customRadius: BorderRadius.circular(10),
               showShadow: false,
@@ -203,4 +208,46 @@ class StoreProfileScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void showCupertinoDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: ((context) {
+      return CupertinoAlertDialog(
+        title: const AppText.paragraphI16(
+          "Log Out ",
+          fontWeight: FontWeight.w600,
+        ),
+        content: const AppText.paragraphI14(
+          "Are you sure you want to logout ? ",
+          color: ConfigColors.slateGray,
+        ),
+        actions: [
+          CupertinoDialogAction(
+            child: const AppText.paragraphI16(
+              "No",
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+          ),
+          CupertinoDialogAction(
+            child: const AppText.paragraphI16(
+              "Yes",
+              fontSize: 17,
+              color: ConfigColors.primary2,
+              fontWeight: FontWeight.w500,
+            ),
+            onPressed: () {
+              // Perform some action
+              Navigator.of(context).pop(); // Close the dialog
+            },
+          ),
+        ],
+      );
+    }),
+  );
 }

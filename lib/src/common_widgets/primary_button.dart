@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
 
 /// Primary button based on [ElevatedButton]. Useful for CTAs in the app.
 class PrimaryButton extends StatelessWidget {
@@ -17,7 +17,7 @@ class PrimaryButton extends StatelessWidget {
       height: Sizes.p48,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF2AB0B6),
+            backgroundColor: const Color(0xFF2AB0B6),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6),
             )),

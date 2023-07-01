@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/assets.gen.dart';
-import 'package:inversa/src/common_widgets/common_button.dart';
-import 'package:inversa/src/common_widgets/common_card.dart';
-import 'package:inversa/src/common_widgets/common_dotted_border_card.dart';
-import 'package:inversa/src/common_widgets/common_list_tile.dart';
-import 'package:inversa/src/common_widgets/common_radio_button.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/client/confirm_order_placed_screen.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_button.dart';
+import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
+import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
+import 'package:inversaapp/src/common_widgets/common_radio_button.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/client/all_stores_screen.dart';
+import 'package:inversaapp/src/features/client/confirm_order_placed_screen.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class CheckOutScreen extends StatelessWidget {
   static Route<CheckOutScreen> route() {
@@ -38,7 +39,7 @@ class CheckOutScreen extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
         children: [
           CommonCard(
             padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -46,18 +47,22 @@ class CheckOutScreen extends StatelessWidget {
             width: 343,
             showBorder: true,
             customRadius: BorderRadius.circular(8),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppText.paragraphI14(
+                const AppText.paragraphI14(
                   "Deliver to",
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
                 ),
-                AppText.paragraphI16(
-                  "Select Store",
-                  fontWeight: FontWeight.w500,
-                  color: ConfigColors.primary2,
+                InkWell(
+                  onTap: () => Navigator.push(context, AllStoresScreen.route()),
+                  child: const AppText.paragraphI16(
+                    "Select Store",
+                    fontWeight: FontWeight.w500,
+                    color: ConfigColors.primary2,
+                    textDecoration: TextDecoration.underline,
+                  ),
                 ),
               ],
             ),

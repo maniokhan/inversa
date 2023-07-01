@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/common_widgets/check_password.dart';
-import 'package:inversa/src/common_widgets/common_error_card.dart';
-import 'package:inversa/src/common_widgets/common_text_field.dart';
-import 'package:inversa/src/l10n/l10n.dart';
-import 'package:inversa/src/utilities/extensions.dart';
-import 'package:inversa/src/utilities/requirement.dart';
+import 'package:inversaapp/src/common_widgets/check_password.dart';
+import 'package:inversaapp/src/common_widgets/common_error_card.dart';
+import 'package:inversaapp/src/common_widgets/common_text_field.dart';
+import 'package:inversaapp/src/l10n/l10n.dart';
+import 'package:inversaapp/src/utilities/extensions.dart';
+import 'package:inversaapp/src/utilities/requirement.dart';
 
 class CommonPasswordInput extends StatefulWidget {
   const CommonPasswordInput({

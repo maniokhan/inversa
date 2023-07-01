@@ -1,6 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:inversa/src/assets/fonts.gen.dart';
+import 'package:inversaapp/src/assets/fonts.gen.dart';
 
 part 'typography.freezed.dart';
 

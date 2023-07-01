@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/store/inventory/tabs/new_list_tab_view.dart';
-import 'package:inversa/src/features/store/inventory/tabs/old_list_tab_view.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/store/inventory/tabs/new_list_tab_view.dart';
+import 'package:inversaapp/src/features/store/inventory/tabs/old_list_tab_view.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class CompareScreen extends StatefulWidget {
   static Route<CompareScreen> route() {

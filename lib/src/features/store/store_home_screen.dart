@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/assets.gen.dart';
-import 'package:inversa/src/common_widgets/common_card.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/client/order_placed_screen.dart';
-import 'package:inversa/src/features/drawer_user_role_screen.dart';
-import 'package:inversa/src/features/education/education_screen.dart';
-import 'package:inversa/src/features/store/inventory/inventory_home_screen.dart';
-import 'package:inversa/src/features/store/statistics_screen.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/client/order_placed_screen.dart';
+import 'package:inversaapp/src/features/drawer_user_role_screen.dart';
+import 'package:inversaapp/src/features/education/education_screen.dart';
+import 'package:inversaapp/src/features/store/inventory/inventory_home_screen.dart';
+import 'package:inversaapp/src/features/store/other_expenses_screen.dart';
+import 'package:inversaapp/src/features/store/statistics_screen.dart';
+import 'package:inversaapp/src/features/store/store_sale_screen.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 import 'restock_screen.dart';
 
@@ -46,30 +48,25 @@ class StoreHomeScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(23, 30, 0, 30),
             backgroundColor: const Color(0xFF25AFB5),
             showShadow: true,
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const AppText.titleS20(
-                      "How it Works",
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: ConfigColors.white,
-                    ),
-                    gapH4,
-                    const AppText.paragraphI12(
-                      "See all educational videos",
-                      // fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: ConfigColors.white,
-                    ),
-                    gapH12,
-                    Image.asset(
-                      "assets/images/arrow.png",
-                      height: 20,
-                    ),
-                  ],
+                const AppText.titleS20(
+                  "How it Works",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: ConfigColors.white,
+                ),
+                gapH4,
+                const AppText.paragraphI12(
+                  "See all educational videos",
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.white,
+                ),
+                gapH12,
+                Image.asset(
+                  "assets/images/arrow.png",
+                  height: 18,
                 ),
               ],
             ),
@@ -79,6 +76,7 @@ class StoreHomeScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: CommonCard(
+                  onTap: () => Navigator.push(context, SaleScreen.route()),
                   customRadius: BorderRadius.circular(20),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -194,7 +192,7 @@ class StoreHomeScreen extends StatelessWidget {
               Expanded(
                 child: CommonCard(
                   padding: const EdgeInsets.all(16),
-                  onTap: () => showBottomSheet(context),
+                  onTap: () {},
                   customRadius: BorderRadius.circular(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,7 +227,8 @@ class StoreHomeScreen extends StatelessWidget {
               Expanded(
                 child: CommonCard(
                   padding: const EdgeInsets.all(16),
-                  onTap: () {},
+                  onTap: () =>
+                      Navigator.push(context, OtherExpensesScreen.route()),
                   customRadius: BorderRadius.circular(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,8 +243,8 @@ class StoreHomeScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(8),
                             shape: BoxShape.circle,
                             backgroundColor: ConfigColors.backgroundGreen,
-                            child: Assets.cardIcon.svg(
-                              color: ConfigColors.primary2,
+                            child: Assets.priceTag.image(
+                              height: 20,
                             ),
                           ),
                           Assets.outlinedForwardArrow.svg(),
@@ -267,9 +266,11 @@ class StoreHomeScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: CommonCard(
+                  height: 134,
+                  width: 163,
+                  onTap: () {},
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                  onTap: () {},
                   backgroundColor: const Color(0xFF3AC3AF),
                   customRadius: BorderRadius.circular(20),
                   child: Column(
@@ -303,6 +304,8 @@ class StoreHomeScreen extends StatelessWidget {
               gapW16,
               Expanded(
                 child: CommonCard(
+                  height: 134,
+                  width: 163,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                   onTap: () =>
@@ -320,11 +323,9 @@ class StoreHomeScreen extends StatelessWidget {
                             showBorder: true,
                             showShadow: false,
                             borderColor: ConfigColors.primary2,
-                            padding: const EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(10),
                             shape: BoxShape.circle,
-                            child: Assets.cardIcon.svg(
-                              color: ConfigColors.primary2,
-                            ),
+                            child: Assets.profile.image(height: 23),
                           ),
                           Assets.outlinedForwardArrow.svg(),
                         ],
@@ -372,83 +373,4 @@ class StoreHomeScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-showBottomSheet(context) {
-  return showModalBottomSheet(
-    context: context,
-    builder: (context) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CommonCard(
-              height: 4,
-              width: 75,
-              backgroundColor: const Color(0xFFC4C4C4),
-              customRadius: BorderRadius.circular(5),
-              child: const Text(""),
-            ),
-            gapH20,
-            CommonCard(
-              height: 190,
-              width: 343,
-              backgroundColor: ConfigColors.primary2,
-              showShadow: false,
-              customRadius: BorderRadius.circular(6),
-              padding:
-                  const EdgeInsets.only(left: 3, right: 3, top: 2, bottom: 15),
-              child: Column(
-                children: [
-                  CommonCard(
-                    padding: const EdgeInsets.all(0),
-                    customRadius: BorderRadius.circular(6),
-                    height: 31,
-                    width: 337,
-                    alignment: Alignment.center,
-                    child: const AppText.paragraphI16(
-                      "Virtual Card",
-                      fontWeight: FontWeight.w500,
-                      color: ConfigColors.primary2,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 18),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Assets.appLogo.svg(width: 160),
-                        const Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            AppText.paragraphI14(
-                              "Amount Points",
-                              fontWeight: FontWeight.w500,
-                              color: ConfigColors.white,
-                            ),
-                            AppText.paragraphI16(
-                              "300",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: ConfigColors.black,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Assets.barCode.image(width: 213, height: 65),
-                ],
-              ),
-            ),
-            gapH32,
-          ],
-        ),
-      );
-    },
-  );
 }

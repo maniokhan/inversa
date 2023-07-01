@@ -1,5 +1,5 @@
+import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:inversa/src/theme/config_colors.dart';
 
 class SynappCircularProgressIndicator extends StatelessWidget {
   const SynappCircularProgressIndicator({super.key});

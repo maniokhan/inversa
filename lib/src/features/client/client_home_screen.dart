@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/assets.gen.dart';
-import 'package:inversa/src/common_widgets/common_card.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/client/order_placement_screen.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/client/all_stores_screen.dart';
+import 'package:inversaapp/src/features/client/order_placement_screen.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class ClientHomeScreen extends StatelessWidget {
   const ClientHomeScreen({super.key});
@@ -64,7 +65,7 @@ class ClientHomeScreen extends StatelessWidget {
                   width: 163,
                   padding: const EdgeInsets.all(16),
                   onTap: () =>
-                      Navigator.push(context, OrderPlacementScreen.route()),
+                      Navigator.push(context, AllStoresScreen.route()),
                   backgroundColor: const Color(0xFF3AC3AF),
                   customRadius: BorderRadius.circular(20),
                   child: Column(

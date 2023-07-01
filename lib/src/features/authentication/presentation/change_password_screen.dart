@@ -1,11 +1,11 @@
+import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_button.dart';
+import 'package:inversaapp/src/common_widgets/common_password.dart';
+import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/assets.gen.dart';
-import 'package:inversa/src/common_widgets/common_button.dart';
-import 'package:inversa/src/common_widgets/common_password.dart';
-import 'package:inversa/src/common_widgets/common_text_field_title.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   static Route<ChangePasswordScreen> route() {
@@ -36,7 +36,7 @@ class ChangePasswordScreen extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 24, 16, 60),
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
         children: [
           CommonTextFieldTitle(
             leading: Assets.lock.svg(),

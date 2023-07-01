@@ -2,7 +2,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
-import 'package:inversa/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
 
 class CommonDottedBorderCard extends StatelessWidget {
   final double? height;

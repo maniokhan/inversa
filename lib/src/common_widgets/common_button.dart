@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/assets/fonts.gen.dart';
-import 'package:inversa/src/common_widgets/synapp_circular_progress_indicator.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/utilities/synapp_widget_size.dart';
+import 'package:inversaapp/src/assets/fonts.gen.dart';
+import 'package:inversaapp/src/common_widgets/synapp_circular_progress_indicator.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/utilities/synapp_widget_size.dart';
 
 enum SynappButtonColor {
   primary(

@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:inversa/src/theme/colors.dart';
-import 'package:inversa/src/theme/padding.dart';
-import 'package:inversa/src/theme/radius.dart';
-import 'package:inversa/src/theme/typography.dart';
+import 'package:inversaapp/src/theme/colors.dart';
+import 'package:inversaapp/src/theme/padding.dart';
+import 'package:inversaapp/src/theme/radius.dart';
+import 'package:inversaapp/src/theme/typography.dart';
 
 part 'data.freezed.dart';
 

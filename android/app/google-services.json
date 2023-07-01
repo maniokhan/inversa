@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:838768765778:android:f0b4d72f0c18984940e88b",
         "android_client_info": {
-          "package_name": "com.example.flutter_facebook_login"
+          "package_name": "com.inversaapp.flutter_facebook_login"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "838768765778-2r6omnd68ueqsnbsucrt1b0sggseskqf.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.facebookLogin"
+                "bundle_id": "com.inversaapp.facebookLogin"
               }
             }
           ]
@@ -45,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:838768765778:android:585b7cf8f540a89f40e88b",
         "android_client_info": {
-          "package_name": "com.example.flutterlogin"
+          "package_name": "com.abubakar.inversaapp"
         }
       },
       "oauth_client": [
@@ -70,7 +70,7 @@
               "client_id": "838768765778-2r6omnd68ueqsnbsucrt1b0sggseskqf.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.facebookLogin"
+                "bundle_id": "com.inversaapp.facebookLogin"
               }
             }
           ]
@@ -81,7 +81,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:838768765778:android:3eb4069f873b570740e88b",
         "android_client_info": {
-          "package_name": "com.example.inversa"
+          "package_name": "com.abubakar.inversaapp"
         }
       },
       "oauth_client": [
@@ -106,7 +106,7 @@
               "client_id": "838768765778-2r6omnd68ueqsnbsucrt1b0sggseskqf.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.facebookLogin"
+                "bundle_id": "com.inversaapp.facebookLogin"
               }
             }
           ]
@@ -117,7 +117,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:838768765778:android:3874775f45b4ae8240e88b",
         "android_client_info": {
-          "package_name": "com.example.flutterlogin"
+          "package_name": "com.abubakar.inversaapp"
         }
       },
       "oauth_client": [
@@ -142,7 +142,7 @@
               "client_id": "838768765778-2r6omnd68ueqsnbsucrt1b0sggseskqf.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.facebookLogin"
+                "bundle_id": "com.inversaapp.facebookLogin"
               }
             }
           ]

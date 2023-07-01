@@ -1,6 +1,6 @@
 {
-    "name": "inversa",
-    "short_name": "inversa",
+    "name": "com.inversaapp",
+    "short_name": "com.inversaapp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/constants/app_sizes.dart';
-import 'package:inversa/src/features/store/inventory/tabs/category_tab_view.dart';
-import 'package:inversa/src/features/store/inventory/tabs/list_tab_view.dart';
-import 'package:inversa/src/features/store/inventory/tabs/scan_tab_view.dart';
-import 'package:inversa/src/theme/config_colors.dart';
-import 'package:inversa/src/theme/text.dart';
+import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/store/inventory/tabs/category_tab_view.dart';
+import 'package:inversaapp/src/features/store/inventory/tabs/list_tab_view.dart';
+import 'package:inversaapp/src/features/store/inventory/tabs/scan_tab_view.dart';
+import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 
 class InventoryHomeScreen extends StatefulWidget {
   static Route<InventoryHomeScreen> route() {

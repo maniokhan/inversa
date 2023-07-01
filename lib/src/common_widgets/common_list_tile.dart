@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inversa/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/common_widgets/common_card.dart';
 
 class CommonListTile extends StatelessWidget {
   final Widget leading;
