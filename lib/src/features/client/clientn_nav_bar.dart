@@ -2,32 +2,32 @@
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/features/client/client_home_screen.dart';
-import 'package:inversaapp/src/features/store/store_home_screen.dart';
-import 'package:inversaapp/src/features/store/store_profile_screen.dart';
+import 'package:inversaapp/src/features/client/client_profile_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 
-class HomeScreen extends StatefulWidget {
-  static Route<HomeScreen> route() {
-    return MaterialPageRoute(builder: (context) => const HomeScreen());
+class ClientNavigationBar extends StatefulWidget {
+  static Route<ClientNavigationBar> route() {
+    return MaterialPageRoute(builder: (context) => const ClientNavigationBar());
   }
 
-  const HomeScreen({Key? key}) : super(key: key);
+  const ClientNavigationBar({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ClientNavigationBar> createState() => _ClientNavigationBarState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ClientNavigationBarState extends State<ClientNavigationBar> {
   int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: <Widget>[
-        const StoreHomeScreen(),
         const ClientHomeScreen(),
-        const StoreProfileScreen(),
-      ][currentPageIndex],
+        const ClientProfileScreen(),
+        const ClientProfileScreen(),
+      ]
+      [currentPageIndex],
       bottomNavigationBar: NavigationBar(
         elevation: 6,
         height: 77,

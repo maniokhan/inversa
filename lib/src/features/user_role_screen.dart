@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/client/clientn_nav_bar.dart';
+import 'package:inversaapp/src/features/store/store_nav_bar.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 enum Role { store, client }
 
-class DrawerUserRoleScreen extends StatefulWidget {
-  static Route<DrawerUserRoleScreen> route() {
-    return MaterialPageRoute(
-        builder: (context) => const DrawerUserRoleScreen());
+class UserRoleScreen extends StatefulWidget {
+  static Route<UserRoleScreen> route() {
+    return MaterialPageRoute(builder: (context) => const UserRoleScreen());
   }
 
-  const DrawerUserRoleScreen({super.key});
+  const UserRoleScreen({super.key});
 
   @override
-  State<DrawerUserRoleScreen> createState() => _DrawerUserRoleScreenState();
+  State<UserRoleScreen> createState() => _UserRoleScreenState();
 }
 
-class _DrawerUserRoleScreenState extends State<DrawerUserRoleScreen> {
+class _UserRoleScreenState extends State<UserRoleScreen> {
   Role selcectedRole = Role.client;
   @override
   Widget build(BuildContext context) {
@@ -67,10 +68,7 @@ class _DrawerUserRoleScreenState extends State<DrawerUserRoleScreen> {
             ),
           ),
           gapH20,
-          Container(
-            height: 1,
-            color: ConfigColors.blueGrey,
-          ),
+          const Divider(height: 1, color: ConfigColors.blueGrey),
           gapH16,
           const Center(
             child: Column(
@@ -94,18 +92,21 @@ class _DrawerUserRoleScreenState extends State<DrawerUserRoleScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CommonCard(
+              height: 135,
+              width: 343,
               onTap: () {
                 setState(() {
                   selcectedRole = Role.store;
                 });
+                Navigator.push(context, StoreNavigationBar.route());
               },
               alignment: Alignment.center,
               showBorder: selcectedRole == Role.store ? true : false,
               borderColor:
                   selcectedRole == Role.store ? ConfigColors.primary2 : null,
               showShadow: true,
-              padding: const EdgeInsets.symmetric(vertical: 40),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Assets.store.svg(
                     height: 40,
@@ -128,27 +129,32 @@ class _DrawerUserRoleScreenState extends State<DrawerUserRoleScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CommonCard(
+              height: 135,
+              width: 343,
               onTap: () {
                 setState(() {
                   selcectedRole = Role.client;
                 });
+                Navigator.push(context, ClientNavigationBar.route());
               },
               alignment: Alignment.center,
               showShadow: true,
               showBorder: selcectedRole == Role.client ? true : false,
-              padding: const EdgeInsets.symmetric(vertical: 40),
               borderColor:
                   selcectedRole == Role.client ? ConfigColors.primary2 : null,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // TODO:  Client icon not shown
-                  Assets.clientPng.image(
-                    height: 40,
-                    color: selcectedRole == Role.client
-                        ? ConfigColors.primary2
-                        : ConfigColors.slateGray,
-                  ),
-                  gapH16,
+                  selcectedRole == Role.client
+                      ? Assets.clientRoleGreen.image(
+                          height: 70,
+                          width: 60,
+                        )
+                      : Assets.clientRole.image(
+                          height: 70,
+                          width: 60,
+                        ),
                   const AppText.paragraphI16(
                     "Switch to Client",
                     fontWeight: FontWeight.w500,

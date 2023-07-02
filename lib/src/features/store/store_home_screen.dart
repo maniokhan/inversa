@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/client/order_placed_screen.dart';
-import 'package:inversaapp/src/features/drawer_user_role_screen.dart';
 import 'package:inversaapp/src/features/education/education_screen.dart';
 import 'package:inversaapp/src/features/store/inventory/inventory_home_screen.dart';
 import 'package:inversaapp/src/features/store/other_expenses_screen.dart';
@@ -25,11 +25,7 @@ class StoreHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () =>
-              Navigator.push(context, DrawerUserRoleScreen.route()),
-          icon: const Icon(Icons.menu),
-        ),
+        leading: const Icon(CupertinoIcons.line_horizontal_3, size: 26),
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         centerTitle: true,
