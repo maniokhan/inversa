@@ -69,7 +69,7 @@ class _CompareScreenState extends State<CompareScreen>
               labelColor: Colors.white,
               indicatorWeight: 2,
               indicator: BoxDecoration(
-                color: ConfigColors.primary2,
+                color: ConfigColors.blueIsRead,
                 borderRadius: BorderRadius.circular(4),
               ),
               tabs: const [

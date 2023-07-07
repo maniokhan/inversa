@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
-import 'package:inversaapp/src/features/store/store_expenses_screen.dart';
+import 'package:inversaapp/src/features/client/client_home_screen.dart';
 import 'package:inversaapp/src/features/store/store_home_screen.dart';
 import 'package:inversaapp/src/features/store/store_profile_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -26,7 +26,7 @@ class _StoreNavigationBarState extends State<StoreNavigationBar> {
       body: <Widget>[
         const StoreHomeScreen(),
         // const ClientHomeScreen(),
-        const StoreExpensesScreen(),
+        const ClientHomeScreen(),
         const StoreProfileScreen(),
         // const StoreProfileScreen(),
       ][currentPageIndex],

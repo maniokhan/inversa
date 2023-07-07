@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/features/client/all_stores_screen.dart';
 import 'package:inversaapp/src/features/client/client_home_screen.dart';
 import 'package:inversaapp/src/features/client/client_profile_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -24,10 +25,9 @@ class _ClientNavigationBarState extends State<ClientNavigationBar> {
     return Scaffold(
       body: <Widget>[
         const ClientHomeScreen(),
+        const AllStoresScreen(),
         const ClientProfileScreen(),
-        const ClientProfileScreen(),
-      ]
-      [currentPageIndex],
+      ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
         elevation: 6,
         height: 77,
