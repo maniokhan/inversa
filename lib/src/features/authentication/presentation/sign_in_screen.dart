@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
           CommonButton(
             text: "Log In",
             onPress: () async {
-              await sdk.Authentication.loginWithFirebase(
+              await sdk.loginWithFirebase(
                 _emailController.text,
                 _passwordController.text,
               );

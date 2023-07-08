@@ -1,13 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:inversa_sdk/inversa_sdk.dart' as sdk;
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
-import 'package:inversaapp/src/common_widgets/common_password.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/store/store_home_screen.dart';
-import 'package:inversaapp/src/features/user_role_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -23,32 +20,15 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  late final _emailController = TextEditingController();
-  late final _passwordController = TextEditingController();
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
 
-  Future<void> signUpWithFirebase() async {
-    try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-      User? user = credential.user;
-      print('User ID: ${user?.uid}');
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const StoreHomeScreen(),
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
+  @override
+  void initState() {
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+
+    super.initState();
   }
 
   @override
@@ -110,9 +90,10 @@ class _SignupScreenState extends State<SignupScreen> {
             text: 'Phone Number',
           ),
           gapH8,
-          const CommonTextField(
+          CommonTextField(
             hintText: "Add Phone Number",
             textInputType: TextInputType.number,
+            controller: TextEditingController(),
           ),
           gapH20,
           CommonTextFieldTitle(
@@ -120,9 +101,10 @@ class _SignupScreenState extends State<SignupScreen> {
             text: 'Email',
           ),
           gapH8,
-          const CommonTextField(
+          CommonTextField(
             hintText: "Add Email Address",
             textInputType: TextInputType.emailAddress,
+            controller: _emailController,
           ),
           gapH20,
           CommonTextFieldTitle(
@@ -130,14 +112,17 @@ class _SignupScreenState extends State<SignupScreen> {
             text: 'Password',
           ),
           gapH8,
-          const CommonPasswordInput(),
-          gapH20,
-          CommonTextFieldTitle(
-            leading: Assets.lock.svg(),
-            text: 'Confirm Password',
+          CommonTextField(
+            hintText: 'password',
+            controller: _passwordController,
           ),
-          gapH8,
-          const CommonPasswordInput(),
+          gapH20,
+          // CommonTextFieldTitle(
+          //   leading: Assets.lock.svg(),
+          //   text: 'Confirm Password',
+          // ),
+          // gapH8,
+          // CommonTextField(controller: _passwordController),
           gapH26,
           Row(
             children: [
@@ -183,11 +168,21 @@ class _SignupScreenState extends State<SignupScreen> {
           gapH48,
           CommonButton(
             text: "Register",
-            onPress: () => Navigator.push(context, UserRoleScreen.route()),
+            onPress: () async {
+              await createAccountUser();
+            },
           ),
           gapH32,
         ],
       ),
+    );
+  }
+
+  createAccountUser() async {
+    await sdk.createNewAccount(
+      _emailController.text,
+      _passwordController.text,
+      {'name': 'ali'},
     );
   }
 }
