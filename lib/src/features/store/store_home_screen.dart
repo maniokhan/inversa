@@ -8,11 +8,10 @@ import 'package:inversaapp/src/features/education/education_screen.dart';
 import 'package:inversaapp/src/features/store/inventory/inventory_home_screen.dart';
 import 'package:inversaapp/src/features/store/other_expenses_screen.dart';
 import 'package:inversaapp/src/features/store/statistics_screen.dart';
+import 'package:inversaapp/src/features/store/store_restock_screen.dart';
 import 'package:inversaapp/src/features/store/store_sale_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
-
-import 'restock_screen.dart';
 
 class StoreHomeScreen extends StatelessWidget {
   static Route<StoreHomeScreen> route() {
@@ -114,7 +113,8 @@ class StoreHomeScreen extends StatelessWidget {
               gapW16,
               Expanded(
                 child: CommonCard(
-                  onTap: () => Navigator.push(context, RestockScreen.route()),
+                  onTap: () =>
+                      Navigator.push(context, StoreRestockScreen.route()),
                   customRadius: BorderRadius.circular(20),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -248,7 +248,7 @@ class StoreHomeScreen extends StatelessWidget {
                       ),
                       gapH8,
                       const AppText.paragraphI14(
-                        "Offer Expenses",
+                        "Expenses",
                         fontWeight: FontWeight.w600,
                       ),
                     ],

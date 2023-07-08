@@ -1,7 +1,7 @@
 name: inversaapp
 description: A new Flutter project.
 publish_to: "none" 
-version: 2.0.0+1
+version: 3.0.0+1
 
 environment:
   sdk: ">=3.0.2 <4.0.0"
@@ -22,8 +22,8 @@ dependencies:
   flutter_svg: ^2.0.7
   freezed_annotation: ^2.2.0
   dotted_border: ^2.0.0+3
-  # inversa_sdk:
-    # path: ./inversa_sdk
+  inversa_sdk:
+    path: ./inversa_sdk
     # git:
     #  url: git@github.com:Abubakarshaikh/inversa_sdk.git
     #  ref: main

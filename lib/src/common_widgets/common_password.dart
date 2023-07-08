@@ -14,10 +14,11 @@ class CommonPasswordInput extends StatefulWidget {
     this.confirmPassword = false,
     this.checkPassword = false,
     this.focusNode,
+    this.controller,
   });
   final AutovalidateMode? autovalidateMode;
   final String? Function(String?)? validator;
-
+  final TextEditingController? controller;
   final bool confirmPassword;
   final bool checkPassword;
   final FocusNode? focusNode;
@@ -43,6 +44,7 @@ class _CommonPasswordInputState extends State<CommonPasswordInput> {
     return Column(
       children: <Widget>[
         CommonTextField(
+          controller: widget.controller,
           focusNode: widget.focusNode,
           hintText: l10n.password.capitalize,
           suffixIcon: _suffixIcon,
@@ -73,6 +75,7 @@ class _CommonPasswordInputState extends State<CommonPasswordInput> {
         if (widget.confirmPassword) ...<Widget>[
           const SizedBox(height: 16),
           CommonTextField(
+            controller: widget.controller,
             hintText: l10n.confirmPassword,
             suffixIcon: _suffixConfirmIcon,
             obscureText: _obscureConfirmText,
@@ -141,6 +144,7 @@ class SynappPasswordInputForm extends StatelessWidget {
     return Form(
       key: textFormFieldKey,
       child: CommonPasswordInput(
+        controller: TextEditingController(),
         autovalidateMode: autovalidateMode,
         confirmPassword: true,
         checkPassword: true,

@@ -152,6 +152,7 @@ class Assets {
   static const AssetGenImage map = AssetGenImage('assets/map.png');
   static const AssetGenImage coupon = AssetGenImage('assets/coupon.png');
   static const AssetGenImage search = AssetGenImage('assets/search.png');
+  static const AssetGenImage unInstall = AssetGenImage('assets/uninstall.png');
   static const AssetGenImage correctIconWithDot =
       AssetGenImage('assets/correctDot.png');
   static const AssetGenImage orderPlace =
@@ -204,6 +205,7 @@ class Assets {
         editWhite,
         eggNoodles,
         eggs,
+        unInstall,
         eggsMilkButterCheese,
         eggsRed,
         email,

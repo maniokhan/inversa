@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/assets/fonts.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
+import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
@@ -66,19 +68,19 @@ class OtherExpensesScreen extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
-            trailing: CommonCard(
+            trailing: SizedBox(
               height: 38,
-              width: 104,
-              showBorder: true,
-              showShadow: false,
-              backgroundColor: const Color.fromRGBO(13, 34, 63, 0.04),
-              customRadius: BorderRadius.circular(6),
-              padding: const EdgeInsets.all(0),
-              alignment: Alignment.center,
-              child: const AppText.paragraphI14(
-                "Add Price",
-                fontWeight: FontWeight.w500,
-                color: ConfigColors.slateGray,
+              width: 110,
+              child: CommonTextField(
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
               ),
             ),
           ),
@@ -98,19 +100,19 @@ class OtherExpensesScreen extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
-            trailing: CommonCard(
+            trailing: SizedBox(
               height: 38,
-              width: 104,
-              showBorder: true,
-              showShadow: false,
-              backgroundColor: const Color.fromRGBO(13, 34, 63, 0.04),
-              customRadius: BorderRadius.circular(6),
-              padding: const EdgeInsets.all(0),
-              alignment: Alignment.center,
-              child: const AppText.paragraphI14(
-                "Add Price",
-                fontWeight: FontWeight.w500,
-                color: ConfigColors.slateGray,
+              width: 110,
+              child: CommonTextField(
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
               ),
             ),
           ),
@@ -130,19 +132,19 @@ class OtherExpensesScreen extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
-            trailing: CommonCard(
+            trailing: SizedBox(
               height: 38,
-              width: 104,
-              showBorder: true,
-              showShadow: false,
-              backgroundColor: const Color.fromRGBO(13, 34, 63, 0.04),
-              customRadius: BorderRadius.circular(6),
-              padding: const EdgeInsets.all(0),
-              alignment: Alignment.center,
-              child: const AppText.paragraphI14(
-                "\$23,400",
-                fontWeight: FontWeight.w500,
-                color: ConfigColors.slateGray,
+              width: 110,
+              child: CommonTextField(
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
               ),
             ),
           ),
@@ -162,19 +164,19 @@ class OtherExpensesScreen extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
-            trailing: CommonCard(
+            trailing: SizedBox(
               height: 38,
-              width: 104,
-              showBorder: true,
-              showShadow: false,
-              backgroundColor: const Color.fromRGBO(13, 34, 63, 0.04),
-              customRadius: BorderRadius.circular(6),
-              padding: const EdgeInsets.all(0),
-              alignment: Alignment.center,
-              child: const AppText.paragraphI14(
-                "Add Price",
-                fontWeight: FontWeight.w500,
-                color: ConfigColors.slateGray,
+              width: 110,
+              child: CommonTextField(
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
               ),
             ),
           ),
@@ -194,19 +196,19 @@ class OtherExpensesScreen extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
-            trailing: CommonCard(
+            trailing: SizedBox(
               height: 38,
-              width: 104,
-              showBorder: true,
-              showShadow: false,
-              backgroundColor: const Color.fromRGBO(13, 34, 63, 0.04),
-              customRadius: BorderRadius.circular(6),
-              padding: const EdgeInsets.all(0),
-              alignment: Alignment.center,
-              child: const AppText.paragraphI14(
-                "Add Price",
-                fontWeight: FontWeight.w500,
-                color: ConfigColors.slateGray,
+              width: 110,
+              child: CommonTextField(
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
               ),
             ),
           ),
@@ -218,7 +220,6 @@ class OtherExpensesScreen extends StatelessWidget {
               showShadow: false,
               backgroundColor: ConfigColors.lightRed,
               padding: const EdgeInsets.all(10),
-              // TODO : change icon with bank icon
               child: Assets.other.image(height: 25),
             ),
             title: const Row(
@@ -233,19 +234,19 @@ class OtherExpensesScreen extends StatelessWidget {
                 Icon(Icons.info, color: ConfigColors.primary2),
               ],
             ),
-            trailing: CommonCard(
+            trailing: SizedBox(
               height: 38,
-              width: 104,
-              showBorder: true,
-              showShadow: false,
-              backgroundColor: const Color.fromRGBO(13, 34, 63, 0.04),
-              customRadius: BorderRadius.circular(6),
-              padding: const EdgeInsets.all(0),
-              alignment: Alignment.center,
-              child: const AppText.paragraphI14(
-                "Add Price",
-                fontWeight: FontWeight.w500,
-                color: ConfigColors.slateGray,
+              width: 110,
+              child: CommonTextField(
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
               ),
             ),
           ),

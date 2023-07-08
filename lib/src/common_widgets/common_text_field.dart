@@ -67,8 +67,9 @@ class CommonTextField extends StatefulWidget {
     this.onFieldSubmitted,
     this.focusNode,
     this.autofillHint,
+    this.hintStyle,
   });
-
+  final TextStyle? hintStyle;
   final String? Function(String?)? validator;
   final String? hintText;
   final String? errorMessage;
@@ -206,12 +207,13 @@ class _CommonTextFieldState extends State<CommonTextField> {
           height: 0,
           fontFamily: FontFamily.montserrat,
         ),
-        hintStyle: const TextStyle(
-          fontFamily: FontFamily.montserrat,
-          fontSize: 16,
-          color: ConfigColors.blueGrey,
-          fontWeight: FontWeight.w400,
-        ),
+        hintStyle: widget.hintStyle ??
+            const TextStyle(
+              fontFamily: FontFamily.montserrat,
+              fontSize: 16,
+              color: ConfigColors.blueGrey,
+              fontWeight: FontWeight.w400,
+            ),
         filled: true,
         fillColor: MaterialStateColor.resolveWith((Set<MaterialState> states) {
           if (inputIsValid != null && inputIsValid!) {

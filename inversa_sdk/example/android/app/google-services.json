@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "681641730456",
+    "project_id": "inversa-54b39",
+    "storage_bucket": "inversa-54b39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681641730456:android:e9431f3b5c990eb648cbed",
+        "android_client_info": {
+          "package_name": "com.example.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681641730456-1vnmt861vk7rn9ig94v4rd0j90g3a1ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-jyZtmIHC8QecOisdoIi6WkWecpqSSBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681641730456-1vnmt861vk7rn9ig94v4rd0j90g3a1ha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
