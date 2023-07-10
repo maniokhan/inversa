@@ -1,5 +1,3 @@
-// TODO (abubakar): get total expense by name
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<double> getTotalExpenseByExpenseName(
@@ -13,12 +11,10 @@ Future<double> getTotalExpenseByExpenseName(
         .where('expense_name', isEqualTo: expenseName)
         .get();
 
-    snapshot.docs.forEach((doc) {
+    for (var doc in snapshot.docs) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      if (data != null) {
-        totalPrice += data['amount'] ?? 0;
-      }
-    });
+      totalPrice += data['amount'] ?? 0;
+    }
 
     print('Total price of $expenseName: $totalPrice');
   } on FirebaseException catch (e) {
