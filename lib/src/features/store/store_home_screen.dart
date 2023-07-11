@@ -4,7 +4,7 @@ import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/client/order_placed_screen.dart';
-import 'package:inversaapp/src/features/education/education_screen.dart';
+import 'package:inversaapp/src/features/education/presentation/education/education_screen.dart';
 import 'package:inversaapp/src/features/store/inventory/inventory_home_screen.dart';
 import 'package:inversaapp/src/features/store/other_expenses_screen.dart';
 import 'package:inversaapp/src/features/store/statistics_screen.dart';

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:inversa_sdk/inversa_sdk.dart' as sdk;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/authentication/presentation/authentication_provider.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class SignupScreen extends StatefulWidget {
+class SignupScreen extends ConsumerStatefulWidget {
   static Route<SignupScreen> route() {
     return MaterialPageRoute(builder: (context) => const SignupScreen());
   }
@@ -16,10 +17,10 @@ class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _SignupScreenState extends ConsumerState<SignupScreen> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
 
@@ -41,7 +42,7 @@ class _SignupScreenState extends State<SignupScreen> {
           backgroundColor: const Color(0xFF2AB0B6),
           elevation: 0,
           leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.pop(context),
             icon: const Icon(
               Icons.arrow_back_ios_new_outlined,
               color: ConfigColors.white,
@@ -117,12 +118,6 @@ class _SignupScreenState extends State<SignupScreen> {
             controller: _passwordController,
           ),
           gapH20,
-          // CommonTextFieldTitle(
-          //   leading: Assets.lock.svg(),
-          //   text: 'Confirm Password',
-          // ),
-          // gapH8,
-          // CommonTextField(controller: _passwordController),
           gapH26,
           Row(
             children: [
@@ -158,31 +153,22 @@ class _SignupScreenState extends State<SignupScreen> {
                   ],
                 ),
               ),
-              // const AppText.paragraphI14(
-              //   'I agree with the terms and conditions',
-              //   fontWeight: FontWeight.w500,
-              //   color: ConfigColors.slateGray,
-              // ),
             ],
           ),
           gapH48,
           CommonButton(
             text: "Register",
             onPress: () async {
-              await createAccountUser();
+              await ref.read(authenticationProvider.notifier).resgiterAccount(
+                _emailController.text,
+                _passwordController.text,
+                {'name': 'test'},
+              );
             },
           ),
           gapH32,
         ],
       ),
-    );
-  }
-
-  createAccountUser() async {
-    await sdk.createNewAccount(
-      _emailController.text,
-      _passwordController.text,
-      {'name': 'ali'},
     );
   }
 }

@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/authentication/presentation/authentication_provider.dart';
 import 'package:inversaapp/src/features/authentication/presentation/change_password_screen.dart';
 import 'package:inversaapp/src/features/store/store_business_profile_form_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class StoreProfileScreen extends StatelessWidget {
+class StoreProfileScreen extends ConsumerWidget {
   static Route<StoreProfileScreen> route() {
     return MaterialPageRoute(builder: (context) => const StoreProfileScreen());
   }
@@ -18,13 +20,13 @@ class StoreProfileScreen extends StatelessWidget {
   const StoreProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back_ios_new_outlined,
             color: ConfigColors.white,
@@ -187,7 +189,7 @@ class StoreProfileScreen extends StatelessWidget {
           ),
           gapH12,
           CommonListTile(
-            onTap: () => showCupertinoDialog(context),
+            onTap: () => showCupertinoDialog(context, ref),
             leading: CommonCard(
               customRadius: BorderRadius.circular(10),
               showShadow: false,
@@ -210,7 +212,7 @@ class StoreProfileScreen extends StatelessWidget {
   }
 }
 
-void showCupertinoDialog(BuildContext context) {
+void showCupertinoDialog(BuildContext context, WidgetRef ref) {
   showDialog(
     context: context,
     builder: ((context) {
@@ -241,9 +243,9 @@ void showCupertinoDialog(BuildContext context) {
               color: ConfigColors.primary2,
               fontWeight: FontWeight.w500,
             ),
-            onPressed: () {
-              // Perform some action
-              Navigator.of(context).pop(); // Close the dialog
+            onPressed: () async {
+              ref.read(authenticationProvider.notifier).logoutAccount();
+              Navigator.of(context).pop();
             },
           ),
         ],

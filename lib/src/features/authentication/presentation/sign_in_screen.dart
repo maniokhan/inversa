@@ -1,8 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:inversa_sdk/inversa_sdk.dart' as sdk;
-// import 'package:inversa_sdk/src/features/authentication/login_with_firebase.dart';
-// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
@@ -10,11 +7,12 @@ import 'package:inversaapp/src/common_widgets/common_password.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/authentication/presentation/signup_screen.dart';
+import 'package:inversaapp/src/features/authentication/presentation/authentication_notifier.dart';
+import 'package:inversaapp/src/features/authentication/presentation/authentication_provider.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static Route<LoginScreen> route() {
     return MaterialPageRoute(builder: (context) => const LoginScreen());
   }
@@ -22,68 +20,12 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   late final _emailController = TextEditingController();
   late final _passwordController = TextEditingController();
-  bool isLoggedIn = false;
-
-  // void _logInWithFacebook() async {
-  //   setState(() {
-  //     isLoggedIn = true;
-  //   });
-  //   try {
-  //     // final result = await FacebookAuth.instance.login();
-  //     // final userData = await FacebookAuth.instance.getUserData();
-  //     // final facebookAuthCredential =
-  //     //     FacebookAuthProvider.credential(result.accessToken!.token);
-  //     // await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-
-  //     Navigator.of(context).push(
-  //       MaterialPageRoute(
-  //         builder: (context) => const StoreHomeScreen(),
-  //       ),
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     Navigator.pop(context);
-  //     print('Error: $e');
-
-  //     showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return AlertDialog(
-  //           content: Text(e.toString(),
-  //               style: const TextStyle(color: Colors.black, fontSize: 15)),
-  //           contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-  //         );
-  //       },
-  //     );
-  //   } finally {
-  //     setState(() {
-  //       isLoggedIn = false;
-  //     });
-  //   }
-  // }
-
-  // Future<void> signInWithFirebase() async {
-  //   try {
-  //     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //       email: _emailController.text,
-  //       password: _passwordController.text,
-  //     );
-
-  //     final info = credential.additionalUserInfo!.username;
-  //     print("username: $info");
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       print('No user found for that email.');
-  //     } else if (e.code == 'wrong-password') {
-  //       print('Wrong password provided for that user.');
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -146,11 +88,10 @@ class _LoginScreenState extends State<LoginScreen> {
           CommonButton(
             text: "Log In",
             onPress: () async {
-              await sdk.loginWithFirebase(
-                _emailController.text,
-                _passwordController.text,
-              );
-              // await sdk.Authentication.logout();
+              await ref.read(authenticationProvider.notifier).loginAccount(
+                    _emailController.text,
+                    _passwordController.text,
+                  );
             },
           ),
           gapH20,
@@ -164,7 +105,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: ConfigColors.lightText,
               ),
               InkWell(
-                onTap: () => Navigator.push(context, SignupScreen.route()),
+                onTap: () {
+                  ref.read(authenticationProvider.notifier).changeState(
+                        AuthState.notRegistered,
+                      );
+                },
                 child: const AppText.paragraphI12(
                   "Register here",
                   fontWeight: FontWeight.w700,

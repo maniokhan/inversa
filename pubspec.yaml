@@ -24,6 +24,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   inversa_sdk:
     path: ./inversa_sdk
+  flutter_riverpod: ^2.3.6
     # git:
     #  url: git@github.com:Abubakarshaikh/inversa_sdk.git
     #  ref: main
