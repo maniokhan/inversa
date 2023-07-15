@@ -244,8 +244,10 @@ void showCupertinoDialog(BuildContext context, WidgetRef ref) {
               fontWeight: FontWeight.w500,
             ),
             onPressed: () async {
-              ref.read(authenticationProvider.notifier).logoutAccount();
-              Navigator.pop(context);
+              await ref.read(authenticationProvider.notifier).logoutAccount();
+
+              await Future.delayed(const Duration(microseconds: 200),
+                  () => Navigator.pop(context));
             },
           ),
         ],

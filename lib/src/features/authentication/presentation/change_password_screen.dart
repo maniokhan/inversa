@@ -94,7 +94,6 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                     _newPasswordController.text,
                     _confirmPasswordController.text,
                   );
-              Navigator.pop(context);
             },
           ),
         ],

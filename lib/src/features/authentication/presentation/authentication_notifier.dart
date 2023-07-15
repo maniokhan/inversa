@@ -2,7 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-enum AuthState { loggedIn, logout, notRegistered }
+enum AuthState {
+  loggedIn,
+  logout,
+  notRegistered,
+  selectRole,
+  storeLoggedIn,
+  clientLoggedIn
+}
 
 class Auth {
   final AuthState authState;
@@ -27,7 +34,7 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
   AuthenticationNotifier() : super(Auth(authState: AuthState.logout)) {
     if (FirebaseAuth.instance.currentUser != null) {
       state = Auth(
-        authState: AuthState.loggedIn,
+        authState: AuthState.selectRole,
       );
     }
   }
@@ -46,7 +53,7 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
         email: email,
         password: password,
       );
-      state = Auth(authState: AuthState.loggedIn);
+      state = Auth(authState: AuthState.selectRole);
     } catch (e) {
       throw Exception('something went wrong while login');
     } finally {
@@ -71,8 +78,11 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
 
       final String? userId = FirebaseAuth.instance.currentUser?.uid;
       data['user_id'] = userId;
+      data['address'] = "";
+      data['store_name'] = "";
+
       await FirebaseFirestore.instance.collection('user_accounts').add(data);
-      state = Auth(authState: AuthState.loggedIn);
+      state = Auth(authState: AuthState.selectRole);
     } catch (e) {
       throw Exception('something went wrong while register account');
     } finally {
