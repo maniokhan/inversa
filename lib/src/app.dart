@@ -63,10 +63,8 @@ class MyApp extends ConsumerWidget {
 
     switch (state.authState) {
       case AuthState.notRegistered:
-        log("AuthState.notRegistered");
         return const SignupScreen();
       case AuthState.loggedIn:
-        log("AuthState.loggedIn");
         return const StoreNavigationBar();
       default:
         log("default");

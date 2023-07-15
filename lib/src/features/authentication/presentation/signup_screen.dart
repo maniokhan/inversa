@@ -162,7 +162,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               await ref.read(authenticationProvider.notifier).resgiterAccount(
                 _emailController.text,
                 _passwordController.text,
-                {'name': 'test'},
+                {
+                  'name': 'test',
+                },
               );
             },
           ),

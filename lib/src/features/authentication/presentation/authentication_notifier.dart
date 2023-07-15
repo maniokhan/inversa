@@ -57,6 +57,7 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
 
   Future<void> loginWithFacebookAccount() async {}
 
+  // Register Account
   Future<void> resgiterAccount(
     String email,
     String password,
@@ -74,6 +75,8 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
       throw Exception(
         'something went wrong while login',
       );
+    } finally {
+      state = state.copyWith(isLoading: false);
     }
   }
 
@@ -84,6 +87,8 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
       state = Auth(authState: AuthState.logout);
     } catch (e) {
       throw Exception('Something went wrong while logout');
+    } finally {
+      state = state.copyWith(isLoading: false);
     }
   }
 }
