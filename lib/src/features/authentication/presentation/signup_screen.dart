@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
+import 'package:inversaapp/src/common_widgets/common_check_box.dart';
+import 'package:inversaapp/src/common_widgets/common_password.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
@@ -21,11 +23,15 @@ class SignupScreen extends ConsumerStatefulWidget {
 }
 
 class _SignupScreenState extends ConsumerState<SignupScreen> {
+  late final TextEditingController _nameController;
+  late final TextEditingController _phoneNumberController;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
 
   @override
   void initState() {
+    _nameController = TextEditingController();
+    _phoneNumberController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
 
@@ -81,7 +87,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             text: 'Name',
           ),
           gapH8,
-          const CommonTextField(
+          CommonTextField(
+            controller: _nameController,
             hintText: "Add Name",
             textInputType: TextInputType.name,
           ),
@@ -92,9 +99,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           ),
           gapH8,
           CommonTextField(
+            controller: _phoneNumberController,
             hintText: "Add Phone Number",
             textInputType: TextInputType.number,
-            controller: TextEditingController(),
           ),
           gapH20,
           CommonTextFieldTitle(
@@ -113,19 +120,19 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             text: 'Password',
           ),
           gapH8,
-          CommonTextField(
-            hintText: 'password',
+          CommonPasswordInput(
             controller: _passwordController,
           ),
           gapH20,
           gapH26,
           Row(
             children: [
-              Checkbox(
-                value: true,
-                onChanged: (value) {},
-                activeColor: ConfigColors.primary2,
-              ),
+              const CommonCheckBox(),
+              // Checkbox(
+              //   value: true,
+              //   onChanged: (value) {},
+              //   activeColor: ConfigColors.primary2,
+              // ),
               RichText(
                 text: const TextSpan(
                   style: TextStyle(
@@ -160,9 +167,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             text: "Register",
             onPress: () async {
               await ref.read(authenticationProvider.notifier).resgiterAccount(
-                _emailController.text,
-                _passwordController.text,
-                {'name': 'test'},
+                email: _emailController.text,
+                password: _passwordController.text,
+                data: {},
               );
             },
           ),

@@ -23,7 +23,7 @@ class OtherExpensesScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back_ios_new_outlined,
             color: ConfigColors.white,
@@ -63,6 +63,7 @@ class OtherExpensesScreen extends StatelessWidget {
               // TODO : change icon with bank icon
               child: Assets.rent.image(height: 25),
             ),
+            gap: 10,
             title: const AppText.paragraphI16(
               "Rent",
               fontSize: 18,
@@ -93,8 +94,9 @@ class OtherExpensesScreen extends StatelessWidget {
               backgroundColor: ConfigColors.lightPink,
               padding: const EdgeInsets.all(10),
               // TODO : change icon with bank icon
-              child: Assets.lightBulb.image(height: 25),
+              child: Assets.lightbulb.image(height: 25),
             ),
+            gap: 10,
             title: const AppText.paragraphI16(
               "Electricity",
               fontSize: 18,
@@ -127,6 +129,7 @@ class OtherExpensesScreen extends StatelessWidget {
               // TODO : change icon with bank icon
               child: Assets.waterFlash.image(height: 25),
             ),
+            gap: 10,
             title: const AppText.paragraphI16(
               "Water",
               fontSize: 18,
@@ -159,6 +162,7 @@ class OtherExpensesScreen extends StatelessWidget {
               // TODO : change icon with bank icon
               child: Assets.maintenance.image(height: 24),
             ),
+            gap: 10,
             title: const AppText.paragraphI16(
               "Maintenance",
               fontSize: 18,
@@ -191,6 +195,7 @@ class OtherExpensesScreen extends StatelessWidget {
               // TODO : change icon with bank icon
               child: Assets.employees.image(height: 25),
             ),
+            gap: 10,
             title: const AppText.paragraphI16(
               "Employees",
               fontSize: 18,
@@ -220,18 +225,27 @@ class OtherExpensesScreen extends StatelessWidget {
               showShadow: false,
               backgroundColor: ConfigColors.lightRed,
               padding: const EdgeInsets.all(10),
-              child: Assets.other.image(height: 25),
+              child: Assets.others.image(height: 25),
             ),
-            title: const Row(
+            gap: 10,
+            title: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                AppText.paragraphI16(
+                const AppText.paragraphI16(
                   "Others",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
                 gapW4,
-                Icon(Icons.info, color: ConfigColors.primary2),
+                IconButton(
+                  onPressed: () {
+                    infoDialogBox(context);
+                  },
+                  icon: const Icon(
+                    Icons.info,
+                    color: ConfigColors.primary2,
+                  ),
+                ),
               ],
             ),
             trailing: SizedBox(
@@ -313,4 +327,94 @@ class _CommonDropDownState extends State<CommonDropDown> {
       ),
     );
   }
+}
+
+infoDialogBox(BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        titlePadding: const EdgeInsets.all(6),
+        contentPadding: const EdgeInsets.only(left: 18, top: 18),
+        title: Container(
+          height: 40,
+          width: 268,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: ConfigColors.primary,
+          ),
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.info,
+                color: ConfigColors.white,
+              ),
+              gapW4,
+              AppText.paragraphI14(
+                "Information",
+                fontWeight: FontWeight.w600,
+                color: ConfigColors.white,
+              ),
+            ],
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const AppText.paragraphI16(
+              fontWeight: FontWeight.w600,
+              "Other expenses could be \nadded.",
+            ),
+            gapH18,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Assets.checkDoubleFill.svg(),
+                gapW20,
+                const AppText.paragraphI12(
+                  "Security",
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.lightText,
+                ),
+              ],
+            ),
+            gapH20,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Assets.checkDoubleFill.svg(),
+                gapW20,
+                const AppText.paragraphI12(
+                  "Bankers",
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.lightText,
+                ),
+              ],
+            ),
+            gapH20,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Assets.checkDoubleFill.svg(),
+                gapW20,
+                const AppText.paragraphI12(
+                  "Unforeseen Expenses",
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.lightText,
+                ),
+              ],
+            ),
+            gapH28,
+          ],
+        ),
+      );
+    },
+  );
 }

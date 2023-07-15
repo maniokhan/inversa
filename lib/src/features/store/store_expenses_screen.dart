@@ -4,7 +4,7 @@ import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/store/other_expenses_screen.dart';
+import 'package:inversaapp/src/features/expenses/presentation/other_expenses_screen.dart';
 import 'package:inversaapp/src/features/store/store_sale_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
@@ -24,7 +24,7 @@ class StoreExpensesScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back_ios_new_outlined,
             color: ConfigColors.white,

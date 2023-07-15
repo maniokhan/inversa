@@ -32,7 +32,7 @@ class _UserRoleScreenState extends State<UserRoleScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 23),
             child: CommonCard(
-              onTap: () => Navigator.of(context).pop(),
+              onTap: () => Navigator.pop(context),
               padding: const EdgeInsets.all(8),
               shape: BoxShape.circle,
               backgroundColor: ConfigColors.primary2,

@@ -6,7 +6,7 @@ import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/client/order_placed_screen.dart';
 import 'package:inversaapp/src/features/education/presentation/education/education_screen.dart';
 import 'package:inversaapp/src/features/store/inventory/inventory_home_screen.dart';
-import 'package:inversaapp/src/features/store/other_expenses_screen.dart';
+import 'package:inversaapp/src/features/expenses/presentation/other_expenses_screen.dart';
 import 'package:inversaapp/src/features/store/statistics_screen.dart';
 import 'package:inversaapp/src/features/store/store_restock_screen.dart';
 import 'package:inversaapp/src/features/store/store_sale_screen.dart';
@@ -203,7 +203,7 @@ class StoreHomeScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(8),
                             shape: BoxShape.circle,
                             backgroundColor: ConfigColors.backgroundGreen,
-                            child: Assets.cardIcon.svg(
+                            child: Assets.paymentcard.svg(
                               color: ConfigColors.primary2,
                             ),
                           ),

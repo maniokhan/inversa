@@ -35,10 +35,10 @@ class ListTabView extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: ConfigColors.slateGray,
           ),
-          trailing: CommonCheckBox(
-            value: true,
-            onChanged: (value) {},
-          ),
+          trailing: const CommonCheckBox(
+              // value: true,
+              // onChanged: (value) {},
+              ),
         ),
         gapH16,
         CommonListTile(
@@ -60,10 +60,10 @@ class ListTabView extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: ConfigColors.slateGray,
           ),
-          trailing: CommonCheckBox(
-            value: false,
-            onChanged: (value) {},
-          ),
+          trailing: const CommonCheckBox(
+              // value: false,
+              // onChanged: (value) {},
+              ),
         ),
         gapH16,
         CommonListTile(
@@ -85,10 +85,10 @@ class ListTabView extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: ConfigColors.slateGray,
           ),
-          trailing: CommonCheckBox(
-            value: false,
-            onChanged: (value) {},
-          ),
+          trailing: const CommonCheckBox(
+              // value: false,
+              // onChanged: (value) {},
+              ),
         ),
         gapH16,
         CommonListTile(
@@ -110,10 +110,10 @@ class ListTabView extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: ConfigColors.slateGray,
           ),
-          trailing: CommonCheckBox(
-            value: true,
-            onChanged: (value) {},
-          ),
+          trailing: const CommonCheckBox(
+              // value: true,
+              // onChanged: (value) {},
+              ),
         ),
         gapH26,
         Center(

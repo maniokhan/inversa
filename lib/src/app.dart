@@ -1,25 +1,22 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/features/authentication/presentation/authentication_notifier.dart';
-import 'package:inversaapp/src/features/authentication/presentation/authentication_provider.dart';
+import 'package:inversaapp/src/features/authentication/presentation/logged_in_provider.dart';
 import 'package:inversaapp/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:inversaapp/src/features/authentication/presentation/signup_screen.dart';
 import 'package:inversaapp/src/features/store/store_nav_bar.dart';
 import 'package:inversaapp/src/helpers/loading_screen.dart';
+import 'package:inversaapp/src/providers/is_loading_provider.dart';
 import 'package:inversaapp/src/theme/data.dart';
 import 'package:inversaapp/src/theme/theme.dart';
 
-class App extends ConsumerWidget {
+class App extends StatelessWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
-    ref.read(authenticationProvider.notifier).initAccount();
-
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       locale: const Locale('en'),
@@ -51,26 +48,24 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(authenticationProvider);
+    final AuthState state = ref.watch(loggedInProvider);
 
-    ref.listen(authenticationProvider, (previous, next) {
-      if (next.isLoading) {
+    ref.listen(isLoadingProvider, (bool? previous, bool next) {
+      if (next) {
         LoadingScreen().show(context: context, text: "Please wait");
       } else {
         LoadingScreen().hide();
       }
     });
 
-    switch (state.authState) {
-      case AuthState.notRegistered:
-        log("AuthState.notRegistered");
-        return const SignupScreen();
-      case AuthState.loggedIn:
-        log("AuthState.loggedIn");
-        return const StoreNavigationBar();
-      default:
-        log("default");
-        return const LoginScreen();
+    if (state == AuthState.loggedIn) {
+      return const StoreNavigationBar();
+    } else if (state == AuthState.logout) {
+      return const LoginScreen();
+    } else if (state == AuthState.notRegistered) {
+      return const SignupScreen();
+    } else {
+      return const LoginScreen();
     }
   }
 }

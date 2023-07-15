@@ -40,7 +40,7 @@ class _InventoryHomeScreenState extends State<InventoryHomeScreen>
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back_ios_new_outlined,
             color: ConfigColors.white,

@@ -44,7 +44,7 @@ class CategoryTabView extends StatelessWidget {
           onTap: () {
             Navigator.push(context, DairyEggScreen.route());
           },
-          image: Assets.dairyEgg.image(),
+          image: Assets.dairyAndEgg.image(),
           title: 'Dairy & Eggs',
           cardBackgroundColor: const Color(0xFFC379FF),
         ),
@@ -62,13 +62,13 @@ class CategoryTabView extends StatelessWidget {
         ),
         CommonCategoryCard(
           onTap: () {},
-          image: Assets.pantryStaple.image(),
+          image: Assets.pantryStaples.image(),
           title: 'Pantry Staples',
           cardBackgroundColor: const Color(0xFF7583FE),
         ),
         CommonCategoryCard(
           onTap: () {},
-          image: Assets.meatSeaFood.image(),
+          image: Assets.meatSeafood.image(),
           title: 'Meat & Seafood',
           cardBackgroundColor: const Color(0xFF76FFC6),
         ),

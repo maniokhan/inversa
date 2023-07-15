@@ -34,7 +34,7 @@ class ConfirmOrderPlaceScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Assets.correctIconWithDot.image(),
+                Assets.correctDot.image(),
                 const AppText.titleS24(
                   "Order Placed!",
                   fontSize: 26,

@@ -25,7 +25,7 @@ class SaleScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back_ios_new_outlined,
             color: ConfigColors.white,
@@ -194,7 +194,7 @@ class SaleScreen extends StatelessWidget {
               showShadow: false,
               backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
               padding: const EdgeInsets.all(10),
-              child: Assets.cardIcon.svg(),
+              child: Assets.paymentcard.svg(),
             ),
             title: const AppText.paragraphI16(
               "Payment by card",
@@ -215,7 +215,7 @@ class SaleScreen extends StatelessWidget {
               backgroundColor: ConfigColors.lightFerozi,
               padding: const EdgeInsets.all(10),
               //TODO: cash icon not shown
-              child: Assets.cashIcon.image(
+              child: Assets.cash.image(
                 height: 15,
                 color: ConfigColors.primary2,
               ),

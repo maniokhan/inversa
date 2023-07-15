@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
-import 'package:inversaapp/src/features/client/all_stores_screen.dart';
+import 'package:inversaapp/src/features/store/all_stores_screen.dart';
 import 'package:inversaapp/src/features/client/client_home_screen.dart';
 import 'package:inversaapp/src/features/client/client_profile_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
