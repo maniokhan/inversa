@@ -6,7 +6,7 @@ part of 'is_loading_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isLoadingHash() => r'764d9f7cbc751e8b03b7ca3c987eef520fcc63f3';
+String _$isLoadingHash() => r'18402c3ca2fe07b7b4fc8e20517a9c6d8fcc1d3e';
 
 /// See also [isLoading].
 @ProviderFor(isLoading)
