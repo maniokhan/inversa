@@ -233,7 +233,7 @@ void showCupertinoDialog(BuildContext context, WidgetRef ref) {
               fontWeight: FontWeight.w500,
             ),
             onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
+              Navigator.pop(context); // Close the dialog
             },
           ),
           CupertinoDialogAction(
@@ -245,7 +245,7 @@ void showCupertinoDialog(BuildContext context, WidgetRef ref) {
             ),
             onPressed: () async {
               ref.read(authenticationProvider.notifier).logoutAccount();
-              Navigator.of(context).pop();
+              Navigator.pop(context);
             },
           ),
         ],

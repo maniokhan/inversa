@@ -25,6 +25,7 @@ dependencies:
   inversa_sdk:
     path: ./inversa_sdk
   flutter_riverpod: ^2.3.6
+  riverpod_generator: ^2.2.3
     # git:
     #  url: git@github.com:Abubakarshaikh/inversa_sdk.git
     #  ref: main

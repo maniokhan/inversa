@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
@@ -7,13 +8,33 @@ import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class StoreBusinessProfileFormScreen extends StatelessWidget {
+class StoreBusinessProfileFormScreen extends ConsumerStatefulWidget {
   static Route<StoreBusinessProfileFormScreen> route() {
     return MaterialPageRoute(
         builder: (context) => const StoreBusinessProfileFormScreen());
   }
 
   const StoreBusinessProfileFormScreen({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _StoreBusinessProfileFormScreenState();
+}
+
+class _StoreBusinessProfileFormScreenState
+    extends ConsumerState<StoreBusinessProfileFormScreen> {
+  late final TextEditingController _storeNameController;
+  late final TextEditingController _addressController;
+  late final TextEditingController _emailController;
+
+  @override
+  void initState() {
+    _storeNameController = TextEditingController();
+    _addressController = TextEditingController();
+    _emailController = TextEditingController();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +64,8 @@ class StoreBusinessProfileFormScreen extends StatelessWidget {
             text: 'Name of Store',
           ),
           gapH8,
-          const CommonTextField(
+          CommonTextField(
+            controller: _storeNameController,
             hintText: "Add Store",
             textInputType: TextInputType.name,
           ),
@@ -53,7 +75,8 @@ class StoreBusinessProfileFormScreen extends StatelessWidget {
             text: 'Address',
           ),
           gapH8,
-          const CommonTextField(
+          CommonTextField(
+            controller: _addressController,
             hintText: "Add Address",
             textInputType: TextInputType.streetAddress,
           ),
@@ -63,7 +86,8 @@ class StoreBusinessProfileFormScreen extends StatelessWidget {
             text: 'Email',
           ),
           gapH8,
-          const CommonTextField(
+          CommonTextField(
+            controller: _emailController,
             hintText: "info@gmail.com",
             textInputType: TextInputType.emailAddress,
           ),

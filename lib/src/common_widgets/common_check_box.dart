@@ -1,24 +1,99 @@
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 
-class CommonCheckBox extends StatelessWidget {
-  final bool value;
-  final void Function(bool?)? onChanged;
+class CommonCheckBox extends StatefulWidget {
   const CommonCheckBox({
+    this.errorMessage = 'error',
+    this.autovalidateMode,
+    this.validator,
+    this.onChange,
     super.key,
-    required this.value,
-    this.onChanged,
   });
+  final String? errorMessage;
+  final AutovalidateMode? autovalidateMode;
+  final String? Function(bool?)? validator;
+  final void Function(bool?)? onChange;
+
+  @override
+  State<CommonCheckBox> createState() => _CheckboxState();
+}
+
+class _CheckboxState extends State<CommonCheckBox> {
+  bool? _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
-    return Checkbox(
-      fillColor: MaterialStateProperty.all(ConfigColors.primary),
-      side: const BorderSide(
-        color: ConfigColors.lightText,
-      ),
-      value: value,
-      onChanged: onChanged,
+    return FormField<bool>(
+      autovalidateMode: widget.autovalidateMode,
+      builder: (FormFieldState<bool> state) {
+        final double borderSideWidth = state.isValid ? 1.0 : 2.0;
+
+        return Transform.scale(
+          scale: 1.3,
+          child: Checkbox(
+            value: _isChecked,
+            activeColor: ConfigColors.primary,
+            checkColor: ConfigColors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(2),
+            ),
+            side: MaterialStateBorderSide.resolveWith(
+              (Set<MaterialState> states) {
+                if (state.hasError) {
+                  return BorderSide(
+                    width: borderSideWidth,
+                    color: ConfigColors.textRed,
+                  );
+                }
+                return BorderSide(
+                  width: borderSideWidth,
+                  color: ConfigColors.textGrey,
+                );
+              },
+            ),
+            onChanged: (bool? value) {
+              setState(() {
+                _isChecked = value;
+                state.didChange(value);
+              });
+              widget.onChange!(value);
+            },
+          ),
+        );
+      },
+      validator: (bool? value) {
+        if (widget.validator != null) {
+          return widget.validator!(value);
+        }
+        return null;
+      },
     );
   }
 }
+
+
+
+
+
+
+// class CommonCheckBox extends StatelessWidget {
+//   final bool value;
+//   final void Function(bool?)? onChanged;
+//   const CommonCheckBox({
+//     super.key,
+//     required this.value,
+//     this.onChanged,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CommonCheckBox(
+//       fillColor: MaterialStateProperty.all(ConfigColors.primary),
+//       side: const BorderSide(
+//         color: ConfigColors.lightText,
+//       ),
+//       value: value,
+//       onChanged: onChanged,
+//     );
+//   }
+// }

@@ -5,7 +5,7 @@ import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_counter.dart';
 import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/client/check_out_screen.dart';
+import 'package:inversaapp/src/features/client/checkout/check_out_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -23,7 +23,7 @@ class ShoppingCartScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back_ios_new_outlined,
             color: ConfigColors.white,

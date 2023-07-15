@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
@@ -8,12 +9,14 @@ import 'package:inversaapp/src/theme/text.dart';
 class CommonOrderPlacementCard extends StatelessWidget {
   final Widget image;
   final String title, subtitle;
-  const CommonOrderPlacementCard({
-    Key? key,
-    required this.image,
-    required this.title,
-    required this.subtitle,
-  }) : super(key: key);
+  final String price;
+  const CommonOrderPlacementCard(
+      {Key? key,
+      required this.image,
+      required this.subtitle,
+      required this.price,
+      required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +62,8 @@ class CommonOrderPlacementCard extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const AppText.paragraphI16(
-                          "\$1.99",
+                        AppText.paragraphI16(
+                          "\$$price",
                           fontWeight: FontWeight.w600,
                         ),
                         CommonCard(

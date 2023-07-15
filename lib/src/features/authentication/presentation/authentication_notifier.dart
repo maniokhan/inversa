@@ -24,13 +24,12 @@ class Auth {
 }
 
 class AuthenticationNotifier extends StateNotifier<Auth> {
-  AuthenticationNotifier() : super(Auth(authState: AuthState.logout));
-
-  Future<void> initAccount() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    state = currentUser != null
-        ? Auth(authState: AuthState.loggedIn)
-        : Auth(authState: AuthState.logout);
+  AuthenticationNotifier() : super(Auth(authState: AuthState.logout)) {
+    if (FirebaseAuth.instance.currentUser != null) {
+      state = Auth(
+        authState: AuthState.loggedIn,
+      );
+    }
   }
 
   void changeState(AuthState value) {
@@ -57,24 +56,45 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
 
   Future<void> loginWithFacebookAccount() async {}
 
-  // Register Account
-  Future<void> resgiterAccount(
-    String email,
-    String password,
-    Map<String, dynamic> data,
-  ) async {
+  // Todo (abubakar) : Register Account
+  Future<void> resgiterAccount({
+    required String email,
+    required String password,
+    required Map<String, dynamic> data,
+  }) async {
     try {
       state = state.copyWith(isLoading: true);
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      final String? userId = FirebaseAuth.instance.currentUser?.uid;
+      data['user_id'] = userId;
       await FirebaseFirestore.instance.collection('user_accounts').add(data);
       state = Auth(authState: AuthState.loggedIn);
     } catch (e) {
-      throw Exception(
-        'something went wrong while login',
-      );
+      throw Exception('something went wrong while register account');
+    } finally {
+      state = state.copyWith(isLoading: false);
+    }
+  }
+
+  Future<void> changePassword(
+    String currentPassword,
+    String newPassword,
+    String confirmPassword,
+  ) async {
+    try {
+      state = state.copyWith(isLoading: true);
+      var currentUser = FirebaseAuth.instance.currentUser;
+      if (newPassword != confirmPassword) {
+        throw "New password and confirm password do not match.";
+      }
+      await currentUser!.updatePassword(newPassword);
+      print("Password changed successfully.");
+    } catch (e) {
+      throw Exception('something went wrong while change password');
     } finally {
       state = state.copyWith(isLoading: false);
     }

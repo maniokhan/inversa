@@ -1,3 +1,7 @@
+inversa@gmail.com
+123456
+
+
 # com.inversaapp
 
 A new Flutter project.

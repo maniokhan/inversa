@@ -1,0 +1,17 @@
+[
+    {
+        "user_id": "1",
+        "created_at": "",
+        "current_rent_expense": 150.0,
+        "current_electricity_expense": 150.0,
+        "current_water_expense": 150.0,
+        "current_maintenance_expense": 150.0,
+        "current_employees_expense": 150.0,
+        "total_rent_expense": 130.0,
+        "total_electricity_expense": 130.0,
+        "total_water_expense": 130.0,
+        "total_maintenance_expense": 130.0,
+        "total_employees_expense": 130.0,
+        "total_other_expense": 130.0
+    }
+]

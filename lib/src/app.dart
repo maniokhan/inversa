@@ -18,8 +18,6 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    ref.read(authenticationProvider.notifier).initAccount();
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       locale: const Locale('en'),
@@ -63,8 +61,10 @@ class MyApp extends ConsumerWidget {
 
     switch (state.authState) {
       case AuthState.notRegistered:
+        log("AuthState.notRegistered");
         return const SignupScreen();
       case AuthState.loggedIn:
+        log("AuthState.loggedIn");
         return const StoreNavigationBar();
       default:
         log("default");

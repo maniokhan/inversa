@@ -6,7 +6,7 @@ import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_radio_button.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/client/all_stores_screen.dart';
+import 'package:inversaapp/src/features/store/all_stores_screen.dart';
 import 'package:inversaapp/src/features/client/confirm_order_placed_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
@@ -25,7 +25,7 @@ class CheckOutScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back_ios_new_outlined,
             color: ConfigColors.white,
@@ -83,7 +83,7 @@ class CheckOutScreen extends StatelessWidget {
               showShadow: false,
               backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
               padding: const EdgeInsets.all(10),
-              child: Assets.cardIcon.svg(),
+              child: Assets.paymentcard.svg(),
             ),
             title: const AppText.paragraphI16(
               "Payment by card",
@@ -106,7 +106,7 @@ class CheckOutScreen extends StatelessWidget {
               showShadow: false,
               backgroundColor: ConfigColors.backgroundGreen,
               padding: const EdgeInsets.all(10),
-              child: Assets.cashIcon.image(),
+              child: Assets.cash.image(),
             ),
             title: const AppText.paragraphI16(
               "Cash",
