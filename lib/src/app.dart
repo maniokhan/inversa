@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,7 +6,9 @@ import 'package:inversaapp/src/features/authentication/presentation/authenticati
 import 'package:inversaapp/src/features/authentication/presentation/authentication_provider.dart';
 import 'package:inversaapp/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:inversaapp/src/features/authentication/presentation/signup_screen.dart';
+import 'package:inversaapp/src/features/client/clientn_nav_bar.dart';
 import 'package:inversaapp/src/features/store/store_nav_bar.dart';
+import 'package:inversaapp/src/features/user_role_screen.dart';
 import 'package:inversaapp/src/helpers/loading_screen.dart';
 import 'package:inversaapp/src/theme/data.dart';
 import 'package:inversaapp/src/theme/theme.dart';
@@ -61,13 +61,16 @@ class MyApp extends ConsumerWidget {
 
     switch (state.authState) {
       case AuthState.notRegistered:
-        log("AuthState.notRegistered");
         return const SignupScreen();
-      case AuthState.loggedIn:
-        log("AuthState.loggedIn");
+      case AuthState.storeLoggedIn:
         return const StoreNavigationBar();
+      case AuthState.clientLoggedIn:
+        return const ClientNavigationBar();
+      case AuthState.selectRole:
+        return UserRoleScreen();
+      case AuthState.logout:
+        return const LoginScreen();
       default:
-        log("default");
         return const LoginScreen();
     }
   }

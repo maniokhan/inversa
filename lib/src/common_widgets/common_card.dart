@@ -15,6 +15,7 @@ class CommonCard extends StatelessWidget {
   final BorderRadiusGeometry? customRadius;
   final AlignmentGeometry? alignment;
   final bool showBorder;
+  final Gradient? gradient;
   final List<BoxShadow>? customBoxShadow;
   const CommonCard({
     Key? key,
@@ -30,6 +31,7 @@ class CommonCard extends StatelessWidget {
     this.customRadius,
     this.alignment,
     this.showBorder = false,
+    this.gradient,
     this.customBoxShadow,
   }) : super(key: key);
 
@@ -43,6 +45,7 @@ class CommonCard extends StatelessWidget {
         padding: padding,
         alignment: alignment,
         decoration: BoxDecoration(
+          gradient: gradient,
           shape: shape ?? BoxShape.rectangle,
           border: showBorder
               ? Border.all(

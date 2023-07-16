@@ -4,6 +4,7 @@ import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/all_stores_screen.dart';
+import 'package:inversaapp/src/features/user_role_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -14,7 +15,12 @@ class ClientHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(CupertinoIcons.line_horizontal_3, size: 26),
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(context, UserRoleScreen.route());
+          },
+          child: const Icon(CupertinoIcons.line_horizontal_3, size: 26),
+        ),
         backgroundColor: const Color(0xFF2AB0B6),
         elevation: 0,
         centerTitle: true,
@@ -88,6 +94,13 @@ class ClientHomeScreen extends StatelessWidget {
           ),
           gapH16,
           CommonCard(
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFF3CC0B8),
+                Color(0xFF12A69D),
+              ],
+              
+            ),
             height: 100,
             width: 343,
             padding: const EdgeInsets.all(24),

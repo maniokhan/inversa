@@ -1,4 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
@@ -6,20 +9,26 @@ import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_radio_button.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/store/all_stores_screen.dart';
 import 'package:inversaapp/src/features/client/confirm_order_placed_screen.dart';
+import 'package:inversaapp/src/features/orders/presentation/provider/order_notifier_provider.dart';
+import 'package:inversaapp/src/features/store/all_stores_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class CheckOutScreen extends StatelessWidget {
-  static Route<CheckOutScreen> route() {
-    return MaterialPageRoute(builder: (context) => const CheckOutScreen());
-  }
+class CheckOutScreen extends ConsumerWidget {
+  final double subTotal;
+  final int totalItem;
+  final Iterable<Map<String, dynamic>> products;
 
-  const CheckOutScreen({super.key});
+  const CheckOutScreen({
+    Key? key,
+    required this.products,
+    required this.subTotal,
+    required this.totalItem,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
@@ -120,16 +129,16 @@ class CheckOutScreen extends StatelessWidget {
             ),
           ),
           gapH24,
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppText.paragraphI14(
+              const AppText.paragraphI14(
                 "Price Details ",
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
               ),
               AppText.paragraphI14(
-                "Total Item (03) ",
+                "Total Item(0$totalItem)",
                 fontWeight: FontWeight.w600,
                 color: ConfigColors.primary2,
               ),
@@ -143,24 +152,24 @@ class CheckOutScreen extends StatelessWidget {
             showBorder: true,
             customRadius: BorderRadius.circular(8),
             backgroundColor: ConfigColors.backgroundGreen,
-            child: const Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     AppText.paragraphI16(
-                      "Price (3 Items)",
+                      "Price ($totalItem Items)",
                       fontWeight: FontWeight.w500,
                     ),
                     AppText.paragraphI16(
-                      "\$702 ",
+                      "\$$subTotal ",
                       fontWeight: FontWeight.w600,
                       color: ConfigColors.primary2,
                     ),
                   ],
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     AppText.paragraphI16(
@@ -178,18 +187,18 @@ class CheckOutScreen extends StatelessWidget {
             ),
           ),
           gapH64,
-          const CommonDottedBorderCard(
+          CommonDottedBorderCard(
             backgroundColor: ConfigColors.backgroundGreen,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppText.paragraphI16(
+                const AppText.paragraphI16(
                   "Total Amount ",
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
                 ),
                 AppText.paragraphI16(
-                  "\$702 ",
+                  "\$$subTotal ",
                   fontWeight: FontWeight.w600,
                   color: ConfigColors.primary2,
                   fontSize: 18,
@@ -199,7 +208,19 @@ class CheckOutScreen extends StatelessWidget {
           ),
           gapH26,
           CommonButton(
-            onPress: () {
+            onPress: () async {
+              final order = {
+                "created_at": FieldValue.serverTimestamp(),
+                "quantity": "",
+                "store_id": "",
+                "subtotal": "",
+                "total": "",
+              };
+
+              ref.read(ordersNotifierProvider.notifier).submitOrder(
+                    data: order,
+                    products: products,
+                  );
               Navigator.push(context, ConfirmOrderPlaceScreen.route());
             },
             text: "Order Placed",

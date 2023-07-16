@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/orders/data/order_provider.dart';
-import 'package:inversaapp/src/features/orders/presentation/order_details_screen.dart';
+import 'package:inversaapp/src/features/orders/presentation/provider/order_provider.dart';
+import 'package:inversaapp/src/features/orders/presentation/screens/order_details_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 

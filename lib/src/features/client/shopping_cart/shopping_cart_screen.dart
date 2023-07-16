@@ -6,8 +6,8 @@ import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_counter.dart';
 import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/client/checkout/check_out_screen.dart';
 import 'package:inversaapp/src/features/client/shopping_cart/shopping_cart_provider.dart';
+import 'package:inversaapp/src/features/orders/presentation/screens/check_out_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -20,6 +20,7 @@ class ShoppingCartScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    double subtotal = 0;
     final shoopingCart = ref.watch(shoppingCartProvider);
     return Scaffold(
       appBar: AppBar(
@@ -41,6 +42,9 @@ class ShoppingCartScreen extends ConsumerWidget {
       ),
       body: shoopingCart.when(
         data: (data) {
+          for (var product in data) {
+            subtotal += product["price"];
+          }
           return Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
             child: Column(
@@ -66,11 +70,6 @@ class ShoppingCartScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                // AppText.paragraphS16(
-                //   "Total Items (${data.length})",
-                //   fontSize: 18,
-                //   fontWeight: FontWeight.w600,
-                // ),
                 gapH24,
                 Expanded(
                   child: ListView.separated(
@@ -135,19 +134,19 @@ class ShoppingCartScreen extends ConsumerWidget {
                     },
                   ),
                 ),
-                gapH96,
-                const CommonDottedBorderCard(
+                gapH32,
+                CommonDottedBorderCard(
                   backgroundColor: ConfigColors.backgroundGreen,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      AppText.paragraphI16(
+                      const AppText.paragraphI16(
                         "Subtotal ",
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
                       AppText.paragraphI16(
-                        "\$702 ",
+                        "\$$subtotal ",
                         fontWeight: FontWeight.w600,
                         color: ConfigColors.primary2,
                         fontSize: 18,
@@ -158,7 +157,15 @@ class ShoppingCartScreen extends ConsumerWidget {
                 gapH28,
                 CommonButton(
                   onPress: () {
-                    Navigator.push(context, CheckOutScreen.route());
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return CheckOutScreen(
+                          products: data,
+                          subTotal: subtotal,
+                          totalItem: data.length,
+                        );
+                      },
+                    ));
                   },
                   text: "Go to Checkout",
                 ),
@@ -177,188 +184,6 @@ class ShoppingCartScreen extends ConsumerWidget {
           );
         },
       ),
-
-      // body: ListView(
-      //   padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
-      //   children: [
-      //     const AppText.paragraphS16(
-      //       "Total Items (03)",
-      //       fontSize: 18,
-      //       fontWeight: FontWeight.w600,
-      //     ),
-      //     gapH24,
-      //     CommonCard(
-      //       height: 91,
-      //       width: 343,
-      //       padding: const EdgeInsets.all(10),
-      //       customRadius: BorderRadius.circular(16),
-      //       child: Row(
-      //         children: [
-      //           CommonCard(
-      //             height: 71,
-      //             width: 76,
-      //             padding: const EdgeInsets.all(10),
-      //             backgroundColor: const Color(0xFFf2f2f2),
-      //             child: Assets.oilBottle.image(),
-      //           ),
-      //           gapW16,
-      //           Expanded(
-      //             child: Column(
-      //               mainAxisAlignment: MainAxisAlignment.center,
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               children: [
-      //                 const AppText.paragraphS16(
-      //                   "Product Name",
-      //                   fontSize: 18,
-      //                   fontWeight: FontWeight.w600,
-      //                 ),
-      //                 gapH4,
-      //                 Row(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     const AppText.paragraphS16(
-      //                       "\$234",
-      //                       fontWeight: FontWeight.w600,
-      //                       color: ConfigColors.primary2,
-      //                     ),
-      //                     CommonCounter(
-      //                       value: '00',
-      //                       onMinus: () {},
-      //                       onPlus: () {},
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ],
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //     gapH16,
-      //     CommonCard(
-      //       height: 91,
-      //       width: 343,
-      //       padding: const EdgeInsets.all(10),
-      //       customRadius: BorderRadius.circular(16),
-      //       child: Row(
-      //         children: [
-      //           CommonCard(
-      //             height: 71,
-      //             width: 76,
-      //             padding: const EdgeInsets.all(10),
-      //             backgroundColor: const Color(0xFFf2f2f2),
-      //             child: Assets.banana.image(),
-      //           ),
-      //           gapW16,
-      //           Expanded(
-      //             child: Column(
-      //               mainAxisAlignment: MainAxisAlignment.center,
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               children: [
-      //                 const AppText.paragraphS16(
-      //                   "Product Name",
-      //                   fontSize: 18,
-      //                   fontWeight: FontWeight.w600,
-      //                 ),
-      //                 gapH4,
-      //                 Row(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     const AppText.paragraphS16(
-      //                       "\$234",
-      //                       fontWeight: FontWeight.w600,
-      //                       color: ConfigColors.primary2,
-      //                     ),
-      //                     CommonCounter(
-      //                       value: '00',
-      //                       onMinus: () {},
-      //                       onPlus: () {},
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ],
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //     gapH16,
-      //     CommonCard(
-      //       height: 91,
-      //       width: 343,
-      //       padding: const EdgeInsets.all(10),
-      //       customRadius: BorderRadius.circular(16),
-      //       child: Row(
-      //         children: [
-      //           CommonCard(
-      //             height: 71,
-      //             width: 76,
-      //             padding: const EdgeInsets.all(10),
-      //             backgroundColor: const Color(0xFFf2f2f2),
-      //             child: Assets.nescafeCoffee.image(),
-      //           ),
-      //           gapW16,
-      //           Expanded(
-      //             child: Column(
-      //               mainAxisAlignment: MainAxisAlignment.center,
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               children: [
-      //                 const AppText.paragraphS16(
-      //                   "Product Name",
-      //                   fontSize: 18,
-      //                   fontWeight: FontWeight.w600,
-      //                 ),
-      //                 gapH4,
-      //                 Row(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     const AppText.paragraphS16(
-      //                       "\$234",
-      //                       fontWeight: FontWeight.w600,
-      //                       color: ConfigColors.primary2,
-      //                     ),
-      //                     CommonCounter(
-      //                       value: '00',
-      //                       onMinus: () {},
-      //                       onPlus: () {},
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ],
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //     gapH96,
-      //     const CommonDottedBorderCard(
-      //       backgroundColor: ConfigColors.backgroundGreen,
-      //       child: Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           AppText.paragraphI16(
-      //             "Subtotal ",
-      //             fontWeight: FontWeight.w600,
-      //             fontSize: 18,
-      //           ),
-      //           AppText.paragraphI16(
-      //             "\$702 ",
-      //             fontWeight: FontWeight.w600,
-      //             color: ConfigColors.primary2,
-      //             fontSize: 18,
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //     gapH28,
-      //     CommonButton(
-      //       onPress: () {
-      //         Navigator.push(context, CheckOutScreen.route());
-      //       },
-      //       text: "Go to Checkout",
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

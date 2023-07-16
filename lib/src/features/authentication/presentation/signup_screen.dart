@@ -128,11 +128,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           Row(
             children: [
               const CommonCheckBox(),
-              // Checkbox(
-              //   value: true,
-              //   onChanged: (value) {},
-              //   activeColor: ConfigColors.primary2,
-              // ),
               RichText(
                 text: const TextSpan(
                   style: TextStyle(

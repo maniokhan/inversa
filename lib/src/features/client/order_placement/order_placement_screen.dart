@@ -5,8 +5,8 @@ import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_order_placement_card.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/client/shopping_cart/shopping_cart_screen.dart';
 import 'package:inversaapp/src/features/client/order_placement/data/all_products_provider.dart';
+import 'package:inversaapp/src/features/client/shopping_cart/shopping_cart_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -47,98 +47,56 @@ class OrderPlacementScreen extends ConsumerWidget {
           gapW16,
         ],
       ),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 24, 16, 24),
-            child: CommonTextField(
-              prefixIcon: Icons.search,
-              hintText: 'Search',
-              suffixIcon: Icons.close,
-            ),
-          ),
-          gapH16,
-          Expanded(
-            child: products.when(
-              data: (data) {
-                return GridView.builder(
-                  itemCount: data.length,
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    childAspectRatio: 3 / 4,
+      body: products.when(
+        data: (data) {
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+            child: Column(
+              children: [
+                const CommonTextField(
+                  prefixIcon: Icons.search,
+                  hintText: 'Search',
+                  suffixIcon: Icons.close,
+                ),
+                gapH16,
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: data.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      childAspectRatio: 3 / 4,
+                    ),
+                    itemBuilder: (context, index) {
+                      final product = data.elementAt(index);
+                      return CommonOrderPlacementCard(
+                        image: Assets.eggNoodles.image(height: 80),
+                        title: product['name'],
+                        subtitle: product['quantity'],
+                        price: product['price'],
+                      );
+                    },
                   ),
-                  itemBuilder: (context, index) {
-                    final product = data.elementAt(index);
-
-                    return CommonOrderPlacementCard(
-                      image: Assets.eggNoodles.image(height: 80),
-                      title: product['name'],
-                      subtitle: product['quantity'],
-                      price: product['price'],
-                    );
-                  },
-                );
-              },
-              error: (error, stackTrace) {
-                return const Center(
-                  child: Icon(Icons.error),
-                );
-              },
-              loading: () {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: ConfigColors.primary,
-                  ),
-                );
-              },
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        },
+        error: (error, stackTrace) {
+          return const Center(
+            child: Icon(Icons.error),
+          );
+        },
+        loading: () {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: ConfigColors.primary,
+            ),
+          );
+        },
       ),
     );
   }
 }
-
-// GridView.count(
-//               padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-//               shrinkWrap: true,
-//               crossAxisCount: 2,
-//               mainAxisSpacing: 12,
-//               crossAxisSpacing: 12,
-//               childAspectRatio: 3 / 4,
-//               children: [
-//                 CommonOrderPlacementCard(
-//                   image: Assets.coke.image(height: 80),
-//                   title: "Diet coke drink",
-//                   subtitle: "355 ml",
-//                 ),
-//                 CommonOrderPlacementCard(
-//                   image: Assets.eggs.image(),
-//                   title: "Egg chicken white",
-//                   subtitle: "6 pieces",
-//                 ),
-//                 CommonOrderPlacementCard(
-//                   image: Assets.eggsRed.image(),
-//                   title: "Egg chicken red",
-//                   subtitle: "6 pieces",
-//                 ),
-//                 CommonOrderPlacementCard(
-//                   image: Assets.eggNoodles.image(height: 70),
-//                   title: "Egg noodles",
-//                   subtitle: "6 pieces",
-//                 ),
-//                 CommonOrderPlacementCard(
-//                   image: Assets.eggsRed.image(),
-//                   title: "Egg chicken red",
-//                   subtitle: "6 pieces",
-//                 ),
-//                 CommonOrderPlacementCard(
-//                   image: Assets.eggNoodles.image(height: 70),
-//                   title: "Egg noodles",
-//                   subtitle: "6 pieces",
-//                 ),
-//               ],
-//             ),
