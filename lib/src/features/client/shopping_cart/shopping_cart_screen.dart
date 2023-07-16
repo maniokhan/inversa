@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_counter.dart';
+import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/client/checkout/check_out_screen.dart';
 import 'package:inversaapp/src/features/client/shopping_cart/shopping_cart_provider.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
@@ -43,15 +46,36 @@ class ShoppingCartScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.paragraphS16(
-                  "Total Items (${data.length})",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w500,
+                      color: ConfigColors.slateGray,
+                      fontSize: 18,
+                    ),
+                    text: 'Total Items ',
+                    children: [
+                      TextSpan(
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: ConfigColors.primary2,
+                        ),
+                        text: '(0${data.length})',
+                      ),
+                    ],
+                  ),
                 ),
-                gapH16,
+                // AppText.paragraphS16(
+                //   "Total Items (${data.length})",
+                //   fontSize: 18,
+                //   fontWeight: FontWeight.w600,
+                // ),
+                gapH24,
                 Expanded(
-                  child: ListView.builder(
+                  child: ListView.separated(
                     itemCount: data.length,
+                    separatorBuilder: (context, index) => gapH16,
                     itemBuilder: (context, index) {
                       final item = data.elementAt(index);
                       return Column(
@@ -110,6 +134,33 @@ class ShoppingCartScreen extends ConsumerWidget {
                       );
                     },
                   ),
+                ),
+                gapH96,
+                const CommonDottedBorderCard(
+                  backgroundColor: ConfigColors.backgroundGreen,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppText.paragraphI16(
+                        "Subtotal ",
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                      AppText.paragraphI16(
+                        "\$702 ",
+                        fontWeight: FontWeight.w600,
+                        color: ConfigColors.primary2,
+                        fontSize: 18,
+                      ),
+                    ],
+                  ),
+                ),
+                gapH28,
+                CommonButton(
+                  onPress: () {
+                    Navigator.push(context, CheckOutScreen.route());
+                  },
+                  text: "Go to Checkout",
                 ),
               ],
             ),
