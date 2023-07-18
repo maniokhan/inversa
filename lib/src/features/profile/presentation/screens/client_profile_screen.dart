@@ -4,13 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
+import 'package:inversaapp/src/common_widgets/common_profile_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/change_password_screen.dart';
-import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
-import 'package:inversaapp/src/features/profile/presentation/screens/store_business_profile_form_screen.dart';
 import 'package:inversaapp/src/features/profile/presentation/provider/user_account_provider.dart';
+import 'package:inversaapp/src/features/profile/presentation/screens/store_business_profile_form_screen.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -99,112 +100,55 @@ class ClientProfileScreen extends ConsumerWidget {
                 fontWeight: FontWeight.w600,
               ),
               gapH16,
-              // TODO: add shadow arround cards
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
+                title: 'Store',
+                icon: Assets.clientPng.image(
+                  color: const Color(0xFFC379FF),
+                  height: 26,
+                  width: 26,
+                ),
                 onTap: () => Navigator.push(context, AllStoresScreen.route()),
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
-                  padding: const EdgeInsets.all(10),
-                  child: Assets.store.svg(color: const Color(0xFFC379FF)),
-                ),
-                title: const AppText.paragraphI16(
-                  "Store",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
+                title: "Change Password",
+                icon: Assets.lock.svg(color: const Color(0xFFFF7B9A)),
                 onTap: () =>
                     Navigator.push(context, ChangePasswordScreen.route()),
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
-                  padding: const EdgeInsets.all(10),
-                  child: Assets.lock.svg(color: const Color(0xFFFF7B9A)),
-                ),
-                title: const AppText.paragraphI16(
-                  "Change Password",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: ConfigColors.lightPink,
+                title: 'Bank',
+                icon: Assets.bankLightOrange.svg(color: ConfigColors.pink700),
                 onTap: () {},
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: ConfigColors.lightPink,
-                  padding: const EdgeInsets.all(10),
-                  // TODO : change icon with bank icon
-                  child: Assets.home.svg(color: ConfigColors.pink700),
-                ),
-                title: const AppText.paragraphI16(
-                  "Bank",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: ConfigColors.backgroundGreen,
+                title: "Help",
+                icon: Assets.helpLightGreen.svg(),
                 onTap: () {},
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: ConfigColors.backgroundGreen,
-                  padding: const EdgeInsets.all(10),
-                  child: Assets.helpLightGreen.svg(),
-                ),
-                title: const AppText.paragraphI16(
-                  "Help",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: ConfigColors.lightFerozi,
+                title: "Terms & Conditions",
+                icon: Assets.termConditionFerozi.svg(),
                 onTap: () {},
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: ConfigColors.lightFerozi,
-                  padding: const EdgeInsets.all(10),
-                  child: Assets.termConditionFerozi.svg(),
-                ),
-                title: const AppText.paragraphI16(
-                  "Terms & Conditions",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                showTrailing: false,
+                backgroundColor: ConfigColors.backgroundRed,
+                title: 'Log out',
+                icon: Assets.logoutLightRed.svg(),
                 onTap: () => showCupertinoDialog(context, ref),
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: ConfigColors.backgroundRed,
-                  padding: const EdgeInsets.all(10),
-                  child: Assets.logoutLightRed.svg(),
-                ),
-                title: const AppText.paragraphI16(
-                  "Log Out",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: ConfigColors.whatsapp,
-                ),
-                trailing: const Text(''),
               ),
               gapH32,
+              
             ],
           );
         },
@@ -221,7 +165,7 @@ class ClientProfileScreen extends ConsumerWidget {
   }
 }
 
-void showCupertinoDialog(BuildContext context, ref) {
+void showCupertinoDialog(BuildContext context, WidgetRef ref) {
   showDialog(
     context: context,
     builder: ((context) {
@@ -253,8 +197,9 @@ void showCupertinoDialog(BuildContext context, ref) {
               fontWeight: FontWeight.w500,
             ),
             onPressed: () async {
-              ref.read(authenticationProvider.notifier).logoutAccount();
-              Navigator.pop(context);
+              await ref.read(authenticationProvider.notifier).logoutAccount();
+              await Future.delayed(const Duration(microseconds: 200),
+                  () => Navigator.pop(context));
             },
           ),
         ],

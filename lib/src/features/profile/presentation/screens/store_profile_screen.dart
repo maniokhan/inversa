@@ -1,15 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
-import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
+import 'package:inversaapp/src/common_widgets/common_profile_list_tile.dart';
+import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/change_password_screen.dart';
-import 'package:inversaapp/src/features/profile/presentation/screens/store_business_profile_form_screen.dart';
 import 'package:inversaapp/src/features/profile/presentation/provider/user_account_provider.dart';
+import 'package:inversaapp/src/features/profile/presentation/screens/store_business_profile_form_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -23,20 +26,13 @@ class StoreProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final userData = ref.watch(userAccountProvider);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF2AB0B6),
-        elevation: 0,
-        centerTitle: true,
-        title: const AppText.titleS20(
-          "Store",
-          color: ConfigColors.white,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      body: userData.when(
-        data: (data) {
-          return ListView(
+    return userData.when(
+      data: (data) {
+        return CommonScaffold(
+          appBar: const CommonAppBar(
+            title: "Store",
+          ),
+          body: ListView(
             padding: const EdgeInsets.fromLTRB(16, 25, 16, 0),
             children: [
               CommonCard(
@@ -98,129 +94,66 @@ class StoreProfileScreen extends ConsumerWidget {
                 fontWeight: FontWeight.w600,
               ),
               gapH16,
-              // TODO: add shadow arround cards
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
+                title: 'Client',
+                icon: Assets.clientPng.image(
+                  color: const Color(0xFFC379FF),
+                  height: 26,
+                  width: 26,
+                ),
                 onTap: () {},
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
-                  padding: const EdgeInsets.all(6),
-                  //TODO: client image not shown error
-                  child: Assets.clientPng.image(
-                    color: const Color(0xFFC379FF),
-                    height: 26,
-                    width: 26,
-                  ),
-                ),
-                title: const AppText.paragraphI16(
-                  "Client",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
+                title: "Change Password",
+                icon: Assets.lock.svg(color: const Color(0xFFFF7B9A)),
                 onTap: () =>
                     Navigator.push(context, ChangePasswordScreen.route()),
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
-                  padding: const EdgeInsets.all(10),
-                  child: Assets.lock.svg(color: const Color(0xFFFF7B9A)),
-                ),
-                title: const AppText.paragraphI16(
-                  "Change Password",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: ConfigColors.lightPink,
+                title: 'Bank',
+                icon: Assets.bankLightOrange.svg(color: ConfigColors.pink700),
                 onTap: () {},
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: ConfigColors.lightPink,
-                  padding: const EdgeInsets.all(10),
-                  child:
-                      Assets.bankLightOrange.svg(color: ConfigColors.pink700),
-                ),
-                title: const AppText.paragraphI16(
-                  "Bank",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: ConfigColors.backgroundGreen,
+                title: "Help",
+                icon: Assets.helpLightGreen.svg(),
                 onTap: () {},
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: ConfigColors.backgroundGreen,
-                  padding: const EdgeInsets.all(10),
-                  child: Assets.helpLightGreen.svg(),
-                ),
-                title: const AppText.paragraphI16(
-                  "Help",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                backgroundColor: ConfigColors.lightFerozi,
+                title: "Terms & Conditions",
+                icon: Assets.termConditionFerozi.svg(),
                 onTap: () {},
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: ConfigColors.lightFerozi,
-                  padding: const EdgeInsets.all(10),
-                  child: Assets.termConditionFerozi.svg(),
-                ),
-                title: const AppText.paragraphI16(
-                  "Terms & Conditions",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                trailing: Assets.outlinedForwardArrow.svg(),
               ),
               gapH12,
-              CommonListTile(
+              CommonProfileListTile(
+                showTrailing: false,
+                backgroundColor: ConfigColors.backgroundRed,
+                title: 'Log out',
+                icon: Assets.logoutLightRed.svg(),
                 onTap: () => showCupertinoDialog(context, ref),
-                leading: CommonCard(
-                  customRadius: BorderRadius.circular(10),
-                  showShadow: false,
-                  backgroundColor: ConfigColors.backgroundRed,
-                  padding: const EdgeInsets.all(10),
-                  child: Assets.logoutLightRed.svg(),
-                ),
-                title: const AppText.paragraphI16(
-                  "Log Out",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: ConfigColors.whatsapp,
-                ),
-                trailing: const Text(''),
               ),
               gapH32,
             ],
-          );
-        },
-        error: (error, stackTrace) {
-          return null;
-        },
-        loading: () {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+          ),
+        );
+      },
+      error: (error, stackTrace) {
+        return const Icon(Icons.error);
+      },
+      loading: () {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }

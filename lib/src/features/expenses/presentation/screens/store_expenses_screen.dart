@@ -1,14 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
-import 'package:inversaapp/src/common_widgets/common_button.dart';
+import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
+import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/expenses/presentation/screens/other_expenses_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/store_sale_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
-import 'package:inversaapp/src/utilities/synapp_widget_size.dart';
 
 class StoreExpensesScreen extends StatelessWidget {
   static Route<StoreExpensesScreen> route() {
@@ -19,60 +20,64 @@ class StoreExpensesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF2AB0B6),
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_outlined,
-            color: ConfigColors.white,
-          ),
-        ),
-        centerTitle: true,
-        title: const AppText.titleS20(
-          "Store",
-          color: ConfigColors.white,
-          fontWeight: FontWeight.w600,
-        ),
+    return CommonScaffold(
+      appBar: const CommonAppBar(
+        title: "Store",
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 32),
         children: [
-          //TODO: Refactor this card same as design also button
           CommonCard(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            height: 117,
+            image: const DecorationImage(
+              image: AssetImage("assets/background_img.png"),
+              fit: BoxFit.cover,
+            ),
+            padding: const EdgeInsets.fromLTRB(16, 30, 21, 24),
             customRadius: BorderRadius.circular(18),
             backgroundColor: ConfigColors.primary2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Expanded(
-                      child: AppText.paragraphI16(
-                        "Statement of Income",
-                        fontWeight: FontWeight.w600,
-                        color: ConfigColors.white,
-                      ),
+                    const AppText.paragraphI16(
+                      "Statement of Income",
+                      fontWeight: FontWeight.w600,
+                      color: ConfigColors.white,
                     ),
-                    CommonButton(
-                      verticalPaddingCustom: 8,
-                      onPress: () {},
-                      borderRadiusCustom: BorderRadius.circular(22),
-                      synappButtonColor: SynappButtonColor.secondary,
-                      text: "Download",
-                      synappWidgetSize: SynappWidgetSize.small,
+                    gapH16,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const AppText.paragraphI16(
+                          "Total : \$345",
+                          fontWeight: FontWeight.w700,
+                          color: ConfigColors.white,
+                          fontSize: 18,
+                        ),
+                        gapW8,
+                        Assets.outlinedForwardArrow.svg(color: Colors.white),
+                      ],
                     ),
                   ],
                 ),
-                const AppText.paragraphI16(
-                  "Total : \$345",
-                  fontWeight: FontWeight.w700,
-                  color: ConfigColors.white,
-                  fontSize: 18,
+                TextButton(
+                  style: TextButton.styleFrom(
+                    fixedSize: const Size(96, 30),
+                    backgroundColor: const Color(0xFF0D223F),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(22),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: const AppText.paragraphI12(
+                    "Download",
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -84,16 +89,13 @@ class StoreExpensesScreen extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
           gapH16,
-          // TODO: add shadow arround cards
           CommonListTile(
             onTap: () => Navigator.push(context, SaleScreen.route()),
             leading: CommonCard(
               customRadius: BorderRadius.circular(10),
               showShadow: false,
               backgroundColor: const Color.fromRGBO(255, 123, 154, 0.1),
-
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-              //TODO: client image not shown error
               child: Assets.totalSaleLightRed.svg(),
             ),
             title: const AppText.paragraphI16(

@@ -1,15 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/user_role_screen.dart';
 import 'package:inversaapp/src/features/education/presentation/screens/education_screen.dart';
 import 'package:inversaapp/src/features/expenses/presentation/screens/other_expenses_screen.dart';
-import 'package:inversaapp/src/features/orders/presentation/screens/orders_screen.dart';
-import 'package:inversaapp/src/features/inventory/presentation/screens/inventory_home_screen.dart';
 import 'package:inversaapp/src/features/home/presentation/screens/statistics_screen.dart';
+import 'package:inversaapp/src/features/inventory/presentation/screens/inventory_home_screen.dart';
 import 'package:inversaapp/src/features/inventory/presentation/screens/store_restock_screen.dart';
+import 'package:inversaapp/src/features/orders/presentation/screens/orders_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/store_sale_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
@@ -23,31 +24,31 @@ class StoreHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: InkWell(
-          onTap: () {
-            Navigator.push(context, UserRoleScreen.route());
-          },
-          child: const Icon(CupertinoIcons.line_horizontal_3, size: 26),
+    return CommonScaffold(
+      appBar: CommonAppBar(
+        showleading: true,
+        leading: IconButton(
+          onPressed: () => Navigator.push(context, UserRoleScreen.route()),
+          icon: Assets.images.moreIcon.image(height: 24, width: 24),
         ),
-        backgroundColor: const Color(0xFF2AB0B6),
-        elevation: 0,
-        centerTitle: true,
-        title: const AppText.titleS20(
-          'Home',
-          fontWeight: FontWeight.w600,
-          color: ConfigColors.white,
-        ),
+        title: "Home",
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 40),
         children: [
           CommonCard(
+            image: DecorationImage(
+                fit: BoxFit.cover, image: AssetImage(Assets.img.path)),
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFF011627),
+                Color(0xFF25AFB5),
+              ],
+            ),
             onTap: () => Navigator.push(context, EducationScreen.route()),
             customRadius: BorderRadius.circular(20),
-            padding: const EdgeInsets.fromLTRB(23, 30, 0, 30),
-            backgroundColor: const Color(0xFF25AFB5),
+            padding: const EdgeInsets.fromLTRB(23, 30, 32, 30),
+            // backgroundColor: const Color(0xFF25AFB5),
             showShadow: true,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,6 +104,7 @@ class StoreHomeView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             CommonCard(
+                              showShadow: false,
                               padding: const EdgeInsets.all(8),
                               shape: BoxShape.circle,
                               child: Assets.salePng.image(height: 22),
@@ -146,6 +148,7 @@ class StoreHomeView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CommonCard(
+                            showShadow: false,
                             padding: const EdgeInsets.all(8),
                             shape: BoxShape.circle,
                             child: Assets.restock.image(height: 24),

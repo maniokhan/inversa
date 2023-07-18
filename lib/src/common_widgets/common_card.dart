@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:inversaapp/src/theme/config_colors.dart';
 
 class CommonCard extends StatelessWidget {
@@ -8,6 +9,7 @@ class CommonCard extends StatelessWidget {
   final void Function()? onTap;
   final BoxShape? shape;
   final bool showShadow;
+  final DecorationImage? image; 
   final Color backgroundColor;
   final EdgeInsetsGeometry padding;
   final Color? borderColor;
@@ -24,6 +26,7 @@ class CommonCard extends StatelessWidget {
     this.onTap,
     this.shape,
     this.showShadow = true,
+    this.image,
     this.backgroundColor = ConfigColors.white,
     this.padding = const EdgeInsets.all(18),
     this.borderColor,
@@ -45,6 +48,7 @@ class CommonCard extends StatelessWidget {
         padding: padding,
         alignment: alignment,
         decoration: BoxDecoration(
+          image: image,
           gradient: gradient,
           shape: shape ?? BoxShape.rectangle,
           border: showBorder

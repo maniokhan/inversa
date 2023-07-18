@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -12,20 +13,18 @@ class ClientHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: InkWell(
-          onTap: () {},
-          child: const Icon(CupertinoIcons.line_horizontal_3, size: 26),
+    return CommonScaffold(
+      appBar: CommonAppBar(
+        showleading: true,
+        leading: IconButton(
+          onPressed: () {},
+          // onPressed: () => Navigator.push(
+          //   context,
+          //   UserRoleScreen.route(),
+          // ),
+          icon: Assets.images.moreIcon.image(height: 24, width: 24),
         ),
-        backgroundColor: const Color(0xFF2AB0B6),
-        elevation: 0,
-        centerTitle: true,
-        title: const AppText.titleS20(
-          'Client',
-          fontWeight: FontWeight.w600,
-          color: ConfigColors.white,
-        ),
+        title: "Client",
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
@@ -177,6 +176,12 @@ class ClientHomeView extends StatelessWidget {
               ),
               gapH20,
               CommonCard(
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xFF3CC0B8),
+                    Color(0xFF011627),
+                  ],
+                ),
                 height: 190,
                 width: 343,
                 backgroundColor: ConfigColors.primary2,
@@ -187,6 +192,7 @@ class ClientHomeView extends StatelessWidget {
                 child: Column(
                   children: [
                     CommonCard(
+                      showShadow: false,
                       padding: const EdgeInsets.all(0),
                       customRadius: BorderRadius.circular(6),
                       height: 31,
@@ -204,7 +210,7 @@ class ClientHomeView extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Assets.appLogo.svg(width: 160),
+                          Assets.appLogoGreen.svg(width: 160),
                           const Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -219,7 +225,7 @@ class ClientHomeView extends StatelessWidget {
                                 "300",
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
-                                color: ConfigColors.black,
+                                color: ConfigColors.primary,
                               ),
                             ],
                           ),
