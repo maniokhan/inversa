@@ -15,7 +15,7 @@ final categoryProductsProvider = StreamProvider.family
     final allProducts = event.docs.map((doc) {
       Map<String, dynamic> product = <String, dynamic>{};
       product = doc.data();
-      product["documentId"] = {"documentId": doc.id};
+      product["documentId"] = doc.id;
       return product;
     }).toList();
 

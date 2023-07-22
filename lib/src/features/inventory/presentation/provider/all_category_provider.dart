@@ -15,10 +15,10 @@ final allCategoryProvider =
       .snapshots()
       .listen((snapshot) {
     if (snapshot.docs.isNotEmpty) {
-      final allCategories = snapshot.docs.map((cate) {
+      final allCategories = snapshot.docs.map((doc) {
         Map<String, dynamic> category = <String, dynamic>{};
-        category = cate.data();
-        category["documentId"] = {"documentId": cate.id};
+        category = doc.data();
+        category["documentId"] = doc.id;
         return category;
       }).toList();
 

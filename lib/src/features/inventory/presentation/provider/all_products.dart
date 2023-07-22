@@ -16,10 +16,10 @@ final allProductsProvider =
       .where("user_id", isEqualTo: userId)
       .snapshots()
       .listen((event) {
-    final allProducts = event.docs.map((pro) {
+    final allProducts = event.docs.map((doc) {
       Map<String, dynamic> product = <String, dynamic>{};
-      product = pro.data();
-      product["documentId"] = {"documentId": pro.id};
+      product = doc.data();
+      product["documentId"] = doc.id;
       return product;
     }).toList();
 
