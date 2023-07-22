@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,15 +13,19 @@ final allCategoryProvider =
       .collection("categories")
       .where("user_id", isEqualTo: userId)
       .snapshots()
-      .listen((event) {
-    final allCategories = event.docs.map((cate) {
-      Map<String, dynamic> category = <String, dynamic>{};
-      category = cate.data();
-      category["documentId"] = {"documentId": cate.id};
-      return category;
-    }).toList();
+      .listen((snapshot) {
+    if (snapshot.docs.isNotEmpty) {
+      final allCategories = snapshot.docs.map((cate) {
+        Map<String, dynamic> category = <String, dynamic>{};
+        category = cate.data();
+        category["documentId"] = {"documentId": cate.id};
+        return category;
+      }).toList();
 
-    controller.add(allCategories);
+      controller.add(allCategories);
+    } else {
+      controller.add([]);
+    }
   });
 
   ref.onDispose(() {

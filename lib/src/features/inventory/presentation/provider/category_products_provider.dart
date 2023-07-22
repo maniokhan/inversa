@@ -12,10 +12,10 @@ final categoryProductsProvider = StreamProvider.family
       .where("category_id", isEqualTo: categoryId)
       .snapshots()
       .listen((event) {
-    final allProducts = event.docs.map((pro) {
+    final allProducts = event.docs.map((doc) {
       Map<String, dynamic> product = <String, dynamic>{};
-      product = pro.data();
-      product["documentId"] = {"documentId": pro.id};
+      product = doc.data();
+      product["documentId"] = {"documentId": doc.id};
       return product;
     }).toList();
 

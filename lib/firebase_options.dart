@@ -44,42 +44,42 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCOx6U95tVKzP8nbZMaJPyiEJKf37RdfU8',
-    appId: '1:812275202272:web:7519acb90c8dd9169cb885',
-    messagingSenderId: '812275202272',
-    projectId: 'towermarket-77c5a',
-    authDomain: 'towermarket-77c5a.firebaseapp.com',
-    storageBucket: 'towermarket-77c5a.appspot.com',
-    measurementId: 'G-C6GNTCWXZK',
+    apiKey: 'AIzaSyDcg05EpzN-cDRIljOlZPdhzJmjTzu7BGU',
+    appId: '1:381911750010:web:548fc62c87263d518672c3',
+    messagingSenderId: '381911750010',
+    projectId: 'deliverzler-ecab4',
+    authDomain: 'deliverzler-ecab4.firebaseapp.com',
+    storageBucket: 'deliverzler-ecab4.appspot.com',
+    measurementId: 'G-T8EPD2YN26',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCndrCfzhMdCFIDDkrroKlB8Zk6WoulqPo',
-    appId: '1:812275202272:android:59fbacd31e1d02129cb885',
-    messagingSenderId: '812275202272',
-    projectId: 'towermarket-77c5a',
-    storageBucket: 'towermarket-77c5a.appspot.com',
+    apiKey: 'AIzaSyCJ3Dbd_AIXDtr1aasU7xZG3G4STZF-pio',
+    appId: '1:381911750010:android:bd5e8a88baa8047c8672c3',
+    messagingSenderId: '381911750010',
+    projectId: 'deliverzler-ecab4',
+    storageBucket: 'deliverzler-ecab4.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCmA05sYgH1dU3sBZ2GjtNdkA_dfitQDN0',
-    appId: '1:812275202272:ios:bbea643c0cad01ee9cb885',
-    messagingSenderId: '812275202272',
-    projectId: 'towermarket-77c5a',
-    storageBucket: 'towermarket-77c5a.appspot.com',
-    androidClientId: '812275202272-a7qlvib7f42p0jiel7ok15re8jucmi09.apps.googleusercontent.com',
-    iosClientId: '812275202272-4b0523moj0ad6990th7o3crtr93fnols.apps.googleusercontent.com',
+    apiKey: 'AIzaSyC0fUlML2GBFXhHPYna3WVcddDM7v-M5YU',
+    appId: '1:381911750010:ios:da3485eea33022d28672c3',
+    messagingSenderId: '381911750010',
+    projectId: 'deliverzler-ecab4',
+    storageBucket: 'deliverzler-ecab4.appspot.com',
+    iosClientId:
+        '381911750010-destcvcni2mkjmhmiokb39lspq3d4snq.apps.googleusercontent.com',
     iosBundleId: 'com.abubakar.inversaapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCmA05sYgH1dU3sBZ2GjtNdkA_dfitQDN0',
-    appId: '1:812275202272:ios:575de2c653a92c529cb885',
-    messagingSenderId: '812275202272',
-    projectId: 'towermarket-77c5a',
-    storageBucket: 'towermarket-77c5a.appspot.com',
-    androidClientId: '812275202272-a7qlvib7f42p0jiel7ok15re8jucmi09.apps.googleusercontent.com',
-    iosClientId: '812275202272-18p908sdal3pqsirsjej8t2emsmrldjs.apps.googleusercontent.com',
+    apiKey: 'AIzaSyC0fUlML2GBFXhHPYna3WVcddDM7v-M5YU',
+    appId: '1:381911750010:ios:3f39170ecfa3f3ce8672c3',
+    messagingSenderId: '381911750010',
+    projectId: 'deliverzler-ecab4',
+    storageBucket: 'deliverzler-ecab4.appspot.com',
+    iosClientId:
+        '381911750010-bj1jfvusuls7jgb0722t5p6h027uhac8.apps.googleusercontent.com',
     iosBundleId: 'com.abubakar.inversaapp.RunnerTests',
   );
 }
