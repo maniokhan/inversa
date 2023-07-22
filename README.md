@@ -4,8 +4,7 @@ inversa@gmail.com
 
 # com.inversaapp
 
-A new Flutter project.
-
+A new Flutter pr
 ## Getting Started
 
 This project is a starting point for a Flutter application.
