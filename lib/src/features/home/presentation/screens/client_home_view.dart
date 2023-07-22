@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_notifier.dart';
+import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class ClientHomeView extends StatelessWidget {
+class ClientHomeView extends ConsumerWidget {
   const ClientHomeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return CommonScaffold(
       appBar: CommonAppBar(
         showleading: true,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            ref
+                .read(authenticationProvider.notifier)
+                .changeState(AuthState.selectRole);
+          },
           // onPressed: () => Navigator.push(
           //   context,
           //   UserRoleScreen.route(),

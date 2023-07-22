@@ -39,77 +39,82 @@ class OrdersScreen extends ConsumerWidget {
       ),
       body: ordersValue.when(
         data: (data) {
-          return ListView.separated(
-            itemCount: data.length,
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
-            separatorBuilder: (context, index) => gapH12,
-            itemBuilder: (context, index) {
-              final item = data.elementAt(index);
-              final DateTime createdAt =
-                  (item["created_at"] as Timestamp).toDate();
-              return CommonCard(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OrderDetailsScreen(
-                        orderId: item["order_id"],
+          if (data.isNotEmpty) {
+            return ListView.separated(
+              itemCount: data.length,
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
+              separatorBuilder: (context, index) => gapH12,
+              itemBuilder: (context, index) {
+                final item = data.elementAt(index);
+                final DateTime createdAt =
+                    (item["created_at"] as Timestamp).toDate();
+                return CommonCard(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OrderDetailsScreen(
+                          orderId: item["order_id"],
+                        ),
                       ),
-                    ),
-                  );
-                },
-                padding: const EdgeInsets.all(16),
-                customRadius: BorderRadius.circular(16),
-                child: Row(
-                  children: [
-                    CommonCard(
-                      height: 71,
-                      width: 76,
-                      padding: const EdgeInsets.all(10),
-                      backgroundColor: const Color(0xFFf2f2f2),
-                      child: Assets.oilBottle.image(),
-                    ),
-                    gapW16,
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText.paragraphS16(
-                            item["order_id"],
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          gapH4,
-                          AppText.paragraphS14(
-                            "Order Date: ${createdAt.toString().split(' ').first}",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          gapH4,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              AppText.paragraphS14(
-                                "${item["quantity"]} item's",
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: ConfigColors.primary2,
-                              ),
-                              gapW64,
-                              AppText.paragraphS16(
-                                "\$${item["subtotal"]}",
-                                fontWeight: FontWeight.w600,
-                                color: ConfigColors.primary2,
-                              ),
-                            ],
-                          ),
-                        ],
+                    );
+                  },
+                  padding: const EdgeInsets.all(16),
+                  customRadius: BorderRadius.circular(16),
+                  child: Row(
+                    children: [
+                      CommonCard(
+                        height: 71,
+                        width: 76,
+                        padding: const EdgeInsets.all(10),
+                        backgroundColor: const Color(0xFFf2f2f2),
+                        child: Assets.oilBottle.image(),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
+                      gapW16,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppText.paragraphS16(
+                              item["order_id"],
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            gapH4,
+                            AppText.paragraphS14(
+                              "Order Date: ${createdAt.toString().split(' ').first}",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            gapH4,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                AppText.paragraphS14(
+                                  "${item["quantity"]} item's",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: ConfigColors.primary2,
+                                ),
+                                gapW64,
+                                AppText.paragraphS16(
+                                  "\$${item["subtotal"]}",
+                                  fontWeight: FontWeight.w600,
+                                  color: ConfigColors.primary2,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+          return const Center(
+            child: Text("You don't recieved any order"),
           );
         },
         error: (error, stackTrace) {
