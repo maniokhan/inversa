@@ -6,8 +6,8 @@ import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_counter.dart';
 import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/shopping_cart/presentation/provider/shopping_cart_provider.dart';
-import 'package:inversaapp/src/features/orders/presentation/screens/check_out_screen.dart';
+import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_provider.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/check_out_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 

@@ -5,22 +5,26 @@ import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_order_placement_card.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/all_products_provider.dart';
-import 'package:inversaapp/src/features/shopping_cart/presentation/screens/shopping_cart_screen.dart';
+import 'package:inversaapp/src/features/store/presentation/provider/all_products_providers.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/shopping_cart_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 class OrderPlacementScreen extends ConsumerWidget {
-  static Route<OrderPlacementScreen> route() {
+  final String storeId;
+  static Route<OrderPlacementScreen> route(String id) {
     return MaterialPageRoute(
-        builder: (context) => const OrderPlacementScreen());
+        builder: (context) => OrderPlacementScreen(storeId: id));
   }
 
-  const OrderPlacementScreen({super.key});
+  const OrderPlacementScreen({
+    super.key,
+    required this.storeId,
+  });
 
   @override
   Widget build(BuildContext context, ref) {
-    final products = ref.watch(allProductsProvider);
+    final products = ref.watch(allProductsProvider(storeId));
 
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +78,7 @@ class OrderPlacementScreen extends ConsumerWidget {
                       return CommonOrderPlacementCard(
                         image: Assets.eggNoodles.image(height: 80),
                         title: product['name'],
-                        subtitle: product['quantity'],
+                        subtitle: product['quantity'].toString(),
                         price: product['price'],
                       );
                     },

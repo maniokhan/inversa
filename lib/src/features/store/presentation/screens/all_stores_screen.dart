@@ -47,7 +47,7 @@ class AllStoresScreen extends ConsumerWidget {
               return CommonListTile(
                 padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                 onTap: () =>
-                    Navigator.push(context, OrderPlacementScreen.route()),
+                    Navigator.push(context, OrderPlacementScreen.route(store["documentId"])),
                 leading: SizedBox(
                   height: 71,
                   width: 76,

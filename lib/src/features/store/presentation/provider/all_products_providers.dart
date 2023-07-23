@@ -1,19 +1,21 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// TODO (abubakar) : show on list tab
 final allProductsProvider =
-    StreamProvider.autoDispose<Iterable<Map<String, dynamic>>>((ref) {
+    StreamProvider.family.autoDispose<Iterable<Map<String, dynamic>>, String?>((
+  ref,
+  userId,
+) {
   final controller = StreamController<Iterable<Map<String, dynamic>>>();
-
-  final userId = FirebaseAuth.instance.currentUser?.uid;
 
   final sub = FirebaseFirestore.instance
       .collection("products")
-      .where("user_id", isEqualTo: userId)
+      .where(
+        "user_id",
+        isEqualTo: userId,
+      )
       .snapshots()
       .listen((event) {
     final allProducts = event.docs.map((doc) {

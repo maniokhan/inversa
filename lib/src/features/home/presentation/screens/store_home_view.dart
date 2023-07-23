@@ -8,9 +8,9 @@ import 'package:inversaapp/src/features/authentication/presentation/screens/user
 import 'package:inversaapp/src/features/education/presentation/screens/education_screen.dart';
 import 'package:inversaapp/src/features/expenses/presentation/screens/other_expenses_screen.dart';
 import 'package:inversaapp/src/features/home/presentation/screens/statistics_screen.dart';
-import 'package:inversaapp/src/features/inventory/presentation/screens/inventory_home_screen.dart';
-import 'package:inversaapp/src/features/inventory/presentation/screens/store_restock_screen.dart';
-import 'package:inversaapp/src/features/orders/presentation/screens/orders_screen.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/inventory_home_screen.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/orders_screen.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/store_restock_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/store_sale_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';

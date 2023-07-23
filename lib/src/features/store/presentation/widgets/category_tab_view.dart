@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_category_card.dart';
 import 'package:inversaapp/src/extensions/try_parse_to_int.dart';
-import 'package:inversaapp/src/features/inventory/presentation/provider/all_category_provider.dart';
-import 'package:inversaapp/src/features/inventory/presentation/screens/category_details_screen.dart';
+import 'package:inversaapp/src/features/store/presentation/provider/all_category_provider.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/category_details_screen.dart';
 // TODO (abubakar): catogory image
 
 class CategoryTabView extends ConsumerStatefulWidget {
