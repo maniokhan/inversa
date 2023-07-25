@@ -1,6 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_counter.dart';
@@ -16,7 +17,9 @@ class ShoppingCartScreen extends ConsumerWidget {
     return MaterialPageRoute(builder: (context) => const ShoppingCartScreen());
   }
 
-  const ShoppingCartScreen({super.key});
+  const ShoppingCartScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -93,7 +96,12 @@ class ShoppingCartScreen extends ConsumerWidget {
                                     width: 76,
                                     padding: const EdgeInsets.all(10),
                                     backgroundColor: const Color(0xFFf2f2f2),
-                                    child: Assets.oilBottle.image(),
+                                    child: CachedNetworkImage(
+                                      imageUrl: item['image'],
+                                      placeholder: (context, url) => Container(
+                                        color: Colors.black12,
+                                      ),
+                                    ),
                                   ),
                                   gapW16,
                                   Expanded(
@@ -104,7 +112,7 @@ class ShoppingCartScreen extends ConsumerWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         AppText.paragraphS16(
-                                          item['name'],
+                                          item['title'],
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
                                         ),

@@ -16,7 +16,6 @@ final shoppingCartProvider =
       .snapshots()
       .listen((snapshot) {
     final allItems = snapshot.docs.map((doc) => doc.data());
-
     controller.add(allItems);
   });
 

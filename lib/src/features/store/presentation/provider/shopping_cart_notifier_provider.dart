@@ -21,7 +21,7 @@ class ShoppingCartNotifierProvider extends StateNotifier<bool> {
       data['user_id'] = userId;
       await collectionRef.add(data);
     } catch (e) {
-      throw Exception('somethinf went wrong updateShoppingCart');
+      throw Exception('something went wrong updateShoppingCart');
     }
   }
 

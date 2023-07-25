@@ -11,13 +11,15 @@ class CommonOrderPlacementCard extends StatelessWidget {
   final String image;
   final String title, subtitle;
   final String price;
-  const CommonOrderPlacementCard(
-      {Key? key,
-      required this.image,
-      required this.subtitle,
-      required this.price,
-      required this.title})
-      : super(key: key);
+  final void Function()? onTap;
+  const CommonOrderPlacementCard({
+    Key? key,
+    required this.image,
+    required this.subtitle,
+    required this.price,
+    required this.title,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,7 @@ class CommonOrderPlacementCard extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                         CommonCard(
-                          onTap: () {},
+                          onTap: onTap,
                           customRadius: BorderRadius.circular(6),
                           backgroundColor: ConfigColors.primary2,
                           padding: const EdgeInsets.all(6),

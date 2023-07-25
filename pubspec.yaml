@@ -27,6 +27,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   riverpod_generator: ^2.2.3
   shared_preferences: ^2.2.0
+  badges: ^3.1.1
     # git:
     #  url: git@github.com:Abubakarshaikh/inversa_sdk.git
     #  ref: main
