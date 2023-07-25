@@ -106,6 +106,7 @@ class _StoreBusinessProfileFormScreenState
                         .updateUserAccount(
                       documentId: data["documentId"],
                       data: {
+                        'email:': _email.text,
                         'store_name': _storeName.text,
                         'address': _address.text,
                       },

@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +8,8 @@ import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_radio_button.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/store/presentation/screens/confirm_order_placed_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/order_notifier_provider.dart';
+import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_notifier_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
@@ -29,6 +28,11 @@ class CheckOutScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    ref.listen(ordersNotifierProvider, (previous, next) {
+      if (!next) {
+        Navigator.push(context, AllStoresScreen.route());
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF2AB0B6),
@@ -209,6 +213,7 @@ class CheckOutScreen extends ConsumerWidget {
           gapH26,
           CommonButton(
             onPress: () async {
+              // FIXME (abubakar) : order document value
               final order = {
                 "created_at": FieldValue.serverTimestamp(),
                 "quantity": "",
@@ -217,11 +222,18 @@ class CheckOutScreen extends ConsumerWidget {
                 "total": "",
               };
 
-              ref.read(ordersNotifierProvider.notifier).submitOrder(
-                    data: order,
-                    products: products,
-                  );
-              Navigator.push(context, ConfirmOrderPlaceScreen.route());
+              try {
+                await ref.read(ordersNotifierProvider.notifier).createOrder(
+                      data: order,
+                      products: products,
+                    );
+
+                await ref
+                    .read(shoppingCartNotifierProvider.notifier)
+                    .deleteShoppingCart();
+              } catch (e) {
+                throw Exception('something went wrong while checkout');
+              }
             },
             text: "Order Placed",
           ),

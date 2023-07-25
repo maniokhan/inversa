@@ -38,54 +38,63 @@ class CategoryDetailsScreen extends ConsumerWidget {
         ),
         body: categoryProductProvider.when(
           data: (data) {
-            return ListView.separated(
-              itemCount: data.length,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              separatorBuilder: (context, index) => gapH16,
-              itemBuilder: (context, index) {
-                final product = data.elementAt(index);
-                return CommonListTile(
-                  padding: const EdgeInsets.all(10),
-                  leading: CommonCard(
-                    height: 71,
-                    width: 76,
-                    padding: const EdgeInsets.all(12),
-                    backgroundColor: const Color(0xFFf2f2f2),
-                    child: CachedNetworkImage(imageUrl: product['image']),
-                  ),
-                  title: AppText.paragraphI16(
-                    product['name'],
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                  ),
-                  trailing: CommonCounter(
-                    value: product['quantity'].toString(),
-                    onMinus: () async {
-                      if (product["quantity"] > 0) {
+            if (data.isNotEmpty) {
+              return ListView.separated(
+                itemCount: data.length,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                separatorBuilder: (context, index) => gapH16,
+                itemBuilder: (context, index) {
+                  final product = data.elementAt(index);
+                  return CommonListTile(
+                    padding: const EdgeInsets.all(10),
+                    leading: CommonCard(
+                      height: 71,
+                      width: 76,
+                      padding: const EdgeInsets.all(12),
+                      backgroundColor: const Color(0xFFf2f2f2),
+                      child: CachedNetworkImage(imageUrl: product['image']),
+                    ),
+                    title: AppText.paragraphI16(
+                      product['name'],
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
+                    trailing: CommonCounter(
+                      value: product['quantity'].toString(),
+                      onMinus: () async {
+                        if (product["quantity"] > 0) {
+                          await ref
+                              .read(productNotifierProvider.notifier)
+                              .updateProduct(
+                            documentId: product["documentId"],
+                            data: {
+                              "quantity": product["quantity"] - 1,
+                            },
+                          );
+                        }
+                      },
+                      onPlus: () async {
                         await ref
                             .read(productNotifierProvider.notifier)
                             .updateProduct(
                           documentId: product["documentId"],
                           data: {
-                            "quantity": product["quantity"] - 1,
+                            "quantity": product["quantity"] + 1,
                           },
                         );
-                      }
-                    },
-                    onPlus: () async {
-                      await ref
-                          .read(productNotifierProvider.notifier)
-                          .updateProduct(
-                        documentId: product["documentId"],
-                        data: {
-                          "quantity": product["quantity"] + 1,
-                        },
-                      );
-                    },
-                  ),
-                );
-              },
-            );
+                      },
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Center(
+                child: AppText.paragraphI16(
+                  "No Products available in this category",
+                ),
+              );
+            }
           },
           error: (error, stackTrace) {
             return const Center(

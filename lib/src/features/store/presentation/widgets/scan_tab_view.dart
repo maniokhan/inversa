@@ -24,123 +24,129 @@ class ScanTabView extends ConsumerWidget {
 
     return allproduct.when(
       data: (data) {
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: CommonDottedBorderCard(
-                      height: 118,
-                      width: 263,
-                      borderColor: ConfigColors.lightText,
-                      strokeWidth: 0.5,
-                      onTap: () {},
-                      // padding: const EdgeInsets.all(32),
-                      customRadius: const Radius.circular(6),
-                      alignment: Alignment.center,
-                      backgroundColor: ConfigColors.backgroundGrey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CommonCard(
-                            showShadow: false,
-                            padding: const EdgeInsets.all(5),
-                            backgroundColor: ConfigColors.lightGreen,
-                            shape: BoxShape.circle,
-                            child: Assets.scanCodeLightScreen.svg(),
+        if (data.isNotEmpty) {
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: CommonDottedBorderCard(
+                        height: 118,
+                        width: 263,
+                        borderColor: ConfigColors.lightText,
+                        strokeWidth: 0.5,
+                        onTap: () {},
+                        // padding: const EdgeInsets.all(32),
+                        customRadius: const Radius.circular(6),
+                        alignment: Alignment.center,
+                        backgroundColor: ConfigColors.backgroundGrey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CommonCard(
+                              showShadow: false,
+                              padding: const EdgeInsets.all(5),
+                              backgroundColor: ConfigColors.lightGreen,
+                              shape: BoxShape.circle,
+                              child: Assets.scanCodeLightScreen.svg(),
+                            ),
+                            gapH12,
+                            const AppText.paragraphI16(
+                              "Scan code",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: ConfigColors.slateGray,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    gapW16,
+                    Expanded(
+                      child: CommonDottedBorderCard(
+                        height: 118,
+                        width: 66,
+                        borderColor: ConfigColors.lightText,
+                        strokeWidth: 0.5,
+                        onTap: () {},
+                        padding: const EdgeInsets.all(10),
+                        customRadius: const Radius.circular(6),
+                        alignment: Alignment.center,
+                        backgroundColor: ConfigColors.backgroundGrey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Assets.plusWhitePng.image(
+                              color: ConfigColors.primary2,
+                              height: 12,
+                            ),
+                            gapH8,
+                            const AppText.paragraphI16(
+                              "Add",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: ConfigColors.primary2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                gapH24,
+                Expanded(
+                  child: ListView.separated(
+                      itemCount: data.length,
+                      separatorBuilder: (context, index) => gapH16,
+                      itemBuilder: (context, index) {
+                        final product = data.elementAt(index);
+                        return CommonListTile(
+                          padding: const EdgeInsets.all(10),
+                          leading: CommonCard(
+                            height: 71,
+                            width: 76,
+                            padding: const EdgeInsets.all(10),
+                            backgroundColor: const Color(0xFFf2f2f2),
+                            child: CachedNetworkImage(
+                              imageUrl: product['image'],
+                            ),
                           ),
-                          gapH12,
-                          const AppText.paragraphI16(
-                            "Scan code",
+                          title: AppText.paragraphI16(
+                            product['name'],
                             fontWeight: FontWeight.w600,
-                            fontSize: 15,
+                            fontSize: 18,
+                          ),
+                          subTitle: const AppText.paragraphI14(
+                            "Exp Date: 10/06/2023",
+                            fontWeight: FontWeight.w400,
                             color: ConfigColors.slateGray,
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  gapW16,
-                  Expanded(
-                    child: CommonDottedBorderCard(
-                      height: 118,
-                      width: 66,
-                      borderColor: ConfigColors.lightText,
-                      strokeWidth: 0.5,
-                      onTap: () {},
-                      padding: const EdgeInsets.all(10),
-                      customRadius: const Radius.circular(6),
-                      alignment: Alignment.center,
-                      backgroundColor: ConfigColors.backgroundGrey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Assets.plusWhitePng.image(
-                            color: ConfigColors.primary2,
-                            height: 12,
-                          ),
-                          gapH8,
-                          const AppText.paragraphI16(
-                            "Add",
+                          trailing: const AppText.paragraphI16(
+                            "\$234",
                             fontWeight: FontWeight.w600,
-                            fontSize: 15,
                             color: ConfigColors.primary2,
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              gapH24,
-              Expanded(
-                child: ListView.separated(
-                    itemCount: data.length,
-                    separatorBuilder: (context, index) => gapH16,
-                    itemBuilder: (context, index) {
-                      final product = data.elementAt(index);
-                      return CommonListTile(
-                        padding: const EdgeInsets.all(10),
-                        leading: CommonCard(
-                          height: 71,
-                          width: 76,
-                          padding: const EdgeInsets.all(10),
-                          backgroundColor: const Color(0xFFf2f2f2),
-                          child: CachedNetworkImage(
-                            imageUrl: product['image'],
-                          ),
-                        ),
-                        title: AppText.paragraphI16(
-                          product['name'],
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                        subTitle: const AppText.paragraphI14(
-                          "Exp Date: 10/06/2023",
-                          fontWeight: FontWeight.w400,
-                          color: ConfigColors.slateGray,
-                        ),
-                        trailing: const AppText.paragraphI16(
-                          "\$234",
-                          fontWeight: FontWeight.w600,
-                          color: ConfigColors.primary2,
-                        ),
-                      );
-                    }),
-              ),
-              gapH48,
-              CommonButton(
-                onPress: () {
-                  Navigator.push(context, CompareScreen.route());
-                },
-                text: "Compare",
-              ),
-            ],
-          ),
-        );
+                        );
+                      }),
+                ),
+                gapH48,
+                CommonButton(
+                  onPress: () {
+                    Navigator.push(context, CompareScreen.route());
+                  },
+                  text: "Compare",
+                ),
+              ],
+            ),
+          );
+        } else {
+          return const Center(
+            child: AppText.paragraphI16("NO Products Available"),
+          );
+        }
       },
       error: (error, stackTrace) {
         return const Center(

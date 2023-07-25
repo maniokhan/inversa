@@ -10,6 +10,7 @@ import 'package:inversaapp/src/features/home/presentation/screens/client_nav_bar
 import 'package:inversaapp/src/features/home/presentation/screens/store_nav_bar.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/user_role_screen.dart';
 import 'package:inversaapp/src/helpers/loading_screen.dart';
+import 'package:inversaapp/src/providers/is_loading_provider.dart';
 import 'package:inversaapp/src/theme/data.dart';
 import 'package:inversaapp/src/theme/theme.dart';
 
@@ -51,8 +52,8 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final state = ref.watch(authenticationProvider);
 
-    ref.listen(authenticationProvider, (previous, next) {
-      if (next.isLoading) {
+    ref.listen(isLoadingProvider, (previous, next) {
+      if (next) {
         LoadingScreen().show(context: context, text: "Please wait");
       } else {
         LoadingScreen().hide();

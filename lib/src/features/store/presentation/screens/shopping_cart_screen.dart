@@ -42,136 +42,143 @@ class ShoppingCartScreen extends ConsumerWidget {
       ),
       body: shoopingCart.when(
         data: (data) {
-          for (var product in data) {
-            subtotal += product["price"];
-          }
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w500,
-                      color: ConfigColors.slateGray,
-                      fontSize: 18,
-                    ),
-                    text: 'Total Items ',
-                    children: [
-                      TextSpan(
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: ConfigColors.primary2,
-                        ),
-                        text: '(0${data.length})',
+          if (data.isNotEmpty) {
+            for (var product in data) {
+              subtotal += product["price"];
+            }
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      style: const TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w500,
+                        color: ConfigColors.slateGray,
+                        fontSize: 18,
                       ),
-                    ],
-                  ),
-                ),
-                gapH24,
-                Expanded(
-                  child: ListView.separated(
-                    itemCount: data.length,
-                    separatorBuilder: (context, index) => gapH16,
-                    itemBuilder: (context, index) {
-                      final item = data.elementAt(index);
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CommonCard(
-                            height: 91,
-                            width: 343,
-                            padding: const EdgeInsets.all(10),
-                            customRadius: BorderRadius.circular(16),
-                            child: Row(
-                              children: [
-                                CommonCard(
-                                  height: 71,
-                                  width: 76,
-                                  padding: const EdgeInsets.all(10),
-                                  backgroundColor: const Color(0xFFf2f2f2),
-                                  child: Assets.oilBottle.image(),
-                                ),
-                                gapW16,
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      AppText.paragraphS16(
-                                        item['name'],
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      gapH4,
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          AppText.paragraphS16(
-                                            "\$${item['price']}",
-                                            fontWeight: FontWeight.w600,
-                                            color: ConfigColors.primary2,
-                                          ),
-                                          CommonCounter(
-                                            value: '00',
-                                            onMinus: () {},
-                                            onPlus: () {},
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                      text: 'Total Items ',
+                      children: [
+                        TextSpan(
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: ConfigColors.primary2,
                           ),
-                        ],
-                      );
-                    },
+                          text: '(0${data.length})',
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                gapH32,
-                CommonDottedBorderCard(
-                  backgroundColor: ConfigColors.backgroundGreen,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const AppText.paragraphI16(
-                        "Subtotal ",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                      AppText.paragraphI16(
-                        "\$$subtotal ",
-                        fontWeight: FontWeight.w600,
-                        color: ConfigColors.primary2,
-                        fontSize: 18,
-                      ),
-                    ],
-                  ),
-                ),
-                gapH28,
-                CommonButton(
-                  onPress: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return CheckOutScreen(
-                          products: data,
-                          subTotal: subtotal,
-                          totalItem: data.length,
+                  gapH24,
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: data.length,
+                      separatorBuilder: (context, index) => gapH16,
+                      itemBuilder: (context, index) {
+                        final item = data.elementAt(index);
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CommonCard(
+                              height: 91,
+                              width: 343,
+                              padding: const EdgeInsets.all(10),
+                              customRadius: BorderRadius.circular(16),
+                              child: Row(
+                                children: [
+                                  CommonCard(
+                                    height: 71,
+                                    width: 76,
+                                    padding: const EdgeInsets.all(10),
+                                    backgroundColor: const Color(0xFFf2f2f2),
+                                    child: Assets.oilBottle.image(),
+                                  ),
+                                  gapW16,
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        AppText.paragraphS16(
+                                          item['name'],
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        gapH4,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            AppText.paragraphS16(
+                                              "\$${item['price']}",
+                                              fontWeight: FontWeight.w600,
+                                              color: ConfigColors.primary2,
+                                            ),
+                                            CommonCounter(
+                                              value: '00',
+                                              onMinus: () {},
+                                              onPlus: () {},
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         );
                       },
-                    ));
-                  },
-                  text: "Go to Checkout",
-                ),
-              ],
-            ),
-          );
+                    ),
+                  ),
+                  gapH32,
+                  CommonDottedBorderCard(
+                    backgroundColor: ConfigColors.backgroundGreen,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const AppText.paragraphI16(
+                          "Subtotal ",
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                        AppText.paragraphI16(
+                          "\$$subtotal ",
+                          fontWeight: FontWeight.w600,
+                          color: ConfigColors.primary2,
+                          fontSize: 18,
+                        ),
+                      ],
+                    ),
+                  ),
+                  gapH28,
+                  CommonButton(
+                    onPress: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return CheckOutScreen(
+                            products: data,
+                            subTotal: subtotal,
+                            totalItem: data.length,
+                          );
+                        },
+                      ));
+                    },
+                    text: "Go to Checkout",
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return const Center(
+              child: AppText.paragraphI16("Empty Shopping cart"),
+            );
+          }
         },
         error: (error, stackTrace) {
           return const Center(

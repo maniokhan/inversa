@@ -114,7 +114,7 @@ class OrdersScreen extends ConsumerWidget {
             );
           }
           return const Center(
-            child: Text("You don't recieved any order"),
+            child: Text("Empty Order"),
           );
         },
         error: (error, stackTrace) {

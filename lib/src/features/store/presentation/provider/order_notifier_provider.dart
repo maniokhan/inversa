@@ -10,10 +10,11 @@ class OrderNotifier extends StateNotifier<bool> {
   OrderNotifier() : super(false);
   final orderCollectionRef = FirebaseFirestore.instance.collection("orders");
 
-  Future<void> submitOrder({
+  Future<void> createOrder({
     required Map<String, dynamic> data,
     required Iterable<Map<String, dynamic>> products,
   }) async {
+    state = true;
     try {
       final documentRef = await orderCollectionRef.add(data);
 

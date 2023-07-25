@@ -35,16 +35,16 @@ class UserRoleScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               gapH54,
-              Padding(
-                padding: const EdgeInsets.only(left: 23),
-                child: CommonCard(
-                  onTap: () => Navigator.pop(context),
-                  padding: const EdgeInsets.all(8),
-                  shape: BoxShape.circle,
-                  backgroundColor: ConfigColors.primary2,
-                  child: Assets.closeGrey.svg(color: ConfigColors.white),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 23),
+              //   child: CommonCard(
+              //     onTap: () => Navigator.pop(context),
+              //     padding: const EdgeInsets.all(8),
+              //     shape: BoxShape.circle,
+              //     backgroundColor: ConfigColors.primary2,
+              //     child: Assets.closeGrey.svg(color: ConfigColors.white),
+              //   ),
+              // ),
               gapH20,
               Card(
                 elevation: 0,

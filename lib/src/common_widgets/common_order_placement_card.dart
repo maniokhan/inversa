@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
@@ -7,7 +8,7 @@ import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 class CommonOrderPlacementCard extends StatelessWidget {
-  final Widget image;
+  final String image;
   final String title, subtitle;
   final String price;
   const CommonOrderPlacementCard(
@@ -38,7 +39,12 @@ class CommonOrderPlacementCard extends StatelessWidget {
                   ),
                 ),
               ),
-              child: image,
+              child: CachedNetworkImage(
+                imageUrl: image,
+                placeholder: (context, url) => Container(
+                  color: Colors.black12,
+                ),
+              ),
             ),
           ),
           Expanded(
@@ -86,7 +92,7 @@ class CommonOrderPlacementCard extends StatelessWidget {
             height: 18,
             width: 106,
             decoration: const BoxDecoration(
-                color: ConfigColors.blueGrey,
+                color: ConfigColors.black500,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10),
@@ -95,7 +101,7 @@ class CommonOrderPlacementCard extends StatelessWidget {
               "Exp Date: 05/06/2023",
               fontSize: 8,
               fontWeight: FontWeight.w500,
-              color: ConfigColors.slateGray,
+              color: ConfigColors.crema100Background,
             ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/assets/fonts.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
@@ -8,10 +9,11 @@ import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/expenses/presentation/provider/expense_notifier_provider.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class OtherExpensesScreen extends StatelessWidget {
+class OtherExpensesScreen extends ConsumerStatefulWidget {
   static Route<OtherExpensesScreen> route() {
     return MaterialPageRoute(builder: (context) => const OtherExpensesScreen());
   }
@@ -19,7 +21,36 @@ class OtherExpensesScreen extends StatelessWidget {
   const OtherExpensesScreen({super.key});
 
   @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _OtherExpensesScreenState();
+}
+
+class _OtherExpensesScreenState extends ConsumerState<OtherExpensesScreen> {
+  late final TextEditingController _rentTextEditingController;
+  late final TextEditingController _electricityTextEditingController;
+  late final TextEditingController _waterTextEditingController;
+  late final TextEditingController _maintenanceTextEditingController;
+  late final TextEditingController _employeesTextEditingController;
+  late final TextEditingController _othersTextEditingController;
+
+  @override
+  void initState() {
+    _rentTextEditingController = TextEditingController();
+    _electricityTextEditingController = TextEditingController();
+    _waterTextEditingController = TextEditingController();
+    _maintenanceTextEditingController = TextEditingController();
+    _employeesTextEditingController = TextEditingController();
+    _othersTextEditingController = TextEditingController();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    ref.listen(expenseNotifierProvider, (previous, next) {
+      if (!next) {
+        Navigator.pop(context);
+      }
+    });
     return Scaffold(
       body: CommonScaffold(
         appBar: CommonAppBar(
@@ -70,6 +101,7 @@ class OtherExpensesScreen extends StatelessWidget {
                 height: 38,
                 width: 110,
                 child: CommonTextField(
+                  controller: _rentTextEditingController,
                   autofocus: false,
                   focusNode: FocusNode(),
                   hintStyle: const TextStyle(
@@ -103,6 +135,7 @@ class OtherExpensesScreen extends StatelessWidget {
                 height: 38,
                 width: 110,
                 child: CommonTextField(
+                  controller: _electricityTextEditingController,
                   autofocus: false,
                   focusNode: FocusNode(),
                   hintStyle: const TextStyle(
@@ -136,6 +169,7 @@ class OtherExpensesScreen extends StatelessWidget {
                 height: 38,
                 width: 110,
                 child: CommonTextField(
+                  controller: _waterTextEditingController,
                   autofocus: false,
                   focusNode: FocusNode(),
                   hintStyle: const TextStyle(
@@ -169,6 +203,7 @@ class OtherExpensesScreen extends StatelessWidget {
                 height: 38,
                 width: 110,
                 child: CommonTextField(
+                  controller: _maintenanceTextEditingController,
                   autofocus: false,
                   focusNode: FocusNode(),
                   hintStyle: const TextStyle(
@@ -202,6 +237,7 @@ class OtherExpensesScreen extends StatelessWidget {
                 height: 38,
                 width: 110,
                 child: CommonTextField(
+                  controller: _employeesTextEditingController,
                   autofocus: false,
                   focusNode: FocusNode(),
                   hintStyle: const TextStyle(
@@ -249,6 +285,7 @@ class OtherExpensesScreen extends StatelessWidget {
                 height: 38,
                 width: 110,
                 child: CommonTextField(
+                  controller: _othersTextEditingController,
                   autofocus: false,
                   focusNode: FocusNode(),
                   hintStyle: const TextStyle(
@@ -263,7 +300,16 @@ class OtherExpensesScreen extends StatelessWidget {
             ),
             gapH28,
             CommonButton(
-              onPress: () {},
+              onPress: () async {
+                await ref.read(expenseNotifierProvider.notifier).createExpense(
+                      rent: _rentTextEditingController.text,
+                      electricity: _electricityTextEditingController.text,
+                      water: _waterTextEditingController.text,
+                      maintenance: _maintenanceTextEditingController.text,
+                      employees: _employeesTextEditingController.text,
+                      other: _othersTextEditingController.text,
+                    );
+              },
               synappButtonColor: SynappButtonColor.primary,
               text: 'Add',
             ),

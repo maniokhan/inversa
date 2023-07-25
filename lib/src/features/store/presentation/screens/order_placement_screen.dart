@@ -53,40 +53,47 @@ class OrderPlacementScreen extends ConsumerWidget {
       ),
       body: products.when(
         data: (data) {
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
-            child: Column(
-              children: [
-                const CommonTextField(
-                  prefixIcon: Icons.search,
-                  hintText: 'Search',
-                  suffixIcon: Icons.close,
-                ),
-                gapH16,
-                Expanded(
-                  child: GridView.builder(
-                    itemCount: data.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
-                      childAspectRatio: 3 / 4,
-                    ),
-                    itemBuilder: (context, index) {
-                      final product = data.elementAt(index);
-                      return CommonOrderPlacementCard(
-                        image: Assets.eggNoodles.image(height: 80),
-                        title: product['name'],
-                        subtitle: product['quantity'].toString(),
-                        price: product['price'],
-                      );
-                    },
+          if (data.isNotEmpty) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+              child: Column(
+                children: [
+                  const CommonTextField(
+                    prefixIcon: Icons.search,
+                    hintText: 'Search',
+                    suffixIcon: Icons.close,
                   ),
-                ),
-              ],
-            ),
-          );
+                  gapH16,
+                  Expanded(
+                    child: GridView.builder(
+                      itemCount: data.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        childAspectRatio: 3 / 4,
+                      ),
+                      itemBuilder: (context, index) {
+                        final product = data.elementAt(index);
+                        return CommonOrderPlacementCard(
+                          image: product["image"],
+                          title: product['name'],
+                          subtitle:
+                              '${product['units']['value']} ${product['units']['name']} ',
+                          price: product['price'],
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return const Center(
+              child: AppText.paragraphI16("No Products Available"),
+            );
+          }
         },
         error: (error, stackTrace) {
           return const Center(
