@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +5,7 @@ import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_order_placement_card.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/extensions/try_parse_to_int.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/all_products_providers.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_notifier_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/shopping_cart_screen.dart';
@@ -111,9 +111,13 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
                                 .read(shoppingCartNotifierProvider.notifier)
                                 .createShoppingCart(
                               data: {
+                                'quantity': 01,
                                 'image': product['image'],
                                 'title': product['name'],
                                 'price': product['price'],
+                                'total_price_quantity':
+                                    product['price'].toString().tryParseToInt(),
+                                'product_id': product['documentId'],
                               },
                             );
                           },

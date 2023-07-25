@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +6,8 @@ import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_counter.dart';
 import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/extensions/try_parse_to_int.dart';
+import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_notifier_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/check_out_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -47,7 +48,8 @@ class ShoppingCartScreen extends ConsumerWidget {
         data: (data) {
           if (data.isNotEmpty) {
             for (var product in data) {
-              subtotal += product["price"];
+              subtotal +=
+                  product["total_price_quantity"].toString().tryParseToInt();
             }
             return Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
@@ -122,14 +124,61 @@ class ShoppingCartScreen extends ConsumerWidget {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             AppText.paragraphS16(
-                                              "\$${item['price']}",
+                                              "\$${item['total_price_quantity']}",
                                               fontWeight: FontWeight.w600,
                                               color: ConfigColors.primary2,
                                             ),
                                             CommonCounter(
-                                              value: '00',
-                                              onMinus: () {},
-                                              onPlus: () {},
+                                              value:
+                                                  item["quantity"].toString(),
+                                              onMinus: () async {
+                                                if (item["quantity"] > 1) {
+                                                  await ref
+                                                      .read(
+                                                          shoppingCartNotifierProvider
+                                                              .notifier)
+                                                      .updateShoppingCart(
+                                                    documentId:
+                                                        item["documentId"],
+                                                    data: {
+                                                      'quantity':
+                                                          item['quantity'] - 1,
+                                                      'total_price_quantity': item[
+                                                                  'price']
+                                                              .toString()
+                                                              .tryParseToInt() *
+                                                          (item['quantity'] -
+                                                              1),
+                                                    },
+                                                  );
+                                                } else {
+                                                  await ref
+                                                      .read(
+                                                          shoppingCartNotifierProvider
+                                                              .notifier)
+                                                      .deleteProductShoppingCart(
+                                                          item["documentId"]);
+                                                }
+                                              },
+                                              onPlus: () async {
+                                                await ref
+                                                    .read(
+                                                        shoppingCartNotifierProvider
+                                                            .notifier)
+                                                    .updateShoppingCart(
+                                                  documentId:
+                                                      item["documentId"],
+                                                  data: {
+                                                    'quantity':
+                                                        item['quantity'] + 1,
+                                                    'total_price_quantity': item[
+                                                                'price']
+                                                            .toString()
+                                                            .tryParseToInt() *
+                                                        (item['quantity'] + 1),
+                                                  },
+                                                );
+                                              },
                                             ),
                                           ],
                                         ),
