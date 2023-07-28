@@ -5,8 +5,10 @@ import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_education_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:video_player/video_player.dart';
 
-class EducationDetailsScreen extends ConsumerWidget {
+class EducationDetailsScreen extends ConsumerStatefulWidget {
+  const EducationDetailsScreen({super.key, required this.educationInfo});
   final Widget educationInfo;
   static route(Widget education) {
     return MaterialPageRoute(
@@ -14,13 +16,45 @@ class EducationDetailsScreen extends ConsumerWidget {
     );
   }
 
-  const EducationDetailsScreen({
-    super.key,
-    required this.educationInfo,
-  });
+  @override
+  ConsumerState<EducationDetailsScreen> createState() =>
+      _EducationDetailsScreenState();
+}
+
+class _EducationDetailsScreenState
+    extends ConsumerState<EducationDetailsScreen> {
+      late final VideoPlayerController _videoPlayerController;
+
+       Future<void> initialPlay() async {
+    await _videoPlayerController.play();
+  }
 
   @override
-  Widget build(BuildContext context, ref) {
+  void initState() {
+    super.initState();
+    _videoPlayerController =
+        VideoPlayerController.asset('assets/splash_video.mp4')
+          ..initialize().then((_) {
+            // _videoPlayerController.play();
+            initialPlay();
+            setState(() {});
+          });
+    _videoPlayerController.addListener(() {
+      if (_videoPlayerController.value.position >=
+          _videoPlayerController.value.duration) {
+       
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return CommonScaffold(
       isScaffold: true,
       appBar: CommonAppBar(
@@ -41,7 +75,7 @@ class EducationDetailsScreen extends ConsumerWidget {
           children: [
             CommonEducationCard(
               onTap: () {},
-              image: educationInfo,
+              image: widget.educationInfo,
             ),
           ],
         ),
