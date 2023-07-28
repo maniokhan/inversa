@@ -3,6 +3,7 @@ import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_education_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
+import 'package:inversaapp/src/features/education/presentation/screens/education_details_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 
 class EducationScreen extends StatefulWidget {
@@ -52,7 +53,13 @@ class _EducationScreenState extends State<EducationScreen> {
               childAspectRatio: 3 / 3.5,
             ),
             itemBuilder: (context, index) {
-              return CommonEducationCard(image: educationVideo[index]);
+              return CommonEducationCard(
+                onTap: () {
+                  Navigator.push(context,
+                      EducationDetailsScreen.route(educationVideo[index]));
+                },
+                image: educationVideo[index],
+              );
             },
           ),
         ),

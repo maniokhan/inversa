@@ -6,14 +6,17 @@ import 'package:inversaapp/src/theme/text.dart';
 
 class CommonEducationCard extends StatelessWidget {
   final Widget image;
+  final void Function()? onTap;
   const CommonEducationCard({
     Key? key,
     required this.image,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CommonCard(
+      onTap: onTap,
       width: 164,
       height: 184,
       padding: const EdgeInsets.all(0),
