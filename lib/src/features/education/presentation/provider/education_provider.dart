@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,7 +9,7 @@ final educationVideoProvider = StreamProvider.autoDispose(
 
     final sub = FirebaseFirestore.instance
         .collection(
-          'education_video',
+          'education_videos',
         )
         .snapshots()
         .listen(
