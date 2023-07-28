@@ -29,6 +29,7 @@ class CommonAppBar extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
           const Spacer(flex: 3),
+          
         ],
       ),
     );

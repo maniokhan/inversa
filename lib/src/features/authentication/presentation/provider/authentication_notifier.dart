@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 enum AuthState {
   loggedIn,
@@ -62,6 +63,40 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
   }
 
   Future<void> loginWithFacebookAccount() async {}
+  Future<void> loginWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? signInAccount = await googleSignIn.signIn();
+    if (signInAccount != null) {
+      final googleAuth = await signInAccount.authentication;
+      final oauthCredentials = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
+      try {
+        state = state.copyWith(isLoading: true);
+        await FirebaseAuth.instance.signInWithCredential(oauthCredentials);
+        state = Auth(authState: AuthState.selectRole);
+      } catch (e) {
+        throw Exception('Something went wrong while signing in with Google');
+      } finally {
+        state = state.copyWith(isLoading: false);
+      }
+    }
+    // final googleAuth = await signInAccount?.authentication;
+    // final oauthCredentials = GoogleAuthProvider.credential(
+    //   idToken: googleAuth?.idToken,
+    //   accessToken: googleAuth?.accessToken,
+    // );
+    // try {
+    //   state = state.copyWith(isLoading: true);
+    //   await FirebaseAuth.instance.signInWithCredential(oauthCredentials);
+    //   state = Auth(authState: AuthState.selectRole);
+    // } catch (e) {
+    //   throw Exception('something went wrong while register account');
+    // } finally {
+    //   state = state.copyWith(isLoading: false);
+    // }
+  }
 
   // Todo (abubakar) : Register Account
   Future<void> resgiterAccount({
@@ -114,6 +149,7 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
     try {
       state = state.copyWith(isLoading: true);
       await FirebaseAuth.instance.signOut();
+      await GoogleSignIn().signOut();
       state = Auth(authState: AuthState.logout);
     } catch (e) {
       throw Exception('Something went wrong while logout');

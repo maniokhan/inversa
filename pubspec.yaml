@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.3.1
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.2
@@ -32,12 +33,22 @@ dependencies:
     #  url: git@github.com:Abubakarshaikh/inversa_sdk.git
     #  ref: main
 
+# flutter_native_splash-development.yaml
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  color: "#ffffff"
+  image: assets/app_logo_green.png 
+  android_12:
+    image: assets/app_logo_green.png
+    icon_background_color: "#ffffff" 
+
 dev_dependencies:
   build_runner: ^2.4.5
   flutter_gen_runner: ^5.3.1
   flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
-  flutter_native_splash: ^2.2.18
   flutter_test:
     sdk: flutter
   freezed: ^2.3.2

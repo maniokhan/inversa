@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 
 class CommonScaffold extends StatelessWidget {
-  final CommonAppBar appBar;
+  final Widget appBar;
   final Widget body;
   const CommonScaffold({
     Key? key,
