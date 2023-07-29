@@ -20,72 +20,71 @@ class AllStoresScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final stores = ref.watch(allStoresProvider);
-    return Scaffold(
-      body: CommonScaffold(
-        appBar: const CommonAppBar(
-          title: 'All Stores',
-        ),
-        body: stores.when(
-          data: (data) {
-            if (data.isNotEmpty) {
-              return ListView.separated(
-                itemCount: data.length,
-                padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
-                separatorBuilder: (context, index) => gapH16,
-                itemBuilder: (context, index) {
-                  final store = data.elementAt(index);
-                  return CommonListTile(
-                    padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-                    onTap: () => Navigator.push(
-                        context, OrderPlacementScreen.route(store["user_id"])),
-                    leading: SizedBox(
-                      height: 71,
-                      width: 76,
-                      child: Image.asset("assets/images/store_1.png"),
-                    ),
-                    gap: 18,
-                    title: AppText.paragraphI16(
-                      store["name"],
-                      fontSize: 15,
-                      maxLines: 2,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    titleGap: 6,
-                    subTitle: const Row(
-                      children: [
-                        Icon(
-                          Icons.location_on_rounded,
-                          color: ConfigColors.primary2,
-                        ),
-                        gapW12,
-                        AppText.paragraphI14(
-                          "10 - 20 Min",
-                        ),
-                      ],
-                    ),
-                    trailing: Assets.outlinedForwardArrow.svg(),
-                  );
-                },
-              );
-            } else {
-              return const Center(
-                child: AppText.paragraphI16("NO STORE AVAILABLE"),
-              );
-            }
-          },
-          error: (error, stackTrace) {
-            return const Center(
-              child: Icon(Icons.error),
+    return CommonScaffold(
+      isScaffold: true,
+      appBar: const CommonAppBar(
+        title: 'All Stores',
+      ),
+      body: stores.when(
+        data: (data) {
+          if (data.isNotEmpty) {
+            return ListView.separated(
+              itemCount: data.length,
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+              separatorBuilder: (context, index) => gapH16,
+              itemBuilder: (context, index) {
+                final store = data.elementAt(index);
+                return CommonListTile(
+                  padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+                  onTap: () => Navigator.push(
+                      context, OrderPlacementScreen.route(store["user_id"])),
+                  leading: SizedBox(
+                    height: 71,
+                    width: 76,
+                    child: Image.asset("assets/images/store_1.png"),
+                  ),
+                  gap: 18,
+                  title: AppText.paragraphI16(
+                    store["name"],
+                    fontSize: 15,
+                    maxLines: 2,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  titleGap: 6,
+                  subTitle: const Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_rounded,
+                        color: ConfigColors.primary2,
+                      ),
+                      gapW12,
+                      AppText.paragraphI14(
+                        "10 - 20 Min",
+                      ),
+                    ],
+                  ),
+                  trailing: Assets.outlinedForwardArrow.svg(),
+                );
+              },
             );
-          },
-          loading: () {
+          } else {
             return const Center(
-              child: CircularProgressIndicator(
-                color: ConfigColors.primary,
-              ),
+              child: AppText.paragraphI16("NO STORE AVAILABLE"),
             );
-          },
-        ),
+          }
+        },
+        error: (error, stackTrace) {
+          return const Center(
+            child: Icon(Icons.error),
+          );
+        },
+        loading: () {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: ConfigColors.primary,
+            ),
+          );
+        },
       ),
     );
   }

@@ -44,89 +44,88 @@ class _StoreBusinessProfileFormScreenState
   @override
   Widget build(BuildContext context) {
     final userAccount = ref.watch(userAccountProvider);
-    return Scaffold(
-      body: CommonScaffold(
-        appBar: CommonAppBar(
-          showleading: true,
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(
-              Icons.arrow_back_ios_new_outlined,
-              color: ConfigColors.white,
-            ),
+    return CommonScaffold(
+      isScaffold: true,
+      appBar: CommonAppBar(
+        showleading: true,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
           ),
-          title: "Business Profile",
         ),
-        body: userAccount.when(
-          data: (data) {
-            _storeName.text = data['store_name'].toString();
-            _address.text = data['address'].toString();
-            _email.text = data['email'].toString();
-            return ListView(
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
-              children: [
-                CommonTextFieldTitle(
-                  leading: Assets.store.svg(color: ConfigColors.primary2),
-                  text: 'Name of Store',
-                ),
-                gapH8,
-                CommonTextField(
-                  controller: _storeName,
-                  hintText: "Add Store",
-                  textInputType: TextInputType.name,
-                ),
-                gapH24,
-                CommonTextFieldTitle(
-                  leading: Assets.address.svg(),
-                  text: 'Address',
-                ),
-                gapH8,
-                CommonTextField(
-                  controller: _address,
-                  hintText: "Add Address",
-                  textInputType: TextInputType.streetAddress,
-                ),
-                gapH24,
-                CommonTextFieldTitle(
-                  leading: Assets.emailGreen.svg(),
-                  text: 'Email',
-                ),
-                gapH8,
-                CommonTextField(
-                  controller: _email,
-                  hintText: "info@gmail.com",
-                  textInputType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 241),
-                CommonButton(
-                  text: "Save",
-                  onPress: () async {
-                    await ref
-                        .read(userAccountNotifierProvider.notifier)
-                        .updateUserAccount(
-                      documentId: data["documentId"],
-                      data: {
-                        'email:': _email.text,
-                        'store_name': _storeName.text,
-                        'address': _address.text,
-                      },
-                    );
-                    await Future.delayed(const Duration(microseconds: 200),
-                        () => Navigator.pop(context));
-                  },
-                ),
-              ],
-            );
-          },
-          error: (error, stackTrace) {
-            return const Icon(Icons.error);
-          },
-          loading: () {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        ),
+        title: "Business Profile",
+      ),
+      body: userAccount.when(
+        data: (data) {
+          _storeName.text = data['store_name'].toString();
+          _address.text = data['address'].toString();
+          _email.text = data['email'].toString();
+          return ListView(
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+            children: [
+              CommonTextFieldTitle(
+                leading: Assets.store.svg(color: ConfigColors.primary2),
+                text: 'Name of Store',
+              ),
+              gapH8,
+              CommonTextField(
+                controller: _storeName,
+                hintText: "Add Store",
+                textInputType: TextInputType.name,
+              ),
+              gapH24,
+              CommonTextFieldTitle(
+                leading: Assets.address.svg(),
+                text: 'Address',
+              ),
+              gapH8,
+              CommonTextField(
+                controller: _address,
+                hintText: "Add Address",
+                textInputType: TextInputType.streetAddress,
+              ),
+              gapH24,
+              CommonTextFieldTitle(
+                leading: Assets.emailGreen.svg(),
+                text: 'Email',
+              ),
+              gapH8,
+              CommonTextField(
+                controller: _email,
+                hintText: "info@gmail.com",
+                textInputType: TextInputType.emailAddress,
+              ),
+              const SizedBox(height: 241),
+              CommonButton(
+                text: "Save",
+                onPress: () async {
+                  await ref
+                      .read(userAccountNotifierProvider.notifier)
+                      .updateUserAccount(
+                    documentId: data["documentId"],
+                    data: {
+                      'email:': _email.text,
+                      'store_name': _storeName.text,
+                      'address': _address.text,
+                    },
+                  );
+                  await Future.delayed(const Duration(microseconds: 200),
+                      () => Navigator.pop(context));
+                },
+              ),
+            ],
+          );
+        },
+        error: (error, stackTrace) {
+          return const Icon(Icons.error);
+        },
+        loading: () {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }

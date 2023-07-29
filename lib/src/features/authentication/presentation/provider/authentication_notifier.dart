@@ -149,7 +149,6 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
     try {
       state = state.copyWith(isLoading: true);
       await FirebaseAuth.instance.signOut();
-      await GoogleSignIn().signOut();
       state = Auth(authState: AuthState.logout);
     } catch (e) {
       throw Exception('Something went wrong while logout');

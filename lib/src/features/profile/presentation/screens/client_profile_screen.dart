@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_profile_list_tile.dart';
+import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
@@ -25,17 +27,9 @@ class ClientProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final userData = ref.watch(userAccountProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF2AB0B6),
-        elevation: 0,
-        centerTitle: true,
-        title: const AppText.titleS20(
-          "Client",
-          color: ConfigColors.white,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+    return CommonScaffold(
+      isScaffold: true,
+      appBar: const CommonAppBar(title: 'Client'),
       body: userData.when(
         data: (data) {
           return ListView(
@@ -153,7 +147,11 @@ class ClientProfileScreen extends ConsumerWidget {
           );
         },
         error: (error, stackTrace) {
-          return null;
+          return const Center(
+            child: Text(
+              "Something went wrong",
+            ),
+          );
         },
         loading: () {
           return const Center(

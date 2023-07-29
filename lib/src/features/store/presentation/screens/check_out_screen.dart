@@ -10,9 +10,9 @@ import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_radio_button.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/home/presentation/screens/client_nav_bar.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/order_notifier_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_notifier_provider.dart';
-import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -32,7 +32,7 @@ class CheckOutScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     ref.listen(ordersNotifierProvider, (previous, next) {
       if (!next) {
-        Navigator.push(context, AllStoresScreen.route());
+        Navigator.push(context, ClientNavigationBar.route());
       }
     });
     return Scaffold(

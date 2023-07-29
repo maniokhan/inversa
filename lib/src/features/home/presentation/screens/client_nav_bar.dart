@@ -27,7 +27,8 @@ class _ClientNavigationBarState extends State<ClientNavigationBar> {
         const ClientHomeView(),
         const AllStoresScreen(),
         const ClientProfileScreen(),
-      ][currentPageIndex],
+      ]
+      [currentPageIndex],
       bottomNavigationBar: NavigationBar(
         elevation: 6,
         height: 77,
