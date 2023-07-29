@@ -17,7 +17,7 @@ class CommonScaffold extends StatelessWidget {
     if (isScaffold) {
       return Scaffold(
         body: Container(
-          color: ConfigColors.primary2,
+          color: ConfigColors.primary,
           child: SafeArea(
             child: Column(
               children: [
@@ -41,7 +41,7 @@ class CommonScaffold extends StatelessWidget {
       );
     } else {
       return Container(
-        color: ConfigColors.primary2,
+        color: ConfigColors.primary,
         child: SafeArea(
           child: Column(
             children: [

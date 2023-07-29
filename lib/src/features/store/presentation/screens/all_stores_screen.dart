@@ -6,6 +6,7 @@ import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/all_stores_provider.dart';
+import 'package:inversaapp/src/features/store/presentation/provider/search_notifier_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/order_placement_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
@@ -36,8 +37,13 @@ class AllStoresScreen extends ConsumerWidget {
                 final store = data.elementAt(index);
                 return CommonListTile(
                   padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-                  onTap: () => Navigator.push(
-                      context, OrderPlacementScreen.route(store["user_id"])),
+                  // onTap: () => Navigator.push(
+                  //     context, OrderPlacementScreen.route(store["user_id"])),
+                  onTap: () {
+                    ref.read(searchNotifierProvider.notifier).deleteSearch();
+                    Navigator.push(
+                        context, OrderPlacementScreen.route(store["user_id"]));
+                  },
                   leading: SizedBox(
                     height: 71,
                     width: 76,

@@ -18,7 +18,7 @@ class CommonAppBar extends StatelessWidget {
     return Container(
       height: 65,
       width: 375,
-      color: const Color(0xFF2AB0B6),
+      color: ConfigColors.primary,
       child: Row(
         children: [
           if (leading != null) leading!,
@@ -29,7 +29,6 @@ class CommonAppBar extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
           const Spacer(flex: 3),
-          
         ],
       ),
     );

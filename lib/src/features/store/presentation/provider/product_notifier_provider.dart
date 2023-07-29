@@ -23,3 +23,4 @@ class ProductNotifierProvider extends StateNotifier<bool> {
     }
   }
 }
+
