@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "381911750010-8t2et1s5hufsccfdshd3ui9k0s2ajt20.apps.googleusercontent.com",
+          "client_id": "381911750010-oq5gfd79k15tuc8hv9g61oghqjsh9jc2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "381911750010-fdubqu4gmakeqhh14crukov1d6746g7r.apps.googleusercontent.com",
+              "client_id": "381911750010-bj1jfvusuls7jgb0722t5p6h027uhac8.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.appzler.deliverzler2"
+                "bundle_id": "com.abubakar.inversaapp.RunnerTests"
               }
             }
           ]
@@ -50,7 +50,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "381911750010-8t2et1s5hufsccfdshd3ui9k0s2ajt20.apps.googleusercontent.com",
+          "client_id": "381911750010-oq5gfd79k15tuc8hv9g61oghqjsh9jc2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -67,10 +67,10 @@
               "client_type": 3
             },
             {
-              "client_id": "381911750010-fdubqu4gmakeqhh14crukov1d6746g7r.apps.googleusercontent.com",
+              "client_id": "381911750010-bj1jfvusuls7jgb0722t5p6h027uhac8.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.appzler.deliverzler2"
+                "bundle_id": "com.abubakar.inversaapp.RunnerTests"
               }
             }
           ]

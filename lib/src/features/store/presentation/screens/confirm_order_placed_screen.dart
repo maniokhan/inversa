@@ -56,6 +56,7 @@ class ConfirmOrderPlaceScreen extends StatelessWidget {
             onPress: () => Navigator.push(context, ClientNavigationBar.route()),
             synappButtonColor: SynappButtonColor.secondary,
           ),
+          gapH16,
         ],
       ),
     );

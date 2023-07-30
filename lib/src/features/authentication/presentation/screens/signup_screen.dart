@@ -42,8 +42,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CommonScaffold(
+    return CommonScaffold(
+        isScaffold: true,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(80),
           child: AppBar(
@@ -195,7 +195,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             gapH48,
           ],
         ),
-      ),
+    
     );
   }
 }

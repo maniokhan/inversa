@@ -56,7 +56,7 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
       );
       state = Auth(authState: AuthState.selectRole);
     } catch (e) {
-      throw Exception('something went wrong while login');
+      throw Exception('something went wrong while login $e');
     } finally {
       state = state.copyWith(isLoading: false);
     }

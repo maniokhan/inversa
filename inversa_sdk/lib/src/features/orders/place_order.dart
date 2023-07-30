@@ -1,1 +1,0 @@
-// TODO (abubakar) : Client can place order

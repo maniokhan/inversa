@@ -67,8 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '381911750010',
     projectId: 'deliverzler-ecab4',
     storageBucket: 'deliverzler-ecab4.appspot.com',
-    iosClientId:
-        '381911750010-destcvcni2mkjmhmiokb39lspq3d4snq.apps.googleusercontent.com',
+    iosClientId: '381911750010-destcvcni2mkjmhmiokb39lspq3d4snq.apps.googleusercontent.com',
     iosBundleId: 'com.abubakar.inversaapp',
   );
 
@@ -78,8 +77,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '381911750010',
     projectId: 'deliverzler-ecab4',
     storageBucket: 'deliverzler-ecab4.appspot.com',
-    iosClientId:
-        '381911750010-bj1jfvusuls7jgb0722t5p6h027uhac8.apps.googleusercontent.com',
+    iosClientId: '381911750010-bj1jfvusuls7jgb0722t5p6h027uhac8.apps.googleusercontent.com',
     iosBundleId: 'com.abubakar.inversaapp.RunnerTests',
   );
 }

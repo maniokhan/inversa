@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>617840654929-vkmflluksbmmg38j75p1ho5k3kel0mne.apps.googleusercontent.com</string>
+	<string>381911750010-destcvcni2mkjmhmiokb39lspq3d4snq.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.617840654929-vkmflluksbmmg38j75p1ho5k3kel0mne</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>617840654929-5mbk8i8675i74f108tojo36i4vsv2te9.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.381911750010-destcvcni2mkjmhmiokb39lspq3d4snq</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC8vjyTmMvsWD6DKDmHisOCXAdlT8-cw7c</string>
+	<string>AIzaSyC0fUlML2GBFXhHPYna3WVcddDM7v-M5YU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>617840654929</string>
+	<string>381911750010</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.abubakar.inversaapp</string>
 	<key>PROJECT_ID</key>
-	<string>maintenance-e0fdc</string>
+	<string>deliverzler-ecab4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>maintenance-e0fdc.appspot.com</string>
+	<string>deliverzler-ecab4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:617840654929:ios:36f0e75e5ad7a151745670</string>
+	<string>1:381911750010:ios:da3485eea33022d28672c3</string>
 </dict>
 </plist>

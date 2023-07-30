@@ -8,6 +8,9 @@ import 'package:inversaapp/src/app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.remove();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    name: 'deliverzler-ecab4',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const ProviderScope(child: App()));
 }
