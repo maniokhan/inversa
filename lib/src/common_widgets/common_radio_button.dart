@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 
@@ -37,12 +38,12 @@ class CommonRadioButton<T> extends StatelessWidget {
                   // width: isSelected ? 1 : 2,
                   ),
             ),
-            child: Visibility(
+            child: const Visibility(
               // visible: isSelected,
               maintainSize: true,
               maintainState: true,
               maintainAnimation: true,
-              child: const Icon(
+              child: Icon(
                 Icons.check_rounded,
                 color: ConfigColors.synappSecondary,
                 size: 22,
@@ -55,40 +56,42 @@ class CommonRadioButton<T> extends StatelessWidget {
   }
 }
 
-class SynappRadioButton<T> extends StatelessWidget {
-  const SynappRadioButton({
-    required this.value,
-    required this.groupValue,
-    required this.onChanged,
-    required this.title,
-    super.key,
-  });
-  final T value;
-  final T groupValue;
-  final String title;
-  final ValueChanged<T?> onChanged;
+// class SynappRadioButton<T> extends StatelessWidget {
+//   const SynappRadioButton({
+//     required this.value,
+//     required this.groupValue,
+//     required this.onChanged,
+//     required this.title,
+//     super.key,
+//   });
+//   final T value;
+//   final T groupValue;
+//   final String title;
+//   final ValueChanged<T?> onChanged;
 
-  @override
-  Widget build(BuildContext context) {
-    final bool isSelected = value == groupValue;
+//   @override
+//   Widget build(BuildContext context) {
+//     final bool isSelected = value == groupValue;
 
-    return InkWell(
-      onTap: () => onChanged(value),
-      child: Row(
-        children: <Widget>[
-          const SizedBox(width: 10),
-          Text(
-            title,
-            style: TextStyle(
-              color: isSelected
-                  ? ConfigColors.synappSecondary
-                  : ConfigColors.textGrey,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.w400,
-              fontSize: 16,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//     return InkWell(
+//       onTap: () => onChanged(value),
+//       child: Row(
+//         children: <Widget>[
+//           const SizedBox(width: 10),
+//           Text(
+//             title,
+//             style: TextStyle(
+//               color: isSelected
+//                   ? ConfigColors.synappSecondary
+//                   : ConfigColors.textGrey,
+//               fontWeight: isSelected ? FontWeight.bold : FontWeight.w400,
+//               fontSize: 16,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+

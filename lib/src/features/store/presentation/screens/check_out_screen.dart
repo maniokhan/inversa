@@ -7,7 +7,6 @@ import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
-import 'package:inversaapp/src/common_widgets/common_radio_button.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/order_notifier_provider.dart';
@@ -16,7 +15,9 @@ import 'package:inversaapp/src/features/store/presentation/screens/confirm_order
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class CheckOutScreen extends ConsumerWidget {
+enum PaymentMethod { card, cash }
+
+class CheckOutScreen extends ConsumerStatefulWidget {
   final double subTotal;
   final int totalItem;
   final Iterable<Map<String, dynamic>> products;
@@ -29,7 +30,13 @@ class CheckOutScreen extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ref) {
+  ConsumerState<CheckOutScreen> createState() => _CheckOutScreenState();
+}
+
+class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
+  PaymentMethod _method = PaymentMethod.card;
+  @override
+  Widget build(BuildContext context) {
     ref.listen(ordersNotifierProvider, (previous, next) {
       if (!next) {
         Navigator.push(context, ConfirmOrderPlaceScreen.route());
@@ -100,10 +107,18 @@ class CheckOutScreen extends ConsumerWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
-              trailing: CommonRadioButton(
-                value: false,
-                groupValue: true,
-                onChanged: (value) {},
+              trailing: Transform.scale(
+                scale: 1.2,
+                child: Radio(
+                  activeColor: ConfigColors.primary,
+                  value: PaymentMethod.card,
+                  groupValue: _method,
+                  onChanged: (value) {
+                    setState(() {
+                      _method = value!;
+                    });
+                  },
+                ),
               ),
             ),
             gapH16,
@@ -123,10 +138,18 @@ class CheckOutScreen extends ConsumerWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
-              trailing: CommonRadioButton(
-                value: true,
-                groupValue: false,
-                onChanged: (value) {},
+              trailing: Transform.scale(
+                scale: 1.2,
+                child: Radio(
+                  activeColor: ConfigColors.primary,
+                  value: PaymentMethod.cash,
+                  groupValue: _method,
+                  onChanged: (value) {
+                    setState(() {
+                      _method = value!;
+                    });
+                  },
+                ),
               ),
             ),
             gapH24,
@@ -139,7 +162,7 @@ class CheckOutScreen extends ConsumerWidget {
                   fontSize: 15,
                 ),
                 AppText.paragraphI14(
-                  "Total Item(0$totalItem)",
+                  "Total Item(0${widget.totalItem})",
                   fontWeight: FontWeight.w600,
                   color: ConfigColors.primary2,
                 ),
@@ -160,11 +183,11 @@ class CheckOutScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AppText.paragraphI16(
-                        "Price ($totalItem Items)",
+                        "Price (${widget.totalItem} Items)",
                         fontWeight: FontWeight.w500,
                       ),
                       AppText.paragraphI16(
-                        "\$$subTotal ",
+                        "\$${widget.subTotal} ",
                         fontWeight: FontWeight.w600,
                         color: ConfigColors.primary2,
                       ),
@@ -199,7 +222,7 @@ class CheckOutScreen extends ConsumerWidget {
                     fontSize: 18,
                   ),
                   AppText.paragraphI16(
-                    "\$$subTotal ",
+                    "\$${widget.subTotal} ",
                     fontWeight: FontWeight.w600,
                     color: ConfigColors.primary2,
                     fontSize: 18,
@@ -213,16 +236,16 @@ class CheckOutScreen extends ConsumerWidget {
                 // FIXME (abubakar) : order document value
                 final order = {
                   "created_at": FieldValue.serverTimestamp(),
-                  "quantity": totalItem,
-                  "store_id": products.first['user_id'].toString(),
-                  "subtotal": subTotal,
-                  "total": subTotal,
+                  "quantity": widget.totalItem,
+                  "store_id": widget.products.first['user_id'].toString(),
+                  "subtotal": widget.subTotal,
+                  "total": widget.subTotal,
                 };
 
                 try {
                   await ref.read(ordersNotifierProvider.notifier).createOrder(
                         data: order,
-                        products: products,
+                        products: widget.products,
                       );
 
                   await ref

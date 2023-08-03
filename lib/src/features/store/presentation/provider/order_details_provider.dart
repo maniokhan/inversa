@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final orderDetailsProvider = StreamProvider.family.autoDispose((ref, orderId) {
-
-  
   final controller = StreamController<Iterable<Map<String, dynamic>>>();
 
   final sub = FirebaseFirestore.instance

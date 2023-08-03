@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +9,7 @@ import 'package:inversaapp/src/features/store/presentation/provider/shopping_car
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class CommonOrderPlacementCard extends ConsumerWidget {
+class CommonOrderPlacementCard extends ConsumerStatefulWidget {
   final Map<String, dynamic> product;
   const CommonOrderPlacementCard({
     Key? key,
@@ -18,7 +17,21 @@ class CommonOrderPlacementCard extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CommonOrderPlacementCardState();
+}
+
+class _CommonOrderPlacementCardState
+    extends ConsumerState<CommonOrderPlacementCard> {
+  late final Map<String, dynamic> product;
+  @override
+  void initState() {
+    product = widget.product;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return CommonCard(
       padding: const EdgeInsets.all(0),
       customRadius: BorderRadius.circular(10),
@@ -54,17 +67,15 @@ class CommonOrderPlacementCard extends ConsumerWidget {
                   AppText.paragraphI14(
                     product['name'],
                     fontWeight: FontWeight.w600,
-                    textDecoration: product['isShoppingCart']
-                        ? TextDecoration.lineThrough
-                        : null,
+                    textDecoration:
+                        product['isShoppingCart'] ? TextDecoration.lineThrough : null,
                   ),
                   gapH4,
                   AppText.paragraphI14(
                     '${product['units']['value']} ${product['units']['name']} ',
                     fontWeight: FontWeight.w400,
-                    textDecoration: product['isShoppingCart']
-                        ? TextDecoration.lineThrough
-                        : null,
+                    textDecoration:
+                        product['isShoppingCart'] ? TextDecoration.lineThrough : null,
                   ),
                   gapH12,
                   Padding(
@@ -75,20 +86,21 @@ class CommonOrderPlacementCard extends ConsumerWidget {
                         AppText.paragraphI16(
                           product['price'],
                           fontWeight: FontWeight.w600,
-                          textDecoration: product['isShoppingCart']
-                              ? TextDecoration.lineThrough
-                              : null,
+                          textDecoration:
+                              product['isShoppingCart'] ? TextDecoration.lineThrough : null,
                         ),
                         CommonCard(
                           onTap: () async {
                             if (product['isShoppingCart']) {
                               await ref
-                                  .read(shoppingCartNotifierProvider.notifier)
+                                  .read(shoppingCartNotifierProvider
+                                      .notifier)
                                   .deleteProductShoppingCart(
                                       product['shopping_cart_id']);
                             } else {
                               await ref
-                                  .read(shoppingCartNotifierProvider.notifier)
+                                  .read(shoppingCartNotifierProvider
+                                      .notifier)
                                   .createShoppingCart(
                                 data: {
                                   'quantity': 01,

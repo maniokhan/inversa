@@ -8,11 +8,9 @@ final shoppingCartNotifierProvider =
 );
 
 class ShoppingCartNotifierProvider extends StateNotifier<bool> {
-  ShoppingCartNotifierProvider() : super(false) {
-    userId = FirebaseAuth.instance.currentUser?.uid;
-  }
+  ShoppingCartNotifierProvider() : super(false);
   final collectionRef = FirebaseFirestore.instance.collection("shopping_carts");
-  String? userId;
+  String? userId = FirebaseAuth.instance.currentUser?.uid;
 
   Future<void> createShoppingCart({
     required Map<String, dynamic> data,

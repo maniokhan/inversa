@@ -5,7 +5,6 @@ import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
-import 'package:inversaapp/src/common_widgets/common_radio_button.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
@@ -13,12 +12,21 @@ import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 import 'package:inversaapp/src/utilities/synapp_widget_size.dart';
 
-class SaleScreen extends StatelessWidget {
+enum PaymentMethod { card, cash }
+
+class SaleScreen extends StatefulWidget {
   static Route<SaleScreen> route() {
     return MaterialPageRoute(builder: (context) => const SaleScreen());
   }
 
   const SaleScreen({super.key});
+
+  @override
+  State<SaleScreen> createState() => _SaleScreenState();
+}
+
+class _SaleScreenState extends State<SaleScreen> {
+  PaymentMethod _method = PaymentMethod.card;
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +97,7 @@ class SaleScreen extends StatelessWidget {
                 ),
               ],
             ),
+           
             gapH20,
             CommonDottedBorderCard(
               borderColor: ConfigColors.lightText,
@@ -198,10 +207,18 @@ class SaleScreen extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
-              trailing: CommonRadioButton(
-                onChanged: (value) {},
-                value: 1,
-                groupValue: 2,
+              trailing: Transform.scale(
+                scale: 1.2,
+                child: Radio(
+                  activeColor: ConfigColors.primary,
+                  value: PaymentMethod.card,
+                  groupValue: _method,
+                  onChanged: (value) {
+                    setState(() {
+                      _method = value!;
+                    });
+                  },
+                ),
               ),
             ),
             gapH16,
@@ -211,9 +228,8 @@ class SaleScreen extends StatelessWidget {
                 showShadow: false,
                 backgroundColor: ConfigColors.lightFerozi,
                 padding: const EdgeInsets.all(10),
-                //TODO: cash icon not shown
                 child: Assets.cash.image(
-                  height: 15,
+                  height: 18,
                   color: ConfigColors.primary2,
                 ),
               ),
@@ -222,10 +238,18 @@ class SaleScreen extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
-              trailing: CommonRadioButton(
-                onChanged: (value) {},
-                value: true,
-                groupValue: false,
+              trailing: Transform.scale(
+                scale: 1.2,
+                child: Radio(
+                  activeColor: ConfigColors.primary,
+                  value: PaymentMethod.cash,
+                  groupValue: _method,
+                  onChanged: (value) {
+                    setState(() {
+                      _method = value!;
+                    });
+                  },
+                ),
               ),
             ),
             gapH48,

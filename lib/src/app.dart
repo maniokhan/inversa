@@ -59,7 +59,6 @@ class MyApp extends ConsumerWidget {
         LoadingScreen().hide();
       }
     });
-
     switch (state.authState) {
       case AuthState.notRegistered:
         return const SignupScreen();
