@@ -64,38 +64,37 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
 
   Future<void> loginWithFacebookAccount() async {}
   Future<void> loginWithGoogle() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? signInAccount = await googleSignIn.signIn();
-    if (signInAccount != null) {
-      final googleAuth = await signInAccount.authentication;
-      final oauthCredentials = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-        accessToken: googleAuth.accessToken,
-      );
-      try {
-        state = state.copyWith(isLoading: true);
-        await FirebaseAuth.instance.signInWithCredential(oauthCredentials);
-        state = Auth(authState: AuthState.selectRole);
-      } catch (e) {
-        throw Exception('Something went wrong while signing in with Google');
-      } finally {
-        state = state.copyWith(isLoading: false);
-      }
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
+      'email',
+    ]).signIn();
+
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    try {
+      state = state.copyWith(isLoading: true);
+      final userDetails =
+          (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
+      final String? userId = FirebaseAuth.instance.currentUser?.uid;
+      final Map<String, dynamic> data = {
+        'user_id': userId,
+        'name': userDetails.displayName,
+        'address': '',
+        'store_name': '',
+      };
+      await FirebaseFirestore.instance.collection('user_accounts').add(data);
+      state = Auth(authState: AuthState.selectRole);
+    } on FirebaseAuthException catch (e) {
+      print('Failed with error code: ${e.code}');
+      print(e.message);
+    } finally {
+      state = state.copyWith(isLoading: false);
     }
-    // final googleAuth = await signInAccount?.authentication;
-    // final oauthCredentials = GoogleAuthProvider.credential(
-    //   idToken: googleAuth?.idToken,
-    //   accessToken: googleAuth?.accessToken,
-    // );
-    // try {
-    //   state = state.copyWith(isLoading: true);
-    //   await FirebaseAuth.instance.signInWithCredential(oauthCredentials);
-    //   state = Auth(authState: AuthState.selectRole);
-    // } catch (e) {
-    //   throw Exception('something went wrong while register account');
-    // } finally {
-    //   state = state.copyWith(isLoading: false);
-    // }
   }
 
   // Todo (abubakar) : Register Account
@@ -149,6 +148,7 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
     try {
       state = state.copyWith(isLoading: true);
       await FirebaseAuth.instance.signOut();
+      await GoogleSignIn().signOut();
       state = Auth(authState: AuthState.logout);
     } catch (e) {
       throw Exception('Something went wrong while logout');

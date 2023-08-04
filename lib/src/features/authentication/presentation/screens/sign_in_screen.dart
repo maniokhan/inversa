@@ -1,3 +1,5 @@
+import 'dart:developer' as devtools show log;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
@@ -12,6 +14,10 @@ import 'package:inversaapp/src/features/authentication/presentation/provider/aut
 import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
+
+extension Log on Object {
+  void log() => devtools.log(toString());
+}
 
 class LoginScreen extends ConsumerStatefulWidget {
   static Route<LoginScreen> route() {

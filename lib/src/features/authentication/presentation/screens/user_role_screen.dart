@@ -65,8 +65,9 @@ class UserRoleScreen extends ConsumerWidget {
                     radius: 25,
                     backgroundImage: AssetImage("assets/images/profile.jpg"),
                   ),
-                  title: const AppText.paragraphI16(
-                    "Chandrama Saha",
+                  title: AppText.paragraphI16(
+                    data['name'],
+                    // "Chandrama Saha",
                     fontWeight: FontWeight.w700,
                   ),
                   subtitle: const Row(
