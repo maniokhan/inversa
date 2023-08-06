@@ -6,9 +6,9 @@ import 'package:inversaapp/src/features/authentication/presentation/provider/aut
 import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/sign_in_screen.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/signup_screen.dart';
+import 'package:inversaapp/src/features/authentication/presentation/screens/user_role_screen.dart';
 import 'package:inversaapp/src/features/home/presentation/screens/client_nav_bar.dart';
 import 'package:inversaapp/src/features/home/presentation/screens/store_nav_bar.dart';
-import 'package:inversaapp/src/features/authentication/presentation/screens/user_role_screen.dart';
 import 'package:inversaapp/src/helpers/loading_screen.dart';
 import 'package:inversaapp/src/providers/is_loading_provider.dart';
 import 'package:inversaapp/src/theme/data.dart';
@@ -59,6 +59,9 @@ class MyApp extends ConsumerWidget {
         LoadingScreen().hide();
       }
     });
+
+
+
     switch (state.authState) {
       case AuthState.notRegistered:
         return const SignupScreen();

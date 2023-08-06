@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_education_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
+import 'package:inversaapp/src/features/education/presentation/provider/education_provider.dart';
 import 'package:inversaapp/src/features/education/presentation/screens/education_details_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:video_player/video_player.dart';
 
 class EducationScreen extends ConsumerStatefulWidget {
   static Route<EducationScreen> route() {
@@ -19,16 +20,10 @@ class EducationScreen extends ConsumerStatefulWidget {
 }
 
 class _EducationScreenState extends ConsumerState<EducationScreen> {
-  final List<Widget> educationVideo = <Widget>[
-    Assets.education1.image(),
-    Assets.education2.image(),
-    Assets.education3.image(),
-    Assets.education4.image(),
-    Assets.education5.image(),
-    Assets.education6.image(),
-  ];
+
   @override
   Widget build(BuildContext context) {
+    final educationVideos = ref.watch(educationVideoProvider);
     return CommonScaffold(
       isScaffold: true,
       appBar: CommonAppBar(
@@ -42,33 +37,52 @@ class _EducationScreenState extends ConsumerState<EducationScreen> {
         ),
         title: "Education",
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
-        child: GridView.builder(
-          itemCount: educationVideo.length,
-          shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            childAspectRatio: 3 / 3.5,
-          ),
-          itemBuilder: (context, index) {
-            return CommonEducationCard(
-              onTap: () {
-                Navigator.push(context,
-                    EducationDetailsScreen.route(educationVideo[index]));
-              },
-              image: Stack(
-                alignment: Alignment.center,
-                children: [
-                  educationVideo[index],
-                  const Icon(Icons.play_circle, color: Colors.white),
-                ],
+      body: educationVideos.when(
+        data: (data) {
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+            child: GridView.builder(
+              itemCount: data.length,
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                childAspectRatio: 3 / 3.5,
               ),
-            );
-          },
-        ),
+              itemBuilder: (context, index) {
+                final educationdata = data.elementAt(index);
+                return CommonEducationCard(
+                  onTap: () {
+                    Navigator.push(
+                        context, EducationDetailsScreen.route(educationdata));
+                  },
+                  image: const Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 2 / 2,
+                      ),
+                      Icon(Icons.play_circle, color: Colors.white),
+                    ],
+                  ),
+                  title: educationdata['title'].toString(),
+                  description: educationdata['descriptions'].toString(),
+                );
+              },
+            ),
+          );
+        },
+        error: (error, stackTrace) {
+          return const Center(
+            child: Text("Something went wrong"),
+          );
+        },
+        loading: () {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
