@@ -10,7 +10,9 @@ final allProductsProvider =
   userId,
 ) {
   final controller = StreamController<Iterable<Map<String, dynamic>>>();
+
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? shoppingCartSub;
+  
 
   final sub = FirebaseFirestore.instance
       .collection("products")

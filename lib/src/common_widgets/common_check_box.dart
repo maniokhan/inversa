@@ -70,30 +70,3 @@ class _CheckboxState extends State<CommonCheckBox> {
     );
   }
 }
-
-
-
-
-
-
-// class CommonCheckBox extends StatelessWidget {
-//   final bool value;
-//   final void Function(bool?)? onChanged;
-//   const CommonCheckBox({
-//     super.key,
-//     required this.value,
-//     this.onChanged,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return CommonCheckBox(
-//       fillColor: MaterialStateProperty.all(ConfigColors.primary),
-//       side: const BorderSide(
-//         color: ConfigColors.lightText,
-//       ),
-//       value: value,
-//       onChanged: onChanged,
-//     );
-//   }
-// }
