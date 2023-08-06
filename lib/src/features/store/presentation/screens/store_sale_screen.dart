@@ -97,6 +97,7 @@ class _SaleScreenState extends State<SaleScreen> {
                 ),
               ],
             ),
+           
             gapH20,
             CommonDottedBorderCard(
               borderColor: ConfigColors.lightText,
