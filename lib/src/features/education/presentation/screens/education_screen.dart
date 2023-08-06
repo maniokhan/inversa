@@ -20,6 +20,18 @@ class EducationScreen extends ConsumerStatefulWidget {
 }
 
 class _EducationScreenState extends ConsumerState<EducationScreen> {
+  VideoPlayerController? _videoPlayerController;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,18 +64,25 @@ class _EducationScreenState extends ConsumerState<EducationScreen> {
               ),
               itemBuilder: (context, index) {
                 final educationdata = data.elementAt(index);
+                final url = educationdata['url'].toString();
+                _videoPlayerController = VideoPlayerController.networkUrl(
+                  Uri.parse(url),
+                )..initialize().then((_) {
+                    _videoPlayerController!.pause();
+                  });
                 return CommonEducationCard(
                   onTap: () {
                     Navigator.push(
                         context, EducationDetailsScreen.route(educationdata));
                   },
-                  image: const Stack(
+                  image: Stack(
                     alignment: Alignment.center,
                     children: [
                       AspectRatio(
-                        aspectRatio: 2 / 2,
+                        aspectRatio: 3 / 2,
+                        child: VideoPlayer(_videoPlayerController!),
                       ),
-                      Icon(Icons.play_circle, color: Colors.white),
+                      const Icon(Icons.play_circle, color: Colors.white),
                     ],
                   ),
                   title: educationdata['title'].toString(),
