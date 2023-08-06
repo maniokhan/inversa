@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
@@ -6,10 +7,16 @@ import 'package:inversaapp/src/theme/text.dart';
 
 class CommonEducationCard extends StatelessWidget {
   final Widget image;
+  final String title;
+  final String description;
+  // final String url;
   final void Function()? onTap;
   const CommonEducationCard({
     Key? key,
     required this.image,
+    required this.title,
+    required this.description,
+    // required this.url,
     this.onTap,
   }) : super(key: key);
 
@@ -25,19 +32,19 @@ class CommonEducationCard extends StatelessWidget {
           Expanded(
             child: image,
           ),
-          const Expanded(
+          Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppText.paragraphI14(
-                    "Records added",
+                    title,
                     fontWeight: FontWeight.w500,
                   ),
                   gapH8,
                   AppText.paragraphI10(
-                    "Lorem ipsum dolor sit amet consectetur. Et eu magna sed ultrices ",
+                    description,
                     fontWeight: FontWeight.w400,
                     color: ConfigColors.slateGray,
                   ),

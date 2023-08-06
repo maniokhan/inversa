@@ -2,18 +2,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
-import 'package:inversaapp/src/common_widgets/common_education_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:inversaapp/src/theme/text.dart';
 import 'package:video_player/video_player.dart';
 
 class EducationDetailsScreen extends ConsumerStatefulWidget {
-  const EducationDetailsScreen({super.key, required this.educationInfo});
-  final Widget educationInfo;
-  static route(Widget education) {
+  const EducationDetailsScreen({
+    super.key,
+    required this.educationdata,
+  });
+  final Map<String, dynamic> educationdata;
+  static route(Map<String, dynamic> data) {
     return MaterialPageRoute(
-      builder: (_) => EducationDetailsScreen(educationInfo: education),
+      builder: (_) => EducationDetailsScreen(educationdata: data),
     );
   }
 
@@ -28,10 +31,8 @@ class _EducationDetailsScreenState
 
   @override
   void initState() {
-    // final educationVideos = ref.watch(educationVideoProvider);
-    // final videoUrl = educationVideos.asData?.value.first['url'];
-    _videoPlayerController =
-        VideoPlayerController.asset('assets/splash_video.mp4');
+    _videoPlayerController = VideoPlayerController.networkUrl(
+        Uri.parse(widget.educationdata['url'].toString()));
     _videoPlayerController.addListener(() {
       setState(() {});
     });
@@ -95,8 +96,15 @@ class _EducationDetailsScreenState
               ],
             ),
             gapH12,
-            CommonEducationCard(
-              image: widget.educationInfo,
+            AppText.paragraphI16(
+              widget.educationdata['title'].toString(),
+              fontWeight: FontWeight.w600,
+            ),
+            gapH8,
+            AppText.paragraphI12(
+              widget.educationdata['descriptions'].toString(),
+              fontWeight: FontWeight.w400,
+              color: ConfigColors.slateGray,
             ),
           ],
         ),

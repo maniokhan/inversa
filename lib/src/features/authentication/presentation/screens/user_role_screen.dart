@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_notifier.dart';
-import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
+import 'package:inversaapp/src/features/home/presentation/screens/client_nav_bar.dart';
+import 'package:inversaapp/src/features/home/presentation/screens/store_nav_bar.dart';
 import 'package:inversaapp/src/features/profile/presentation/provider/user_account_notifier_provider.dart';
 import 'package:inversaapp/src/features/profile/presentation/provider/user_account_provider.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -33,16 +33,6 @@ class UserRoleScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               gapH54,
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 23),
-              //   child: CommonCard(
-              //     onTap: () => Navigator.pop(context),
-              //     padding: const EdgeInsets.all(8),
-              //     shape: BoxShape.circle,
-              //     backgroundColor: ConfigColors.primary2,
-              //     child: Assets.closeGrey.svg(color: ConfigColors.white),
-              //   ),
-              // ),
               gapH20,
               Card(
                 elevation: 0,
@@ -50,13 +40,11 @@ class UserRoleScreen extends ConsumerWidget {
                 child: ListTile(
                   onTap: () async {
                     if (selcectedRole == Role.client) {
-                      ref
-                          .read(authenticationProvider.notifier)
-                          .changeState(AuthState.clientLoggedIn);
+                      Navigator.pushAndRemoveUntil(context,
+                          ClientNavigationBar.route(), (route) => false);
                     } else {
-                      ref
-                          .read(authenticationProvider.notifier)
-                          .changeState(AuthState.storeLoggedIn);
+                      Navigator.pushAndRemoveUntil(context,
+                          StoreNavigationBar.route(), (route) => false);
                     }
                   },
                   leading: const CircleAvatar(
