@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/assets/fonts.gen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -42,7 +44,9 @@ enum CommonFieldState {
 
 class CommonTextField extends StatefulWidget {
   const CommonTextField({
-    super.key,
+    Key? key,
+    this.onTap,
+    this.hintStyle,
     this.validator,
     this.hintText,
     this.errorMessage,
@@ -63,12 +67,12 @@ class CommonTextField extends StatefulWidget {
     this.textCapitalization,
     this.enableSuggestions = true,
     this.textInputAction,
+    this.focusNode,
     this.autofocus = false,
     this.onFieldSubmitted,
-    this.focusNode,
     this.autofillHint,
-    this.hintStyle,
-  });
+  }) : super(key: key);
+  final void Function()? onTap;
   final TextStyle? hintStyle;
   final String? Function(String?)? validator;
   final String? hintText;
@@ -170,6 +174,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
     InputBorder defaultInputBorder,
   ) {
     return TextFormField(
+      onTap: widget.onTap,
       autofocus: widget.autofocus,
       onFieldSubmitted: widget.onFieldSubmitted,
       textCapitalization:

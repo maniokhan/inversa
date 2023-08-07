@@ -6,6 +6,9 @@ import 'package:inversaapp/src/features/store/presentation/widgets/new_list_tab_
 import 'package:inversaapp/src/features/store/presentation/widgets/old_list_tab_view.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 
+// TODO (manio) : new list / old list
+// new list means : current time - 24H, within this range 
+// every product should be showed
 class CompareScreen extends StatefulWidget {
   static Route<CompareScreen> route() {
     return MaterialPageRoute(builder: (context) => const CompareScreen());

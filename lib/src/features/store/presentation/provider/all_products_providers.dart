@@ -12,7 +12,6 @@ final allProductsProvider =
   final controller = StreamController<Iterable<Map<String, dynamic>>>();
 
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? shoppingCartSub;
-  
 
   final sub = FirebaseFirestore.instance
       .collection("products")
@@ -26,6 +25,7 @@ final allProductsProvider =
       Map<String, dynamic> product = <String, dynamic>{};
       product = doc.data();
       product["documentId"] = doc.id;
+      product["counter_sale_quantity"] = 1;
       product["isShoppingCart"] = false;
 
       shoppingCartSub = FirebaseFirestore.instance
