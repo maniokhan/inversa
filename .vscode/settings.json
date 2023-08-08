@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     // "editor.fontSize": 30,
     // "terminal.integrated.fontSize": 30,
     "editor.lineNumbers": "on",
@@ -8,3 +9,14 @@
         "source.fixAll": true,
     },
 }
+=======
+  // "editor.fontSize": 30,
+  // "terminal.integrated.fontSize": 30,
+  "editor.lineNumbers": "on",
+  "window.zoomLevel": 0,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll": true
+  }
+}
+>>>>>>> caf2ea1113a170e15b1e3d6c3e77a8f6ca1a57b6
