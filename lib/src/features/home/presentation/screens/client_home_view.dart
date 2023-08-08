@@ -5,8 +5,7 @@ import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_notifier.dart';
-import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
+import 'package:inversaapp/src/features/authentication/presentation/screens/user_role_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
@@ -20,15 +19,15 @@ class ClientHomeView extends ConsumerWidget {
       appBar: CommonAppBar(
         showleading: true,
         leading: IconButton(
-          onPressed: () {
-            ref
-                .read(authenticationProvider.notifier)
-                .changeState(AuthState.selectRole);
-          },
-          // onPressed: () => Navigator.push(
-          //   context,
-          //   UserRoleScreen.route(),
-          // ),
+          // onPressed: () {
+          //   ref
+          //       .read(authenticationProvider.notifier)
+          //       .changeState(AuthState.selectRole);
+          // },
+          onPressed: () => Navigator.push(
+            context,
+            UserRoleScreen.route(),
+          ),
           icon: Assets.images.moreIcon.image(height: 24, width: 24),
         ),
         title: "Client",

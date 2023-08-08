@@ -11,6 +11,7 @@ import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/change_password_screen.dart';
+import 'package:inversaapp/src/features/authentication/presentation/screens/sign_in_screen.dart';
 import 'package:inversaapp/src/features/profile/presentation/provider/user_account_provider.dart';
 import 'package:inversaapp/src/features/profile/presentation/screens/store_business_profile_form_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -192,8 +193,11 @@ void showCupertinoDialog(BuildContext context, WidgetRef ref) {
             onPressed: () async {
               await ref.read(authenticationProvider.notifier).logoutAccount();
 
-              await Future.delayed(const Duration(microseconds: 200),
-                  () => Navigator.pop(context));
+              await Future.delayed(
+                const Duration(milliseconds: 300),
+                () => Navigator.pushAndRemoveUntil(
+                    context, LoginScreen.route(), (route) => false),
+              );
             },
           ),
         ],
