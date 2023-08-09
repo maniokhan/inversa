@@ -44,6 +44,7 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
       counterSaleSubTotal += ((double.tryParse(item['price']) ?? 0) *
           item['counter_sale_quantity']);
     }
+
     return Scaffold(
       body: CommonScaffold(
         appBar: CommonAppBar(

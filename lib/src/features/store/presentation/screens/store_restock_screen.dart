@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,9 +13,12 @@ import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/all_products_providers.dart';
+import 'package:inversaapp/src/features/store/presentation/widgets/common_search_delegate.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
-import 'package:inversaapp/src/utilities/synapp_widget_size.dart';
+
+final selectedProductProvider =
+    StateProvider<Map<String, dynamic>>((ref) => {});
 
 class StoreRestockScreen extends ConsumerStatefulWidget {
   static Route route() {
@@ -28,9 +33,95 @@ class StoreRestockScreen extends ConsumerStatefulWidget {
 
 class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
   @override
+  TextEditingController? productPriceController;
+  TextEditingController? productQuantityController;
+  TextEditingController? unitValueController;
+  TextEditingController? unitNameController;
+  TextEditingController? expDateController;
+
+  @override
+  void initState() {
+    super.initState();
+    productPriceController = TextEditingController();
+    productQuantityController = TextEditingController();
+    unitValueController = TextEditingController();
+    unitNameController = TextEditingController();
+    expDateController = TextEditingController();
+  }
+
+  void _handleProductSelection(Map<String, dynamic> product, WidgetRef ref) {
+    final currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+
+    final selectedProduct =
+        ref.read(selectedProductProvider.notifier).update((state) => product);
+
+    setState(() {
+      // selectedProduct = product;
+
+      productPriceController?.text = selectedProduct['price'] ?? '';
+      productQuantityController?.text = selectedProduct['quantity'].toString();
+      unitValueController?.text = selectedProduct['units']['value'];
+      unitNameController?.text = selectedProduct['units']['name'];
+      expDateController?.text = selectedProduct['expDate'];
+    });
+  }
+
+  @override
+  void dispose() {
+    productPriceController?.dispose();
+    productQuantityController?.dispose();
+    unitValueController?.dispose();
+    unitNameController?.dispose();
+    expDateController?.dispose();
+    super.dispose();
+  }
+
+  Future<void> updateProduct(Map<String, dynamic> selectedProduct) async {
+    if (selectedProduct['product_id'] != null) {
+      Map<String, dynamic> updatedData = {
+        'price': productPriceController!.text,
+        'quantity': productQuantityController!.text,
+        'expDate': expDateController!.text,
+        'units': {
+          'name': unitNameController!.text,
+          'value': unitValueController!.text,
+        },
+      };
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(selectedProduct['product_id'])
+          .update(updatedData);
+      Map<String, dynamic> oldData = {
+        'price': selectedProduct['price'],
+        'quantity': selectedProduct['quantity'],
+        'expDate': selectedProduct['expDate'],
+        'units': {
+          'name': selectedProduct['units']['name'],
+          'value': selectedProduct['units']['value'],
+        },
+      };
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(selectedProduct['product_id'])
+          .collection('history')
+          .add(oldData)
+          .then((value) => {
+                print('Old Value Added'),
+                setState(() {
+                  Navigator.pop(context);
+                }),
+              });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final String? userId = FirebaseAuth.instance.currentUser?.uid;
-    final products = ref.watch(allProductsProvider(userId));
+    final productsValue = ref.watch(allProductsProvider(userId));
+    final selectedProduct = ref.watch(selectedProductProvider);
     return CommonScaffold(
       isScaffold: true,
       appBar: CommonAppBar(
@@ -78,92 +169,74 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
           gapH20,
           Row(
             children: [
-              const Expanded(
-                child: CommonTextField(
-                  prefixIcon: Icons.search,
-                  hintText: 'Search',
-                  suffixIcon: Icons.close,
-                ),
-              ),
-              gapW8,
-              CommonButton(
-                verticalPaddingCustom: 12,
-                onPress: () {},
-                borderRadiusCustom: BorderRadius.circular(6),
-                synappWidgetSize: SynappWidgetSize.small,
-                text: 'Add',
+              productsValue.when(
+                data: (data) {
+                  return CommonCard(
+                    onTap: () async {
+                      final product = await showSearch(
+                        context: context,
+                        delegate: CommonSearchDelegate(
+                          searchTerms: data.toList(),
+                          onChanged: (List<Map<String, dynamic>> items) {},
+                        ),
+                      );
+                      _handleProductSelection(product, ref);
+                    },
+                    child: const AppText.paragraphS16('search'),
+                  );
+                },
+                error: (error, stackTrace) {
+                  return const Center(
+                    child: AppText.paragraphI16('something went wrong'),
+                  );
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
               ),
             ],
           ),
-          gapH20,
-          CommonDottedBorderCard(
-            borderColor: ConfigColors.lightText,
-            strokeWidth: 0.5,
-            onTap: () {},
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-            customRadius: const Radius.circular(6),
-            backgroundColor: ConfigColors.lightGreen,
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppText.paragraphI14(
-                      "Search",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
+          gapH12,
+          if (selectedProduct['image'] != null)
+            CommonCard(
+              height: 91,
+              width: 343,
+              padding: const EdgeInsets.all(10),
+              customRadius: BorderRadius.circular(16),
+              child: Row(
+                children: [
+                  CommonCard(
+                    height: 71,
+                    width: 76,
+                    padding: const EdgeInsets.all(10),
+                    backgroundColor: const Color(0xFFf2f2f2),
+                    child: CachedNetworkImage(
+                      imageUrl: selectedProduct['image'],
+                      placeholder: (context, url) => Container(
+                        color: Colors.black12,
+                      ),
                     ),
-                    Row(
+                  ),
+                  gapW16,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AppText.paragraphI14(
-                          "#7",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: ConfigColors.primary2,
+                        AppText.paragraphS16(
+                          selectedProduct['name'],
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
                         ),
-                        gapW24,
-                        AppText.paragraphI14(
-                          "\$25",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: ConfigColors.primary2,
-                        ),
+                        gapH4,
                       ],
                     ),
-                  ],
-                ),
-                gapH24,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppText.paragraphI14(
-                      "Cake",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                    ),
-                    Row(
-                      children: [
-                        AppText.paragraphI14(
-                          "#1",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: ConfigColors.primary2,
-                        ),
-                        gapW24,
-                        AppText.paragraphI14(
-                          "\$10",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: ConfigColors.primary2,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
-          ),
           gapH20,
           Row(
             children: [
@@ -177,25 +250,27 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
               Expanded(
                 child: CommonTextFieldTitle(
                   leading: Assets.priceTag.image(height: 22),
-                  text: 'Cost / Unit',
+                  text: 'Quantity',
                 ),
               ),
             ],
           ),
           gapH8,
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: CommonTextField(
                   textInputType: TextInputType.number,
                   hintText: 'Add Price',
+                  controller: productPriceController,
                 ),
               ),
               gapW16,
               Expanded(
                 child: CommonTextField(
                   textInputType: TextInputType.number,
-                  hintText: 'Add Price',
+                  hintText: 'Add Quantity',
+                  controller: productQuantityController,
                 ),
               ),
             ],
@@ -206,7 +281,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
               Expanded(
                 child: CommonTextFieldTitle(
                   leading: Assets.uninstall.image(height: 22),
-                  text: '# Of Unit',
+                  text: 'Unit Value',
                 ),
               ),
               gapW16,
@@ -219,12 +294,13 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
             ],
           ),
           gapH8,
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: CommonTextField(
                   textInputType: TextInputType.number,
-                  hintText: 'Add Unit',
+                  hintText: 'Add Unit Value',
+                  controller: unitValueController,
                 ),
               ),
               gapW16,
@@ -233,6 +309,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
                   suffixIcon: Icons.keyboard_arrow_down_sharp,
                   textInputType: TextInputType.number,
                   hintText: 'Select Unit',
+                  controller: unitNameController,
                 ),
               ),
             ],
@@ -243,13 +320,16 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
             text: 'Expiration Date',
           ),
           gapH8,
-          const CommonTextField(
+          CommonTextField(
             textInputType: TextInputType.number,
             hintText: 'Add Expiration Date',
+            controller: expDateController,
           ),
           gapH32,
           CommonButton(
-            onPress: () {},
+            onPress: () {
+              updateProduct(selectedProduct);
+            },
             synappButtonColor: SynappButtonColor.primary,
             text: 'Save',
           ),
