@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
@@ -28,6 +29,52 @@ class StoreHomeView extends ConsumerStatefulWidget {
 }
 
 class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
+  double totalRestock = 0;
+  double totalSale = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    calculateTotalSale();
+    calculateTotalRestock();
+  }
+
+  Future<void> calculateTotalSale() async {
+    double total = 0;
+
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('orders').get();
+
+    for (var document in querySnapshot.docs) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      if (data.containsKey('total')) {
+        total += data['total'];
+      }
+    }
+
+    setState(() {
+      totalSale = total;
+    });
+  }
+
+  Future<void> calculateTotalRestock() async {
+    double total = 0.0;
+
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('products').get();
+
+    for (var document in querySnapshot.docs) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      if (data.containsKey('price') && data.containsKey('quantity')) {
+        total += ((double.tryParse(data['price']) ?? 0) * data['quantity']);
+      }
+    }
+
+    setState(() {
+      totalRestock = total;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CommonScaffold(
@@ -93,8 +140,8 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AppText.titleS24(
-                        "\$1,05,284",
+                      AppText.titleS24(
+                        "\$${totalSale.toStringAsFixed(0)}",
                         fontWeight: FontWeight.w700,
                         color: ConfigColors.white,
                       ),
@@ -137,8 +184,10 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AppText.titleS24(
-                        "\$5,284",
+                      AppText.titleS24(
+                        // "\$5,284",
+                        "\$${totalRestock.toStringAsFixed(0)}",
+
                         fontWeight: FontWeight.w700,
                         color: ConfigColors.white,
                       ),
