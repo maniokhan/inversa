@@ -69,60 +69,59 @@ class _CompareScreenState extends ConsumerState<CompareScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CommonScaffold(
-        appBar: CommonAppBar(
-          showleading: true,
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(
-              Icons.arrow_back_ios_new_outlined,
-              color: ConfigColors.white,
+    return CommonScaffold(
+      isScaffold: true,
+      appBar: CommonAppBar(
+        showleading: true,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
+        ),
+        title: "Compare",
+      ),
+      body: Column(
+        children: [
+          gapH24,
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            height: 34,
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(42, 176, 182, 0.18),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: TabBar(
+              controller: tabController,
+              unselectedLabelColor: ConfigColors.primary2,
+              labelColor: Colors.white,
+              indicatorWeight: 2,
+              indicator: BoxDecoration(
+                color: ConfigColors.primary,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              tabs: const [
+                Tab(
+                  text: 'Old List',
+                ),
+                Tab(
+                  text: 'New List',
+                ),
+              ],
             ),
           ),
-          title: "Compare",
-        ),
-        body: Column(
-          children: [
-            gapH24,
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              height: 34,
-              padding: const EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(42, 176, 182, 0.18),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: TabBar(
-                controller: tabController,
-                unselectedLabelColor: ConfigColors.primary2,
-                labelColor: Colors.white,
-                indicatorWeight: 2,
-                indicator: BoxDecoration(
-                  color: ConfigColors.primary,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                tabs: const [
-                  Tab(
-                    text: 'Old List',
-                  ),
-                  Tab(
-                    text: 'New List',
-                  ),
-                ],
-              ),
+          Expanded(
+            child: TabBarView(
+              controller: tabController,
+              children: const [
+                OldListTabView(),
+                NewListTabView(),
+              ],
             ),
-            Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: const [
-                  OldListTabView(),
-                  NewListTabView(),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
