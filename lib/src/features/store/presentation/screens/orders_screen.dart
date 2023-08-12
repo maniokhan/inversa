@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/extensions/try_parse_to_int.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/order_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/order_details_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -18,6 +19,7 @@ class OrdersScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    double subtotal = 0;
     final ordersValue = ref.watch(orderProvider(false));
     return Scaffold(
       appBar: AppBar(
@@ -40,6 +42,9 @@ class OrdersScreen extends ConsumerWidget {
       body: ordersValue.when(
         data: (data) {
           if (data.isNotEmpty) {
+            for (var total in data) {
+              subtotal += total['subtotal'].toString().tryParseToInt();
+            }
             return ListView.separated(
               itemCount: data.length,
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),

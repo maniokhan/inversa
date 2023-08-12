@@ -76,7 +76,7 @@ class _OtherExpensesScreenState extends ConsumerState<OtherExpensesScreen> {
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
-                gapW8,
+                gapW12,
                 const CommonDropDown(),
               ],
             ),
@@ -336,14 +336,15 @@ class _CommonDropDownState extends State<CommonDropDown> {
       child: CommonCard(
         height: 42,
         showBorder: true,
+        borderColor: ConfigColors.primary,
         customRadius: BorderRadius.circular(6),
         padding: const EdgeInsets.all(0),
-        backgroundColor: const Color.fromRGBO(13, 34, 63, 0.04),
+        backgroundColor: Colors.white,
         child: DropdownButton(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           icon: const Icon(
             Icons.keyboard_arrow_down_outlined,
-            color: ConfigColors.slateGray,
+            color: ConfigColors.primary,
           ),
           isExpanded: true,
           iconSize: 36,

@@ -1,9 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/home/presentation/screens/all_chart_view.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -56,71 +57,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               fontWeight: FontWeight.w600,
             ),
             gapH16,
-            Center(
-              child: Assets.expensesChart.image(
-                height: 218,
-                width: 194,
-              ),
-            ),
-            gapH8,
-            Row(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      height: 10,
-                      width: 10,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF147AD6),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ],
-                ),
-                gapW12,
-                const AppText.paragraphI16(
-                  "Point 01",
-                  color: ConfigColors.slateGray,
-                ),
-                gapW20,
-                Row(
-                  children: [
-                    Container(
-                      height: 10,
-                      width: 10,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF79D2DE),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ],
-                ),
-                gapW12,
-                const AppText.paragraphI16(
-                  "Point 02",
-                  color: ConfigColors.slateGray,
-                ),
-                gapW20,
-                Row(
-                  children: [
-                    Container(
-                      height: 10,
-                      width: 10,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFEC6666),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ],
-                ),
-                gapW12,
-                const AppText.paragraphI16(
-                  "Point 03",
-                  color: ConfigColors.slateGray,
-                ),
-              ],
-            ),
-            gapH24,
+            const PieChart(),
+            gapH32,
             const AppText.paragraphI16(
               "Gross margin",
               fontWeight: FontWeight.w600,
@@ -139,10 +77,11 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
             ),
             gapH20,
             const CommonCard(
+              showBorder: true,
+              padding: EdgeInsets.all(0),
               height: 187,
               width: 343,
-              alignment: Alignment.center,
-              child: Text("Top clients"),
+              child: TopClientChart(),
             ),
             gapH24,
             const AppText.paragraphI16(
@@ -151,45 +90,142 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
             ),
             gapH20,
             const CommonCard(
+              padding: EdgeInsets.all(0),
               height: 187,
               width: 343,
-              alignment: Alignment.center,
-              child: Text("Profitability"),
+              showBorder: true,
+              child: ProfitabilityChart(),
             ),
             gapH24,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const AppText.paragraphI14(
-                  "Inventory levels that could \ncharge by category",
-                  fontSize: 15,
+                  "Inventory levels that \ncould charge by category",
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
-                CommonCard(
-                  padding: const EdgeInsets.all(8),
-                  showBorder: true,
-                  borderColor: ConfigColors.primary2,
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      value: AppText.paragraphI12(
-                        dropDownValue,
-                        color: ConfigColors.primary2,
-                      ),
-                      icon: const Icon(Icons.keyboard_arrow_down_sharp),
-                      iconSize: 24,
-                      elevation: 5,
-                      onChanged: (value) {},
-                      style: const TextStyle(
-                        color: ConfigColors.primary2,
-                      ),
-                      items: const [],
-                    ),
-                  ),
+                gapW12,
+                CommonDropDown(
+                  value: 'Category',
+                  onChange: (value) {},
+                  items: <String>[
+                    'Category',
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
               ],
             ),
             gapH20,
+            const CommonCard(
+              height: 205,
+              width: 343,
+              showBorder: true,
+              customBoxShadow: [
+                BoxShadow(
+                  color: Color(0xFFD2E6F1),
+                  blurRadius: 20,
+                )
+              ],
+              child: StatisticBarChart(),
+            ),
+            gapH20,
+            Row(
+              children: [
+                const AppText.paragraphI14(
+                  "Sales by products",
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+                gapW64,
+                CommonDropDown(
+                  value: 'Product',
+                  onChange: (value) {},
+                  items: <String>[
+                    'Product',
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+            gapH20,
+            const CommonCard(
+              height: 250,
+              width: 343,
+              showBorder: true,
+              customBoxShadow: [
+                BoxShadow(
+                  color: Color(0xFFD2E6F1),
+                  blurRadius: 20,
+                )
+              ],
+              child: AspectRatio(
+                aspectRatio: 2,
+                child: ColumnTrack(),
+              ),
+            ),
+            gapH20,
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CommonDropDown extends StatefulWidget {
+  final String value;
+  final void Function(String?)? onChange;
+  final List<DropdownMenuItem<String>>? items;
+  const CommonDropDown({
+    Key? key,
+    required this.value,
+    this.onChange,
+    this.items,
+  }) : super(key: key);
+
+  @override
+  State<CommonDropDown> createState() => _CommonDropDownState();
+}
+
+class _CommonDropDownState extends State<CommonDropDown> {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: CommonCard(
+        height: 35,
+        width: 108,
+        showBorder: true,
+        borderColor: ConfigColors.primary,
+        customRadius: BorderRadius.circular(6),
+        padding: const EdgeInsets.all(0),
+        backgroundColor: Colors.white,
+        child: DropdownButton<String>(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          icon: const Icon(
+            Icons.keyboard_arrow_down_outlined,
+            color: ConfigColors.primary,
+          ),
+          isExpanded: true,
+          iconSize: 30,
+          dropdownColor: ConfigColors.white,
+          underline: const SizedBox(),
+          style: const TextStyle(
+            fontFamily: 'Montserrat',
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: ConfigColors.primary,
+          ),
+          value: widget.value,
+          onChanged: widget.onChange,
+          items: widget.items,
         ),
       ),
     );

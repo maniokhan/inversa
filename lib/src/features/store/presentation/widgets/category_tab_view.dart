@@ -40,14 +40,15 @@ class _CategoryTabViewState extends ConsumerState<CategoryTabView> {
                       MaterialPageRoute(
                         builder: (context) => CategoryDetailsScreen(
                           categoryId: category["documentId"],
+                          categoryName: category["name"] ?? 'Products',
                         ),
                       ),
                     );
                   },
                   image: CachedNetworkImage(
-                    imageUrl: category['image'],
+                    imageUrl: category['image'] ?? '',
                   ),
-                  title: category["name"],
+                  title: category["name"] ?? "Category Name",
                   cardBackgroundColor: Color(
                     category['color'].toString().tryParseToInt(),
                   ),

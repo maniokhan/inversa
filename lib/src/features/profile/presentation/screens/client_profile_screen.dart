@@ -14,6 +14,7 @@ import 'package:inversaapp/src/features/authentication/presentation/screens/sign
 import 'package:inversaapp/src/features/profile/presentation/provider/user_account_provider.dart';
 import 'package:inversaapp/src/features/profile/presentation/screens/client_business_profile_form_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/orders_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -105,6 +106,16 @@ class ClientProfileScreen extends ConsumerWidget {
                   width: 26,
                 ),
                 onTap: () => Navigator.push(context, AllStoresScreen.route()),
+              ),
+              gapH12,
+              CommonProfileListTile(
+                backgroundColor: ConfigColors.backgroundRed,
+                title: 'Order',
+                icon: Assets.orderPlace.image(
+                  height: 26,
+                  width: 26,
+                ),
+                onTap: () => Navigator.push(context, OrdersScreen.route()),
               ),
               gapH12,
               CommonProfileListTile(
