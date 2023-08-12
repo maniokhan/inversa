@@ -31,7 +31,11 @@ dependencies:
   shared_preferences: ^2.2.0
   badges: ^3.1.1
   video_player: ^2.7.0
+<<<<<<< HEAD
   flutter_barcode_scanner: ^2.0.0
+=======
+  fl_chart: ^0.63.0
+>>>>>>> d25a126dca406e24afa6d4776ac0f51c89ea4915
     # git:
     #  url: git@github.com:Abubakarshaikh/inversa_sdk.git
     #  ref: main

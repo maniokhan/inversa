@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,9 +15,11 @@ import 'package:inversaapp/src/theme/text.dart';
 
 class CategoryDetailsScreen extends ConsumerWidget {
   final String categoryId;
+  final String categoryName;
   const CategoryDetailsScreen({
     Key? key,
     required this.categoryId,
+    required this.categoryName,
   }) : super(key: key);
 
   @override
@@ -34,7 +37,7 @@ class CategoryDetailsScreen extends ConsumerWidget {
               color: ConfigColors.white,
             ),
           ),
-          title: "Products",
+          title: categoryName,
         ),
         body: categoryProductProvider.when(
           data: (data) {

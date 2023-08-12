@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/order_details_provider.dart';
@@ -53,7 +53,14 @@ class OrderDetailsScreen extends ConsumerWidget {
                       width: 76,
                       padding: const EdgeInsets.all(10),
                       backgroundColor: const Color(0xFFf2f2f2),
-                      child: Assets.oilBottle.image(),
+                      child: CachedNetworkImage(
+                        imageUrl: item['image'] ?? "",
+                        placeholder: (context, url) {
+                          return Container(
+                            color: Colors.grey,
+                          );
+                        },
+                      ),
                     ),
                     gapW16,
                     Expanded(
@@ -61,7 +68,7 @@ class OrderDetailsScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AppText.paragraphS16(
-                            item["name"],
+                            item["title"].toString(),
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                           ),
@@ -69,8 +76,8 @@ class OrderDetailsScreen extends ConsumerWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const AppText.paragraphS14(
-                                "2 bottle's",
+                              AppText.paragraphS14(
+                                "${item['quantity']} pack's",
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: ConfigColors.primary2,

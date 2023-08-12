@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
@@ -15,12 +17,63 @@ import 'package:inversaapp/src/features/store/presentation/screens/store_sale_sc
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class StoreHomeView extends StatelessWidget {
+class StoreHomeView extends ConsumerStatefulWidget {
   static Route<StoreHomeView> route() {
     return MaterialPageRoute(builder: (context) => const StoreHomeView());
   }
 
   const StoreHomeView({super.key});
+
+  @override
+  ConsumerState<StoreHomeView> createState() => _StoreHomeViewState();
+}
+
+class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
+  double totalRestock = 0;
+  double totalSale = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    calculateTotalSale();
+    calculateTotalRestock();
+  }
+
+  Future<void> calculateTotalSale() async {
+    double total = 0;
+
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('orders').get();
+
+    for (var document in querySnapshot.docs) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      if (data.containsKey('total')) {
+        total += data['total'];
+      }
+    }
+
+    setState(() {
+      totalSale = total;
+    });
+  }
+
+  Future<void> calculateTotalRestock() async {
+    double total = 0.0;
+
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('products').get();
+
+    for (var document in querySnapshot.docs) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      if (data.containsKey('price') && data.containsKey('quantity')) {
+        total += ((double.tryParse(data['price']) ?? 0) * data['quantity']);
+      }
+    }
+
+    setState(() {
+      totalRestock = total;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +140,8 @@ class StoreHomeView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AppText.titleS24(
-                        "\$1,05,284",
+                      AppText.titleS24(
+                        "\$${totalSale.toStringAsFixed(0)}",
                         fontWeight: FontWeight.w700,
                         color: ConfigColors.white,
                       ),
@@ -131,8 +184,10 @@ class StoreHomeView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AppText.titleS24(
-                        "\$5,284",
+                      AppText.titleS24(
+                        // "\$5,284",
+                        "\$${totalRestock.toStringAsFixed(0)}",
+
                         fontWeight: FontWeight.w700,
                         color: ConfigColors.white,
                       ),
