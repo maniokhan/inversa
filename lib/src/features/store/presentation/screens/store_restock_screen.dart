@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
@@ -83,7 +85,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
     if (selectedProduct['product_id'] != null) {
       Map<String, dynamic> updatedData = {
         'price': productPriceController!.text,
-        'quantity': productQuantityController!.text,
+        'quantity': int.parse(productQuantityController!.text),
         'expDate': expDateController!.text,
         'units': {
           'name': unitNameController!.text,
@@ -117,6 +119,60 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
     }
   }
 
+  Future<void> scanBarcode() async {
+    Map<String, dynamic>? scanProduct; // Use a nullable map
+
+    try {
+      scanResult = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666',
+        'Cancel',
+        true,
+        ScanMode.BARCODE,
+      );
+    } on PlatformException {
+      scanResult = 'Failed to get Platform version.';
+    }
+
+    if (!mounted) return;
+
+    if (scanResult != '-1') {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('products')
+          .doc(scanResult)
+          .get();
+
+      if (snapshot.exists) {
+        setState(() {
+          scanProduct = snapshot.data() as Map<String, dynamic>;
+        });
+
+        if (scanProduct != null) {
+          final selectedProduct = ref
+              .read(selectedProductProvider.notifier)
+              .update((state) => scanProduct!);
+          setState(() {
+            productPriceController?.text = selectedProduct['price'] ?? '';
+            productQuantityController?.text =
+                selectedProduct['quantity'].toString();
+            unitValueController?.text = selectedProduct['units']['value'];
+            unitNameController?.text = selectedProduct['units']['name'];
+            expDateController?.text = selectedProduct['expDate'];
+          });
+        } else {
+          // when scanProduct is null
+          print('There is No product.');
+        }
+      } else {
+        // when the document doesn't exist
+        print('There is No product.');
+      }
+    } else {
+      // when no barcode was scanned
+      print('Wrong Barcode! Scan Again.');
+    }
+  }
+
+  String? scanResult;
   @override
   Widget build(BuildContext context) {
     final String? userId = FirebaseAuth.instance.currentUser?.uid;
@@ -141,7 +197,9 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
           CommonDottedBorderCard(
             borderColor: ConfigColors.blueGrey,
             strokeWidth: 0.5,
-            onTap: () {},
+            onTap: () {
+              scanBarcode();
+            },
             padding: const EdgeInsets.all(32),
             customRadius: const Radius.circular(6),
             alignment: Alignment.center,

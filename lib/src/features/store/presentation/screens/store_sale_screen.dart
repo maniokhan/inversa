@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
@@ -35,6 +38,55 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
   final List<Map<String, dynamic>> products = [];
   PaymentMethod _method = PaymentMethod.card;
 
+  Future<void> scanBarcode() async {
+    String scanResult;
+    Map<String, dynamic>? scanProduct; // Use a nullable map
+
+    try {
+      scanResult = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666',
+        'Cancel',
+        true,
+        ScanMode.BARCODE,
+      );
+    } on PlatformException {
+      scanResult = 'Failed to get Platform version.';
+    }
+
+    if (!mounted) return;
+
+    if (scanResult != '-1') {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('products')
+          .doc(scanResult)
+          .get();
+
+      if (snapshot.exists) {
+        setState(() {
+          scanProduct = snapshot.data() as Map<String, dynamic>;
+          scanProduct!["counter_sale_quantity"] = 1;
+          scanProduct!["isShoppingCart"] = false;
+        });
+
+        if (scanProduct != null) {
+          setState(() {
+            products.add(scanProduct!);
+            print(scanProduct.toString());
+          });
+        } else {
+          // when scanProduct is null
+          print('There is No product.');
+        }
+      } else {
+        // when the document doesn't exist
+        print('There is No product.');
+      }
+    } else {
+      // when no barcode was scanned
+      print('Wrong Barcode! Scan Again.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final userId = FirebaseAuth.instance.currentUser?.uid;
@@ -44,7 +96,6 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
       counterSaleSubTotal += ((double.tryParse(item['price']) ?? 0) *
           item['counter_sale_quantity']);
     }
-
     return Scaffold(
       body: CommonScaffold(
         appBar: CommonAppBar(
@@ -64,7 +115,9 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
             CommonDottedBorderCard(
               borderColor: ConfigColors.lightText,
               strokeWidth: 0.5,
-              onTap: () {},
+              onTap: () {
+                scanBarcode();
+              },
               padding: const EdgeInsets.all(32),
               customRadius: const Radius.circular(6),
               alignment: Alignment.center,
@@ -186,7 +239,7 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
                                                         .spaceBetween,
                                                 children: [
                                                   AppText.paragraphS16(
-                                                    "\$${item['price']}",
+                                                    "\$ ${item['price']}",
                                                     fontWeight: FontWeight.w600,
                                                     color:
                                                         ConfigColors.primary2,
