@@ -105,6 +105,8 @@ class UserRoleScreen extends ConsumerWidget {
                       documentId: data["documentId"],
                       data: {"role": "store"},
                     );
+                    Navigator.pushAndRemoveUntil(
+                        context, StoreNavigationBar.route(), (route) => false);
                   },
                   alignment: Alignment.center,
                   showBorder: selcectedRole == Role.store ? true : false,
@@ -145,6 +147,8 @@ class UserRoleScreen extends ConsumerWidget {
                       documentId: data["documentId"],
                       data: {"role": "client"},
                     );
+                    Navigator.pushAndRemoveUntil(
+                        context, ClientNavigationBar.route(), (route) => false);
                   },
                   alignment: Alignment.center,
                   showShadow: true,

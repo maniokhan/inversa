@@ -67,15 +67,17 @@ class _CommonOrderPlacementCardState
                   AppText.paragraphI14(
                     product['name'],
                     fontWeight: FontWeight.w600,
-                    textDecoration:
-                        product['isShoppingCart'] ? TextDecoration.lineThrough : null,
+                    textDecoration: product['isShoppingCart']
+                        ? TextDecoration.lineThrough
+                        : null,
                   ),
                   gapH4,
                   AppText.paragraphI14(
                     '${product['units']['value']} ${product['units']['name']} ',
                     fontWeight: FontWeight.w400,
-                    textDecoration:
-                        product['isShoppingCart'] ? TextDecoration.lineThrough : null,
+                    textDecoration: product['isShoppingCart']
+                        ? TextDecoration.lineThrough
+                        : null,
                   ),
                   gapH12,
                   Padding(
@@ -86,21 +88,20 @@ class _CommonOrderPlacementCardState
                         AppText.paragraphI16(
                           product['price'],
                           fontWeight: FontWeight.w600,
-                          textDecoration:
-                              product['isShoppingCart'] ? TextDecoration.lineThrough : null,
+                          textDecoration: product['isShoppingCart']
+                              ? TextDecoration.lineThrough
+                              : null,
                         ),
                         CommonCard(
                           onTap: () async {
                             if (product['isShoppingCart']) {
                               await ref
-                                  .read(shoppingCartNotifierProvider
-                                      .notifier)
+                                  .read(shoppingCartNotifierProvider.notifier)
                                   .deleteProductShoppingCart(
                                       product['shopping_cart_id']);
                             } else {
                               await ref
-                                  .read(shoppingCartNotifierProvider
-                                      .notifier)
+                                  .read(shoppingCartNotifierProvider.notifier)
                                   .createShoppingCart(
                                 data: {
                                   'quantity': 01,
@@ -144,8 +145,8 @@ class _CommonOrderPlacementCardState
                   topRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10),
                 )),
-            child: const AppText.paragraphI9(
-              "Exp Date: 05/06/2023",
+            child: AppText.paragraphI9(
+              "Exp Date: ${product['expDate']}",
               fontSize: 8,
               fontWeight: FontWeight.w500,
               color: ConfigColors.crema100Background,

@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:inversaapp/src/features/home/presentation/screens/statistics_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -277,15 +279,16 @@ class _SplineAreaData {
 
 // - - - - -- - - Sales By Product Chart - - - - - - - - - - -- - - - -
 
-class ColumnTrack extends StatefulWidget {
+class ColumnTrack extends ConsumerStatefulWidget {
   const ColumnTrack({super.key});
 
   @override
-  State<ColumnTrack> createState() => _ColumnWithTrackState();
+  ConsumerState<ColumnTrack> createState() => _ColumnWithTrackState();
 }
 
-class _ColumnWithTrackState extends State<ColumnTrack> {
+class _ColumnWithTrackState extends ConsumerState<ColumnTrack> {
   TooltipBehavior? _tooltipBehavior;
+
   @override
   void initState() {
     _tooltipBehavior = TooltipBehavior(
@@ -319,7 +322,7 @@ class _ColumnWithTrackState extends State<ColumnTrack> {
         majorGridLines: const MajorGridLines(width: 0),
         labelStyle: const TextStyle(
           fontFamily: 'Montserrat',
-          fontSize: 13,
+          fontSize: 10,
           fontWeight: FontWeight.w600,
           color: ConfigColors.lightText,
         ),
@@ -335,19 +338,22 @@ class _ColumnWithTrackState extends State<ColumnTrack> {
   }
 
   List<ColumnSeries<ColumnWithTrack, String>> getChartData() {
+    final totalSaleByMonth = ref.read(totalSaleByMonthProvider.notifier).state;
     return <ColumnSeries<ColumnWithTrack, String>>[
       ColumnSeries(
         dataSource: <ColumnWithTrack>[
-          ColumnWithTrack('Jan', 500),
-          ColumnWithTrack('Feb', 550),
-          ColumnWithTrack("Mar", 600),
-          ColumnWithTrack("Apr", 520),
-          ColumnWithTrack("May", 580),
-          ColumnWithTrack("Jun", 650),
-          ColumnWithTrack("Jul", 700),
-          ColumnWithTrack("Aug", 630),
-          ColumnWithTrack("Sep", 610),
-          ColumnWithTrack("Oct", 730),
+          ColumnWithTrack('Jan', totalSaleByMonth['Jan'] ?? 0),
+          ColumnWithTrack('Feb', totalSaleByMonth['Feb'] ?? 0),
+          ColumnWithTrack("Mar", totalSaleByMonth['Mar'] ?? 0),
+          ColumnWithTrack("Apr", totalSaleByMonth['Apr'] ?? 0),
+          ColumnWithTrack("May", totalSaleByMonth['May'] ?? 0),
+          ColumnWithTrack("Jun", totalSaleByMonth['Jun'] ?? 0),
+          ColumnWithTrack("Jul", totalSaleByMonth['Jul'] ?? 0),
+          ColumnWithTrack("Aug", totalSaleByMonth['Aug'] ?? 0),
+          ColumnWithTrack("Sep", totalSaleByMonth['Sep'] ?? 0),
+          ColumnWithTrack("Oct", totalSaleByMonth['Oct'] ?? 0),
+          ColumnWithTrack("Nov", totalSaleByMonth['Nov'] ?? 0),
+          ColumnWithTrack("Dec", totalSaleByMonth['Dec'] ?? 0),
         ],
         width: 0.7,
         xValueMapper: (exp, index) => exp.month as String,

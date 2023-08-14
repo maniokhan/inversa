@@ -44,6 +44,7 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
   @override
   Widget build(BuildContext context) {
     final products = ref.watch(allProductsProvider(widget.storeId));
+
     final shoppingCartTotalItemValue = ref.watch(shoppingCartTotalItemProvider);
 
     return CommonScaffold(

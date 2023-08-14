@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
@@ -17,6 +18,10 @@ import 'package:inversaapp/src/features/store/presentation/screens/store_sale_sc
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
+final totalSaleProvider = StateProvider<double>((ref) => 0);
+final totalRestockProvider = StateProvider<double>((ref) => 0);
+final totalExpensesProvider = StateProvider<double>((ref) => 0);
+
 class StoreHomeView extends ConsumerStatefulWidget {
   static Route<StoreHomeView> route() {
     return MaterialPageRoute(builder: (context) => const StoreHomeView());
@@ -29,14 +34,15 @@ class StoreHomeView extends ConsumerStatefulWidget {
 }
 
 class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
-  double totalRestock = 0;
-  double totalSale = 0;
+  // double totalRestock = 0;
+  // double totalSale = 0;
 
   @override
   void initState() {
     super.initState();
     calculateTotalSale();
     calculateTotalRestock();
+    calculateTotalExpenses();
   }
 
   Future<void> calculateTotalSale() async {
@@ -52,9 +58,7 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
       }
     }
 
-    setState(() {
-      totalSale = total;
-    });
+    ref.read(totalSaleProvider.notifier).update((state) => total);
   }
 
   Future<void> calculateTotalRestock() async {
@@ -69,14 +73,31 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
         total += ((double.tryParse(data['price']) ?? 0) * data['quantity']);
       }
     }
+    ref.read(totalRestockProvider.notifier).update((state) => total);
+  }
 
-    setState(() {
-      totalRestock = total;
-    });
+  Future<void> calculateTotalExpenses() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    double total = 0;
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('expenses')
+        .where('user_id', isEqualTo: user!.uid)
+        .get();
+
+    for (var document in querySnapshot.docs) {
+      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      if (data.containsKey('price')) {
+        total += data['price'];
+      }
+    }
+    ref.read(totalExpensesProvider.notifier).update((state) => total);
   }
 
   @override
   Widget build(BuildContext context) {
+    double totalSale = ref.watch(totalSaleProvider);
+    double totalRestock = ref.watch(totalRestockProvider);
     return CommonScaffold(
       appBar: CommonAppBar(
         showleading: true,

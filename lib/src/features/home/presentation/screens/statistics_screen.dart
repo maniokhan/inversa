@@ -1,5 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
@@ -8,7 +12,9 @@ import 'package:inversaapp/src/features/home/presentation/screens/all_chart_view
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class StatisticsScreen extends StatefulWidget {
+final totalSaleByMonthProvider = StateProvider((ref) => {});
+
+final class StatisticsScreen extends ConsumerStatefulWidget {
   static Route<StatisticsScreen> route() {
     return MaterialPageRoute(builder: (context) => const StatisticsScreen());
   }
@@ -16,11 +22,59 @@ class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({super.key});
 
   @override
-  State<StatisticsScreen> createState() => _StatisticsScreenState();
+  ConsumerState<StatisticsScreen> createState() => _StatisticsScreenState();
 }
 
-class _StatisticsScreenState extends State<StatisticsScreen> {
+class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
   String dropDownValue = "Category";
+
+  Future<void> calculateTotalSaleByMonth() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser == null) {
+      print('User not authenticated.');
+      return;
+    }
+    final ordersRef = FirebaseFirestore.instance.collection('orders');
+    final userOrdersQuery =
+        ordersRef.where('store_id', isEqualTo: currentUser.uid);
+
+    try {
+      final querySnapshot = await userOrdersQuery.get();
+
+      final totalSaleByMonth = {};
+
+      for (var doc in querySnapshot.docs) {
+        final createdAt = (doc['created_at'] as Timestamp).toDate();
+
+        final month = DateFormat.MMM().format(createdAt);
+
+        final orderAmount = doc['total'] as double;
+
+        if (!totalSaleByMonth.containsKey(month)) {
+          totalSaleByMonth[month] = orderAmount;
+        } else {
+          totalSaleByMonth[month] = totalSaleByMonth[month]! + orderAmount;
+        }
+      }
+      ref
+          .read(totalSaleByMonthProvider.notifier)
+          .update((state) => totalSaleByMonth);
+      // Print the calculated total amounts
+      totalSaleByMonth.forEach((month, totalAmount) {
+        print('Month: $month, Total Amount: $totalAmount');
+      });
+    } catch (e) {
+      print('Error calculating and printing total amount: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print('//////////////////////////////////////////////////////');
+    calculateTotalSaleByMonth();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
@@ -8,11 +8,12 @@ import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/expenses/presentation/screens/other_expenses_screen.dart';
+import 'package:inversaapp/src/features/home/presentation/screens/store_home_view.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/store_sale_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class StoreExpensesScreen extends StatefulWidget {
+class StoreExpensesScreen extends ConsumerStatefulWidget {
   static Route<StoreExpensesScreen> route() {
     return MaterialPageRoute(builder: (context) => const StoreExpensesScreen());
   }
@@ -20,38 +21,15 @@ class StoreExpensesScreen extends StatefulWidget {
   const StoreExpensesScreen({super.key});
 
   @override
-  State<StoreExpensesScreen> createState() => _StoreExpensesScreenState();
+  ConsumerState<StoreExpensesScreen> createState() =>
+      _StoreExpensesScreenState();
 }
 
-class _StoreExpensesScreenState extends State<StoreExpensesScreen> {
-  double totalSale = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    calculateTotalSale();
-  }
-
-  Future<void> calculateTotalSale() async {
-    double total = 0;
-
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('orders').get();
-
-    for (var document in querySnapshot.docs) {
-      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      if (data.containsKey('total')) {
-        total += data['total'];
-      }
-    }
-
-    setState(() {
-      totalSale = total;
-    });
-  }
-
+class _StoreExpensesScreenState extends ConsumerState<StoreExpensesScreen> {
   @override
   Widget build(BuildContext context) {
+    double totalSale = ref.watch(totalSaleProvider);
+    double totalExpenses = ref.watch(totalExpensesProvider);
     return CommonScaffold(
       appBar: const CommonAppBar(
         title: "Store",
@@ -156,8 +134,8 @@ class _StoreExpensesScreenState extends State<StoreExpensesScreen> {
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
-            trailing: const AppText.paragraphI16(
-              "\$2900",
+            trailing: AppText.paragraphI16(
+              "\$${totalExpenses.toStringAsFixed(0)}",
               fontWeight: FontWeight.w500,
               color: ConfigColors.primary2,
             ),
@@ -178,8 +156,8 @@ class _StoreExpensesScreenState extends State<StoreExpensesScreen> {
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
-            trailing: const AppText.paragraphI16(
-              "\$2900",
+            trailing: AppText.paragraphI16(
+              "\$${totalExpenses.toStringAsFixed(0)}",
               fontWeight: FontWeight.w500,
               color: ConfigColors.primary2,
             ),
