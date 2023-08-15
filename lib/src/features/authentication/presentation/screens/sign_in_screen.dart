@@ -129,7 +129,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
           gapH24,
           const AppText.paragraphI14(
-            "- - - - - - - - - - - - - -  - -  Or  - - - - - - - - - - - - - - - - - ",
+            "- - - - - - - - - - - - - - - -  Or  - - - - - - - - - - - - - - - - - ",
             textAlign: TextAlign.center,
             color: ConfigColors.blueGrey,
           ),

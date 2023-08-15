@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
@@ -28,54 +25,6 @@ final class StatisticsScreen extends ConsumerStatefulWidget {
 class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
   String dropDownValue = "Category";
 
-  Future<void> calculateTotalSaleByMonth() async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-
-    if (currentUser == null) {
-      print('User not authenticated.');
-      return;
-    }
-    final ordersRef = FirebaseFirestore.instance.collection('orders');
-    final userOrdersQuery =
-        ordersRef.where('store_id', isEqualTo: currentUser.uid);
-
-    try {
-      final querySnapshot = await userOrdersQuery.get();
-
-      final totalSaleByMonth = {};
-
-      for (var doc in querySnapshot.docs) {
-        final createdAt = (doc['created_at'] as Timestamp).toDate();
-
-        final month = DateFormat.MMM().format(createdAt);
-
-        final orderAmount = doc['total'] as double;
-
-        if (!totalSaleByMonth.containsKey(month)) {
-          totalSaleByMonth[month] = orderAmount;
-        } else {
-          totalSaleByMonth[month] = totalSaleByMonth[month]! + orderAmount;
-        }
-      }
-      ref
-          .read(totalSaleByMonthProvider.notifier)
-          .update((state) => totalSaleByMonth);
-      // Print the calculated total amounts
-      totalSaleByMonth.forEach((month, totalAmount) {
-        print('Month: $month, Total Amount: $totalAmount');
-      });
-    } catch (e) {
-      print('Error calculating and printing total amount: $e');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    print('//////////////////////////////////////////////////////');
-    calculateTotalSaleByMonth();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -94,100 +43,100 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
         body: ListView(
           padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
           children: [
-            const AppText.paragraphI16(
-              "Overall sales by week sharing \na month",
-              fontWeight: FontWeight.w600,
-            ),
-            gapH20,
-            const CommonCard(
-              height: 246,
-              width: 343,
-              alignment: Alignment.center,
-              child: Text("This Week"),
-            ),
-            gapH24,
-            const AppText.paragraphI16(
-              "Overall Expenses",
-              fontWeight: FontWeight.w600,
-            ),
-            gapH16,
-            const PieChart(),
-            gapH32,
-            const AppText.paragraphI16(
-              "Gross margin",
-              fontWeight: FontWeight.w600,
-            ),
-            gapH20,
-            const CommonCard(
-              height: 187,
-              width: 343,
-              alignment: Alignment.center,
-              child: Text("Gross Margin"),
-            ),
-            gapH24,
-            const AppText.paragraphI16(
-              "Top clients",
-              fontWeight: FontWeight.w600,
-            ),
-            gapH20,
-            const CommonCard(
-              showBorder: true,
-              padding: EdgeInsets.all(0),
-              height: 187,
-              width: 343,
-              child: TopClientChart(),
-            ),
-            gapH24,
-            const AppText.paragraphI16(
-              "Profitability",
-              fontWeight: FontWeight.w600,
-            ),
-            gapH20,
-            const CommonCard(
-              padding: EdgeInsets.all(0),
-              height: 187,
-              width: 343,
-              showBorder: true,
-              child: ProfitabilityChart(),
-            ),
-            gapH24,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const AppText.paragraphI14(
-                  "Inventory levels that \ncould charge by category",
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-                gapW12,
-                CommonDropDown(
-                  value: 'Category',
-                  onChange: (value) {},
-                  items: <String>[
-                    'Category',
-                  ].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ],
-            ),
-            gapH20,
-            const CommonCard(
-              height: 205,
-              width: 343,
-              showBorder: true,
-              customBoxShadow: [
-                BoxShadow(
-                  color: Color(0xFFD2E6F1),
-                  blurRadius: 20,
-                )
-              ],
-              child: StatisticBarChart(),
-            ),
-            gapH20,
+            // const AppText.paragraphI16(
+            //   "Overall sales by week sharing \na month",
+            //   fontWeight: FontWeight.w600,
+            // ),
+            // gapH20,
+            // const CommonCard(
+            //   height: 246,
+            //   width: 343,
+            //   alignment: Alignment.center,
+            //   child: Text("This Week"),
+            // ),
+            // gapH24,
+            // const AppText.paragraphI16(
+            //   "Overall Expenses",
+            //   fontWeight: FontWeight.w600,
+            // ),
+            // gapH16,
+            // const PieChart(),
+            // gapH32,
+            // const AppText.paragraphI16(
+            //   "Gross margin",
+            //   fontWeight: FontWeight.w600,
+            // ),
+            // gapH20,
+            // const CommonCard(
+            //   height: 187,
+            //   width: 343,
+            //   alignment: Alignment.center,
+            //   child: Text("Gross Margin"),
+            // ),
+            // gapH24,
+            // const AppText.paragraphI16(
+            //   "Top clients",
+            //   fontWeight: FontWeight.w600,
+            // ),
+            // gapH20,
+            // const CommonCard(
+            //   showBorder: true,
+            //   padding: EdgeInsets.all(0),
+            //   height: 187,
+            //   width: 343,
+            //   child: TopClientChart(),
+            // ),
+            // gapH24,
+            // const AppText.paragraphI16(
+            //   "Profitability",
+            //   fontWeight: FontWeight.w600,
+            // ),
+            // gapH20,
+            // const CommonCard(
+            //   padding: EdgeInsets.all(0),
+            //   height: 187,
+            //   width: 343,
+            //   showBorder: true,
+            //   child: ProfitabilityChart(),
+            // ),
+            // gapH24,
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const AppText.paragraphI14(
+            //       "Inventory levels that \ncould charge by category",
+            //       fontSize: 14,
+            //       fontWeight: FontWeight.w600,
+            //     ),
+            //     gapW12,
+            //     CommonDropDown(
+            //       value: 'Category',
+            //       onChange: (value) {},
+            //       items: <String>[
+            //         'Category',
+            //       ].map((String value) {
+            //         return DropdownMenuItem<String>(
+            //           value: value,
+            //           child: Text(value),
+            //         );
+            //       }).toList(),
+            //     ),
+            //   ],
+            // ),
+            // gapH20,
+            // const CommonCard(
+            //   height: 205,
+            //   width: 343,
+            //   showBorder: true,
+            //   customBoxShadow: [
+            //     BoxShadow(
+            //       color: Color(0xFFD2E6F1),
+            //       blurRadius: 20,
+            //     )
+            //   ],
+            //   child: StatisticBarChart(),
+            // ),
+            // gapH20,
             Row(
               children: [
                 const AppText.paragraphI14(

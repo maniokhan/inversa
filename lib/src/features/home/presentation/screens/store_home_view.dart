@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
@@ -34,8 +35,7 @@ class StoreHomeView extends ConsumerStatefulWidget {
 }
 
 class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
-  // double totalRestock = 0;
-  // double totalSale = 0;
+  User? currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -43,55 +43,119 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
     calculateTotalSale();
     calculateTotalRestock();
     calculateTotalExpenses();
+    calculateTotalSaleByMonth();
   }
 
   Future<void> calculateTotalSale() async {
     double total = 0;
-
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('orders').get();
-
-    for (var document in querySnapshot.docs) {
-      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      if (data.containsKey('total')) {
-        total += data['total'];
-      }
+    if (currentUser == null) {
+      print('User not authenticated.');
+      return;
     }
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('orders')
+          .where('store_id', isEqualTo: currentUser!.uid)
+          .get();
 
-    ref.read(totalSaleProvider.notifier).update((state) => total);
+      for (var document in querySnapshot.docs) {
+        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+        if (data.containsKey('total')) {
+          total += data['total'];
+        }
+      }
+
+      ref.read(totalSaleProvider.notifier).update((state) => total);
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
   }
 
   Future<void> calculateTotalRestock() async {
     double total = 0.0;
-
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('products').get();
-
-    for (var document in querySnapshot.docs) {
-      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      if (data.containsKey('price') && data.containsKey('quantity')) {
-        total += ((double.tryParse(data['price']) ?? 0) * data['quantity']);
-      }
+    if (currentUser == null) {
+      print('User not authenticated.');
+      return;
     }
-    ref.read(totalRestockProvider.notifier).update((state) => total);
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('products')
+          .where('user_id', isEqualTo: currentUser!.uid)
+          .get();
+
+      for (var document in querySnapshot.docs) {
+        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+        if (data.containsKey('price') && data.containsKey('quantity')) {
+          total += ((double.tryParse(data['price']) ?? 0) * data['quantity']);
+        }
+      }
+      ref.read(totalRestockProvider.notifier).update((state) => total);
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
   }
 
   Future<void> calculateTotalExpenses() async {
-    User? user = FirebaseAuth.instance.currentUser;
     double total = 0;
-
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('expenses')
-        .where('user_id', isEqualTo: user!.uid)
-        .get();
-
-    for (var document in querySnapshot.docs) {
-      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      if (data.containsKey('price')) {
-        total += data['price'];
-      }
+    if (currentUser == null) {
+      print('User not authenticated.');
+      return;
     }
-    ref.read(totalExpensesProvider.notifier).update((state) => total);
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('expenses')
+          .where('user_id', isEqualTo: currentUser!.uid)
+          .get();
+
+      for (var document in querySnapshot.docs) {
+        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+        if (data.containsKey('price')) {
+          total += data['price'];
+        }
+      }
+      ref.read(totalExpensesProvider.notifier).update((state) => total);
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
+  }
+
+  Future<void> calculateTotalSaleByMonth() async {
+    if (currentUser == null) {
+      print('User not authenticated.');
+      return;
+    }
+    final ordersRef = FirebaseFirestore.instance.collection('orders');
+    final userOrdersQuery =
+        ordersRef.where('store_id', isEqualTo: currentUser!.uid);
+
+    try {
+      final querySnapshot = await userOrdersQuery.get();
+
+      final totalSaleByMonth = {};
+
+      for (var doc in querySnapshot.docs) {
+        final createdAt = (doc['created_at'] as Timestamp).toDate();
+
+        final month = DateFormat.MMM().format(createdAt);
+
+        final orderAmount = doc['total'] as double;
+
+        if (!totalSaleByMonth.containsKey(month)) {
+          totalSaleByMonth[month] = orderAmount;
+        } else {
+          totalSaleByMonth[month] = totalSaleByMonth[month]! + orderAmount;
+        }
+      }
+      ref
+          .read(totalSaleByMonthProvider.notifier)
+          .update((state) => totalSaleByMonth);
+      // Print the calculated total amounts
+      // totalSaleByMonth.forEach((month, totalAmount) {
+      //   print('Month: $month, Total Amount: $totalAmount');
+      // });
+    } catch (e) {
+      print('Error calculating and printing total amount: $e');
+    }
   }
 
   @override

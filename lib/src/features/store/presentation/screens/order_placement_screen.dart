@@ -144,7 +144,9 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
                             );
                           },
                         )
-                      : const AppText.paragraphI16("No Products Available"),
+                      : const Center(
+                          child:
+                              AppText.paragraphI16("No Products Available!")),
                 ),
               ],
             ),
