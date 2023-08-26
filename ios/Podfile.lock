@@ -695,6 +695,8 @@ PODS:
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - Flutter (1.0.0)
+  - flutter_barcode_scanner (2.0.0):
+    - Flutter
   - flutter_facebook_auth (6.0.1):
     - FBSDKLoginKit (~> 16.1.3)
     - Flutter
@@ -816,6 +818,7 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - flutter_barcode_scanner (from `.symlinks/plugins/flutter_barcode_scanner/ios`)
   - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
@@ -860,6 +863,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  flutter_barcode_scanner:
+    :path: ".symlinks/plugins/flutter_barcode_scanner/ios"
   flutter_facebook_auth:
     :path: ".symlinks/plugins/flutter_facebook_auth/ios"
   flutter_native_splash:
@@ -895,6 +900,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 9e46c82a14a3b3a25be4e1e151ce6d21536b89c0
   FirebaseFirestore: b3bb12a497c9d13e80ec3158dbb75ded03592e8d
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_barcode_scanner: 7a1144744c28dc0c57a8de7218ffe5ec59a9e4bf
   flutter_facebook_auth: 47c7a8594f2d6864618e30b5a6d59dff0d2e59fe
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be

@@ -1,6 +1,5 @@
-inversa@gmail.com
-123456
-
+inversapp@gmail.com
+Inversa2023!
 
 # com.inversaapp
 
