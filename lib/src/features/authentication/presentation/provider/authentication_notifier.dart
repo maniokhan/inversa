@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -62,7 +63,48 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
     }
   }
 
-  Future<void> loginWithFacebookAccount() async {}
+  Future<void> loginWithFacebookAccount() async {
+    final loginResult = await FacebookAuth.instance.login();
+    final token = loginResult.accessToken?.token;
+    if (token == null) {
+      return;
+    }
+    final oauthCredentials = FacebookAuthProvider.credential(token);
+    try {
+      state = state.copyWith(isLoading: true);
+      final userDetails =
+          (await FirebaseAuth.instance.signInWithCredential(oauthCredentials))
+              .user!;
+      final String? userId = FirebaseAuth.instance.currentUser?.uid;
+      final Map<String, dynamic> data = {
+        'user_id': userId,
+        'name': userDetails.displayName ?? '',
+        'address': '',
+        'store_name': '',
+        'email': userDetails.email ?? '',
+      };
+      await FirebaseFirestore.instance.collection('user_accounts').add(data);
+      state = Auth(authState: AuthState.selectRole);
+    } on FirebaseAuthException catch (e) {
+      print('Failed with error code: ${e.code}');
+      print(e.message);
+      // final email = e.email;
+      // final credential = e.credential;
+      // if (e.code == 'account-exists-with-different-credential' &&
+      //     email != null &&
+      //     credential != null) {
+      //   final providers =
+      //       await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      //   if (providers.contains('google.com')) {
+      //     await loginWithGoogle();
+      //     FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
+      //   }
+      // }
+    } finally {
+      state = state.copyWith(isLoading: false);
+    }
+  }
+
   Future<void> loginWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
       'email',
@@ -83,9 +125,10 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
       final String? userId = FirebaseAuth.instance.currentUser?.uid;
       final Map<String, dynamic> data = {
         'user_id': userId,
-        'name': userDetails.displayName,
+        'name': userDetails.displayName ?? '',
         'address': '',
         'store_name': '',
+        'email': userDetails.email ?? '',
       };
       await FirebaseFirestore.instance.collection('user_accounts').add(data);
       state = Auth(authState: AuthState.selectRole);
@@ -149,6 +192,7 @@ class AuthenticationNotifier extends StateNotifier<Auth> {
       state = state.copyWith(isLoading: true);
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();
+      await FacebookAuth.instance.logOut();
       state = Auth(authState: AuthState.logout);
     } catch (e) {
       throw Exception('Something went wrong while logout');

@@ -1,77 +1,34 @@
 {
   "project_info": {
-    "project_number": "381911750010",
-    "project_id": "deliverzler-ecab4",
-    "storage_bucket": "deliverzler-ecab4.appspot.com"
+    "project_number": "52687758327",
+    "project_id": "inversappmx",
+    "storage_bucket": "inversappmx.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:381911750010:android:bd5e8a88baa8047c8672c3",
+        "mobilesdk_app_id": "1:52687758327:android:93bee57ad06f054a5d04f2",
         "android_client_info": {
           "package_name": "com.abubakar.inversaapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "381911750010-oq5gfd79k15tuc8hv9g61oghqjsh9jc2.apps.googleusercontent.com",
+          "client_id": "52687758327-5sc036lavtvv9churc7aj1fijrlpdpvq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCJ3Dbd_AIXDtr1aasU7xZG3G4STZF-pio"
+          "current_key": "AIzaSyAI6-KmSu60gorTn4tM_2Q9LiB0hWWhVVs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "381911750010-8t2et1s5hufsccfdshd3ui9k0s2ajt20.apps.googleusercontent.com",
+              "client_id": "52687758327-5sc036lavtvv9churc7aj1fijrlpdpvq.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "381911750010-bj1jfvusuls7jgb0722t5p6h027uhac8.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.abubakar.inversaapp.RunnerTests"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:381911750010:android:8d864354677104fa8672c3",
-        "android_client_info": {
-          "package_name": "com.appzler.deliverzler"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "381911750010-oq5gfd79k15tuc8hv9g61oghqjsh9jc2.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCJ3Dbd_AIXDtr1aasU7xZG3G4STZF-pio"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "381911750010-8t2et1s5hufsccfdshd3ui9k0s2ajt20.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "381911750010-bj1jfvusuls7jgb0722t5p6h027uhac8.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.abubakar.inversaapp.RunnerTests"
-              }
             }
           ]
         }

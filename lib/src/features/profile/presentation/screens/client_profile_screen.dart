@@ -53,7 +53,7 @@ class ClientProfileScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AppText.titleS20(
-                            data['name'],
+                            data['name'] ?? '',
                             color: ConfigColors.white,
                           ),
                           CommonCard(
@@ -73,7 +73,7 @@ class ClientProfileScreen extends ConsumerWidget {
                     SizedBox(
                       width: 275,
                       child: AppText.paragraphI12(
-                        data['address'],
+                        data['address'] ?? '',
                         maxLines: 2,
                         color: ConfigColors.white,
                         fontWeight: FontWeight.w400,
@@ -84,7 +84,7 @@ class ClientProfileScreen extends ConsumerWidget {
                       leading: Assets.email.svg(
                         color: ConfigColors.white,
                       ),
-                      text: data['email'],
+                      text: data['email'] ?? '',
                       textColor: ConfigColors.white,
                     ),
                   ],

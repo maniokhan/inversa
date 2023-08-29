@@ -51,7 +51,7 @@ class StoreProfileScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AppText.titleS20(
-                            data['store_name'],
+                            data['store_name'] ?? '',
                             maxLines: 2,
                             color: ConfigColors.white,
                           ),
@@ -70,7 +70,7 @@ class StoreProfileScreen extends ConsumerWidget {
                     SizedBox(
                       width: 275,
                       child: AppText.paragraphI12(
-                        data['address'],
+                        data['address'] ?? '',
                         maxLines: 2,
                         color: ConfigColors.white,
                         fontWeight: FontWeight.w400,
@@ -81,7 +81,7 @@ class StoreProfileScreen extends ConsumerWidget {
                       leading: Assets.email.svg(
                         color: ConfigColors.white,
                       ),
-                      text: data['email'],
+                      text: data['email'] ?? '',
                       textColor: ConfigColors.white,
                     ),
                   ],

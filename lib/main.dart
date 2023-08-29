@@ -9,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.remove();
   await Firebase.initializeApp(
-    name: 'deliverzler-ecab4',
+    name: 'inversappmx',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const ProviderScope(child: App()));

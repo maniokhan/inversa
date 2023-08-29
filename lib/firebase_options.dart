@@ -44,40 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDcg05EpzN-cDRIljOlZPdhzJmjTzu7BGU',
-    appId: '1:381911750010:web:548fc62c87263d518672c3',
-    messagingSenderId: '381911750010',
-    projectId: 'deliverzler-ecab4',
-    authDomain: 'deliverzler-ecab4.firebaseapp.com',
-    storageBucket: 'deliverzler-ecab4.appspot.com',
-    measurementId: 'G-T8EPD2YN26',
+    apiKey: 'AIzaSyA4TW3aH7TElRIvEIQ_RRt70769Y86b9xM',
+    appId: '1:52687758327:web:fc7660e94b6677d05d04f2',
+    messagingSenderId: '52687758327',
+    projectId: 'inversappmx',
+    authDomain: 'inversappmx.firebaseapp.com',
+    storageBucket: 'inversappmx.appspot.com',
+    measurementId: 'G-LPLLPQG1PZ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCJ3Dbd_AIXDtr1aasU7xZG3G4STZF-pio',
-    appId: '1:381911750010:android:bd5e8a88baa8047c8672c3',
-    messagingSenderId: '381911750010',
-    projectId: 'deliverzler-ecab4',
-    storageBucket: 'deliverzler-ecab4.appspot.com',
+    apiKey: 'AIzaSyAI6-KmSu60gorTn4tM_2Q9LiB0hWWhVVs',
+    appId: '1:52687758327:android:93bee57ad06f054a5d04f2',
+    messagingSenderId: '52687758327',
+    projectId: 'inversappmx',
+    storageBucket: 'inversappmx.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC0fUlML2GBFXhHPYna3WVcddDM7v-M5YU',
-    appId: '1:381911750010:ios:da3485eea33022d28672c3',
-    messagingSenderId: '381911750010',
-    projectId: 'deliverzler-ecab4',
-    storageBucket: 'deliverzler-ecab4.appspot.com',
-    iosClientId: '381911750010-destcvcni2mkjmhmiokb39lspq3d4snq.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCIyWQG-AEcY6PQ3ChzilrQRjYAFXi7yIs',
+    appId: '1:52687758327:ios:f6aa9645ebea6f685d04f2',
+    messagingSenderId: '52687758327',
+    projectId: 'inversappmx',
+    storageBucket: 'inversappmx.appspot.com',
+    iosClientId: '52687758327-v2kt24ad84os2h5q3djskqcnccibm7qm.apps.googleusercontent.com',
     iosBundleId: 'com.abubakar.inversaapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC0fUlML2GBFXhHPYna3WVcddDM7v-M5YU',
-    appId: '1:381911750010:ios:3f39170ecfa3f3ce8672c3',
-    messagingSenderId: '381911750010',
-    projectId: 'deliverzler-ecab4',
-    storageBucket: 'deliverzler-ecab4.appspot.com',
-    iosClientId: '381911750010-bj1jfvusuls7jgb0722t5p6h027uhac8.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCIyWQG-AEcY6PQ3ChzilrQRjYAFXi7yIs',
+    appId: '1:52687758327:ios:2528fb3cd837e0955d04f2',
+    messagingSenderId: '52687758327',
+    projectId: 'inversappmx',
+    storageBucket: 'inversappmx.appspot.com',
+    iosClientId: '52687758327-6tudi88nm2e80qjcnnqtfvocang6aljd.apps.googleusercontent.com',
     iosBundleId: 'com.abubakar.inversaapp.RunnerTests',
   );
 }

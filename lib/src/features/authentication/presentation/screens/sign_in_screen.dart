@@ -138,7 +138,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CommonCard(
-                onTap: () {},
+                onTap: () async {
+                  await ref
+                      .read(authenticationProvider.notifier)
+                      .loginWithFacebookAccount();
+                },
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(14),
                 customRadius: BorderRadius.circular(14),

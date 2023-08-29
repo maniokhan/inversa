@@ -2,8 +2,12 @@
 <resources>
 
 <string name="facebook_app_id">1315776359021855</string>
-<string name="app_name">Testapp</string>
+<string name="app_name">Inversa App</string>
 <string name="fb_login_protocol_scheme">fb1315776359021855</string>
-<string name="facebook_client_token">6d577524bd4f59d3a839a76d0b991a6e</string>
+<string name="facebook_client_token">079049c7f8536363014b97cd4844d6d1</string>
 
 </resources>
+
+
+      
+      
