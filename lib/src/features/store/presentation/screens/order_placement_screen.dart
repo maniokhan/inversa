@@ -1,10 +1,10 @@
 import 'package:badges/badges.dart' as badges;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_order_placement_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
-import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/all_products_providers.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/search_notifier_provider.dart';
@@ -46,7 +46,10 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
     final products = ref.watch(allProductsProvider(widget.storeId));
 
     final shoppingCartTotalItemValue = ref.watch(shoppingCartTotalItemProvider);
-
+    final productsRef = FirebaseFirestore.instance
+        .collection('products')
+        .where('user_id', isEqualTo: widget.storeId)
+        .snapshots();
     return CommonScaffold(
       isScaffold: true,
       appBar: AppBar(
@@ -104,67 +107,92 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
           gapW16,
         ],
       ),
-      body: products.when(
-        data: (data) {
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
-            child: Column(
-              children: [
-                CommonTextField(
-                  controller: _searchController,
-                  prefixIcon: Icons.search,
-                  hintText: 'Search',
-                  suffixIcon: Icons.close,
-                  onChanged: (value) {
-                    ref
-                        .read(searchNotifierProvider.notifier)
-                        .productSearch(value);
-                  },
-                  onSuffixIconPressed: () {
-                    ref.read(searchNotifierProvider.notifier).productSearch('');
-                    _searchController.clear();
-                  },
-                ),
-                gapH16,
-                Expanded(
-                  child: data.isNotEmpty
-                      ? GridView.builder(
-                          itemCount: data.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 12,
-                            crossAxisSpacing: 12,
-                            childAspectRatio: 3 / 4,
-                          ),
-                          itemBuilder: (context, index) {
-                            final product = data.elementAt(index);
-                            return CommonOrderPlacementCard(
-                              product: product,
-                            );
-                          },
-                        )
-                      : const Center(
-                          child:
-                              AppText.paragraphI16("No Products Available!")),
-                ),
-              ],
-            ),
-          );
-        },
-        error: (error, stackTrace) {
-          return const Center(
-            child: Icon(Icons.error),
-          );
-        },
-        loading: () {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: ConfigColors.primary,
-            ),
-          );
+      body: StreamBuilder(
+        stream: productsRef,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //   crossAxisCount: 2,
+              //   mainAxisSpacing: 12,
+              //   crossAxisSpacing: 12,
+              //   childAspectRatio: 3 / 4,
+              // ),
+              itemBuilder: (context, index) {
+                final document = snapshot.data!.docs[index];
+                return CommonOrderPlacementCard(
+                  product: document,
+                );
+              },
+            );
+          } else {
+            return const Center(
+                child: AppText.paragraphI16("No Products Available!"));
+          }
         },
       ),
+      // body: products.when(
+      //   data: (data) {
+      //     return Padding(
+      //       padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+      //       child: Column(
+      //         children: [
+      //           CommonTextField(
+      //             controller: _searchController,
+      //             prefixIcon: Icons.search,
+      //             hintText: 'Search',
+      //             suffixIcon: Icons.close,
+      //             onChanged: (value) {
+      //               ref
+      //                   .read(searchNotifierProvider.notifier)
+      //                   .productSearch(value);
+      //             },
+      //             onSuffixIconPressed: () {
+      //               ref.read(searchNotifierProvider.notifier).productSearch('');
+      //               _searchController.clear();
+      //             },
+      //           ),
+      //           gapH16,
+      //           Expanded(
+      //             child: data.isNotEmpty
+      //                 ? GridView.builder(
+      //                     itemCount: data.length,
+      //                     gridDelegate:
+      //                         const SliverGridDelegateWithFixedCrossAxisCount(
+      //                       crossAxisCount: 2,
+      //                       mainAxisSpacing: 12,
+      //                       crossAxisSpacing: 12,
+      //                       childAspectRatio: 3 / 4,
+      //                     ),
+      //                     itemBuilder: (context, index) {
+      //                       final product = data.elementAt(index);
+      //                       return CommonOrderPlacementCard(
+      //                         product: product,
+      //                       );
+      //                     },
+      //                   )
+      //                 : const Center(
+      //                     child:
+      //                         AppText.paragraphI16("No Products Available!")),
+      //           ),
+      //         ],
+      //       ),
+      //     );
+      //   },
+      //   error: (error, stackTrace) {
+      //     return const Center(
+      //       child: Icon(Icons.error),
+      //     );
+      //   },
+      //   loading: () {
+      //     return const Center(
+      //       child: CircularProgressIndicator(
+      //         color: ConfigColors.primary,
+      //       ),
+      //     );
+      //   },
+      // ),
     );
   }
 
