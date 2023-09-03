@@ -1,19 +1,16 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_order_placement_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
+import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/all_products_providers.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/search_notifier_provider.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_total_item_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/shopping_cart_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class OrderPlacementScreen extends ConsumerStatefulWidget {
+class OrderPlacementScreen extends StatefulWidget {
   final String storeId;
   static Route<OrderPlacementScreen> route(String id) {
     return MaterialPageRoute(
@@ -26,26 +23,24 @@ class OrderPlacementScreen extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<OrderPlacementScreen> createState() =>
-      _OrderPlacementScreenState();
+  State<OrderPlacementScreen> createState() => _OrderPlacementScreenState();
 }
 
-class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
-  final ValueNotifier<int> shoppingCartTotalItems = ValueNotifier(0);
+class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
+  // final ValueNotifier<int> shoppingCartTotalItems = ValueNotifier(0);
 
-  late final TextEditingController _searchController;
-  @override
-  void initState() {
-    ref.read(searchNotifierProvider.notifier).productSearch('');
-    _searchController = TextEditingController();
-    super.initState();
-  }
+  // late final TextEditingController _searchController;
+  // @override
+  // void initState() {
+  //   ref.read(searchNotifierProvider.notifier).productSearch('');
+  //   _searchController = TextEditingController();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final products = ref.watch(allProductsProvider(widget.storeId));
-
-    final shoppingCartTotalItemValue = ref.watch(shoppingCartTotalItemProvider);
+    // final products = ref.watch(allProductsProvider(widget.storeId));
+    // final shoppingCartTotalItemValue = ref.watch(shoppingCartTotalItemProvider);
     final productsRef = FirebaseFirestore.instance
         .collection('products')
         .where('user_id', isEqualTo: widget.storeId)
@@ -77,29 +72,29 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
                 badgeStyle: const badges.BadgeStyle(
                   badgeColor: ConfigColors.primary2,
                 ),
-                badgeContent: shoppingCartTotalItemValue.when(
-                  data: (data) {
-                    return AppText.paragraphI12(
-                      data.toString(),
-                      color: ConfigColors.white,
-                      fontWeight: FontWeight.w600,
-                    );
-                  },
-                  error: (error, stackTrace) {
-                    return const AppText.paragraphI12(
-                      "0",
-                      color: ConfigColors.white,
-                      fontWeight: FontWeight.w600,
-                    );
-                  },
-                  loading: () {
-                    return const AppText.paragraphI12(
-                      "0",
-                      color: ConfigColors.white,
-                      fontWeight: FontWeight.w600,
-                    );
-                  },
-                ),
+                // badgeContent: shoppingCartTotalItemValue.when(
+                //   data: (data) {
+                //     return AppText.paragraphI12(
+                //       data.toString(),
+                //       color: ConfigColors.white,
+                //       fontWeight: FontWeight.w600,
+                //     );
+                //   },
+                //   error: (error, stackTrace) {
+                //     return const AppText.paragraphI12(
+                //       "0",
+                //       color: ConfigColors.white,
+                //       fontWeight: FontWeight.w600,
+                //     );
+                //   },
+                //   loading: () {
+                //     return const AppText.paragraphI12(
+                //       "0",
+                //       color: ConfigColors.white,
+                //       fontWeight: FontWeight.w600,
+                //     );
+                //   },
+                // ),
                 child: Assets.basketWhite.svg(height: 24),
               ),
             ]),
@@ -107,30 +102,63 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
           gapW16,
         ],
       ),
-      body: StreamBuilder(
-        stream: productsRef,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              //   crossAxisCount: 2,
-              //   mainAxisSpacing: 12,
-              //   crossAxisSpacing: 12,
-              //   childAspectRatio: 3 / 4,
-              // ),
-              itemBuilder: (context, index) {
-                final document = snapshot.data!.docs[index];
-                return CommonOrderPlacementCard(
-                  product: document,
-                );
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+        child: Column(
+          children: [
+            CommonTextField(
+              // controller: _searchController,
+              prefixIcon: Icons.search,
+              hintText: 'Search',
+              suffixIcon: Icons.close,
+              onChanged: (value) {
+                // ref.read(searchNotifierProvider.notifier).productSearch(value);
               },
-            );
-          } else {
-            return const Center(
-                child: AppText.paragraphI16("No Products Available!"));
-          }
-        },
+              onSuffixIconPressed: () {
+                // ref.read(searchNotifierProvider.notifier).productSearch('');
+                // _searchController.clear();
+              },
+            ),
+            gapH16,
+            Expanded(
+              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                stream: productsRef,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.none) {
+                    return const Center(
+                      child: Text("No Product Available"),
+                    );
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                    return GridView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        childAspectRatio: 3 / 4,
+                      ),
+                      itemBuilder: (context, index) {
+                        final product = snapshot.data!.docs[index];
+                        return CommonOrderPlacementCard(product: product);
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("No Product Available"),
+                    );
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
       // body: products.when(
       //   data: (data) {
@@ -196,10 +224,10 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    shoppingCartTotalItems.dispose();
-    _searchController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // shoppingCartTotalItems.dispose();
+  //   _searchController.dispose();
+  //   super.dispose();
+  // }
 }

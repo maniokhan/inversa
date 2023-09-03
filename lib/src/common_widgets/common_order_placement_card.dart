@@ -7,7 +7,7 @@ import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 class CommonOrderPlacementCard extends StatefulWidget {
-  final QueryDocumentSnapshot<Map<String, dynamic>> product;
+  final QueryDocumentSnapshot<Object?> product;
   const CommonOrderPlacementCard({
     Key? key,
     required this.product,
@@ -62,17 +62,17 @@ class _CommonOrderPlacementCardState extends State<CommonOrderPlacementCard> {
                   AppText.paragraphI14(
                     widget.product['name'],
                     fontWeight: FontWeight.w600,
-                    textDecoration: widget.product['isShoppingCart']
-                        ? TextDecoration.lineThrough
-                        : null,
+                    // textDecoration: widget.product['isShoppingCart']
+                    //     ? TextDecoration.lineThrough
+                    //     : null,
                   ),
                   gapH4,
                   AppText.paragraphI14(
                     '${widget.product['units']['value']} ${widget.product['units']['name']} ',
                     fontWeight: FontWeight.w400,
-                    textDecoration: widget.product['isShoppingCart']
-                        ? TextDecoration.lineThrough
-                        : null,
+                    // textDecoration: widget.product['isShoppingCart']
+                    //     ? TextDecoration.lineThrough
+                    //     : null,
                   ),
                   gapH12,
                   Padding(
@@ -83,9 +83,9 @@ class _CommonOrderPlacementCardState extends State<CommonOrderPlacementCard> {
                         AppText.paragraphI16(
                           widget.product['price'],
                           fontWeight: FontWeight.w600,
-                          textDecoration: widget.product['isShoppingCart']
-                              ? TextDecoration.lineThrough
-                              : null,
+                          // textDecoration: widget.product['isShoppingCart']
+                          //     ? TextDecoration.lineThrough
+                          //     : null,
                         ),
                         // CommonCard(
                         //   onTap: () async {
