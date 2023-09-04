@@ -3,13 +3,13 @@
 ///  FlutterGen
 /// *****************************************************
 
-import 'package:flutter/services.dart';
 // coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -78,10 +78,13 @@ class Assets {
 
   static const SvgGenImage address = SvgGenImage('assets/address.svg');
   static const SvgGenImage appLogo = SvgGenImage('assets/app_logo.svg');
-  static const SvgGenImage appLogoGreen =
+  static const AssetGenImage appLogoGreenPng =
+      AssetGenImage('assets/app_logo_green.png');
+  static const SvgGenImage appLogoGreenSvg =
       SvgGenImage('assets/app_logo_green.svg');
+  static const AssetGenImage backgroundImg =
+      AssetGenImage('assets/background_img.png');
   static const AssetGenImage bakery = AssetGenImage('assets/bakery.png');
-  static const AssetGenImage img = AssetGenImage('assets/img.png');
   static const AssetGenImage bakeryItems =
       AssetGenImage('assets/bakery_items.png');
   static const AssetGenImage banana = AssetGenImage('assets/banana.png');
@@ -152,6 +155,7 @@ class Assets {
   static const SvgGenImage home = SvgGenImage('assets/home.svg');
   static const AssetGenImage iceCream = AssetGenImage('assets/ice_cream.png');
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const AssetGenImage img = AssetGenImage('assets/img.png');
   static const AssetGenImage launcherIcon =
       AssetGenImage('assets/launcher_icon.png');
   static const AssetGenImage lightbulb = AssetGenImage('assets/lightbulb.png');
@@ -205,6 +209,7 @@ class Assets {
   static const AssetGenImage search = AssetGenImage('assets/search.png');
   static const String searchGrey = 'assets/search_grey.zip';
   static const AssetGenImage sort = AssetGenImage('assets/sort.png');
+  static const String splashVideo = 'assets/splash_video.mp4';
   static const AssetGenImage statistic = AssetGenImage('assets/statistic.png');
   static const SvgGenImage store = SvgGenImage('assets/store.svg');
   static const AssetGenImage taxOnIncomeLightGreenPng =
@@ -225,6 +230,9 @@ class Assets {
   List<dynamic> get values => [
         address,
         appLogo,
+        appLogoGreenPng,
+        appLogoGreenSvg,
+        backgroundImg,
         bakery,
         bakeryItems,
         banana,
@@ -274,6 +282,7 @@ class Assets {
         helpLightGreen,
         home,
         iceCream,
+        img,
         launcherIcon,
         lightbulb,
         lock,
@@ -310,6 +319,7 @@ class Assets {
         search,
         searchGrey,
         sort,
+        splashVideo,
         statistic,
         store,
         taxOnIncomeLightGreenPng,

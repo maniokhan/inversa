@@ -191,12 +191,10 @@ void showCupertinoDialog(BuildContext context, WidgetRef ref) {
             ),
             onPressed: () async {
               await ref.read(authenticationProvider.notifier).logoutAccount();
-
               await Future.delayed(
-                const Duration(milliseconds: 300),
-                () => Navigator.pushAndRemoveUntil(
-                    context, LoginScreen.route(), (route) => false),
-              );
+                  const Duration(milliseconds: 100),
+                  () => Navigator.pushAndRemoveUntil(
+                      context, LoginScreen.route(), (route) => false));
             },
           ),
         ],

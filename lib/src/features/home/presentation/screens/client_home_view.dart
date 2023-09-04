@@ -216,7 +216,7 @@ class ClientHomeView extends ConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Assets.appLogoGreen.svg(width: 160),
+                          Assets.appLogoGreenSvg.svg(width: 160),
                           const Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.end,

@@ -6,11 +6,11 @@ part of 'logged_in_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loggedInHash() => r'97bce0a9542767a6b0f9d085b2c7f63825e28742';
+String _$loggedInHash() => r'9b824d79172b6aca8dfd6cbb14fb11cfe648532b';
 
 /// See also [loggedIn].
 @ProviderFor(loggedIn)
-final loggedInProvider = AutoDisposeProvider<AuthState>.internal(
+final loggedInProvider = AutoDisposeProvider<bool>.internal(
   loggedIn,
   name: r'loggedInProvider',
   debugGetCreateSourceHash:
@@ -19,5 +19,5 @@ final loggedInProvider = AutoDisposeProvider<AuthState>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef LoggedInRef = AutoDisposeProviderRef<AuthState>;
+typedef LoggedInRef = AutoDisposeProviderRef<bool>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

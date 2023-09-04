@@ -18,7 +18,7 @@ import 'package:inversaapp/src/features/store/presentation/screens/orders_screen
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class ClientProfileScreen extends ConsumerWidget {
+class ClientProfileScreen extends ConsumerStatefulWidget {
   static Route<ClientProfileScreen> route() {
     return MaterialPageRoute(builder: (context) => const ClientProfileScreen());
   }
@@ -26,7 +26,13 @@ class ClientProfileScreen extends ConsumerWidget {
   const ClientProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ClientProfileScreenState();
+}
+
+class _ClientProfileScreenState extends ConsumerState<ClientProfileScreen> {
+  @override
+  Widget build(BuildContext context) {
     final userData = ref.watch(userAccountProvider);
 
     return CommonScaffold(
@@ -173,50 +179,49 @@ class ClientProfileScreen extends ConsumerWidget {
       ),
     );
   }
-}
 
-void showCupertinoDialog(BuildContext context, WidgetRef ref) {
-  showDialog(
-    context: context,
-    builder: ((context) {
-      return CupertinoAlertDialog(
-        title: const AppText.paragraphI16(
-          "Log Out ",
-          fontWeight: FontWeight.w600,
-        ),
-        content: const AppText.paragraphI14(
-          "Are you sure you want to logout ? ",
-          color: ConfigColors.slateGray,
-        ),
-        actions: [
-          CupertinoDialogAction(
-            child: const AppText.paragraphI16(
-              "No",
-              fontSize: 17,
-              fontWeight: FontWeight.w500,
-            ),
-            onPressed: () {
-              Navigator.pop(context); // Close the dialog
-            },
+  void showCupertinoDialog(BuildContext context, WidgetRef ref) async {
+    await showDialog(
+      context: context,
+      builder: ((context) {
+        return CupertinoAlertDialog(
+          title: const AppText.paragraphI16(
+            "Log Out ",
+            fontWeight: FontWeight.w600,
           ),
-          CupertinoDialogAction(
-            child: const AppText.paragraphI16(
-              "Yes",
-              fontSize: 17,
-              color: ConfigColors.primary2,
-              fontWeight: FontWeight.w500,
-            ),
-            onPressed: () async {
-              await ref.read(authenticationProvider.notifier).logoutAccount();
-              await Future.delayed(
-                const Duration(milliseconds: 300),
-                () => Navigator.pushAndRemoveUntil(
-                    context, LoginScreen.route(), (route) => false),
-              );
-            },
+          content: const AppText.paragraphI14(
+            "Are you sure you want to logout ? ",
+            color: ConfigColors.slateGray,
           ),
-        ],
-      );
-    }),
-  );
+          actions: [
+            CupertinoDialogAction(
+              child: const AppText.paragraphI16(
+                "No",
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+              ),
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+            ),
+            CupertinoDialogAction(
+              child: const AppText.paragraphI16(
+                "Yes",
+                fontSize: 17,
+                color: ConfigColors.primary2,
+                fontWeight: FontWeight.w500,
+              ),
+              onPressed: () async {
+                await ref.read(authenticationProvider.notifier).logoutAccount();
+                await Future.delayed(
+                    const Duration(milliseconds: 100),
+                    () => Navigator.pushAndRemoveUntil(
+                        context, LoginScreen.route(), (route) => false));
+              },
+            ),
+          ],
+        );
+      }),
+    );
+  }
 }

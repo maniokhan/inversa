@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_notifier.dart';
-import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
+import 'package:inversaapp/main.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/sign_in_screen.dart';
-import 'package:inversaapp/src/features/authentication/presentation/screens/signup_screen.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/user_role_screen.dart';
-import 'package:inversaapp/src/features/home/presentation/screens/client_nav_bar.dart';
-import 'package:inversaapp/src/features/home/presentation/screens/store_nav_bar.dart';
 import 'package:inversaapp/src/helpers/loading_screen.dart';
 import 'package:inversaapp/src/providers/is_loading_provider.dart';
 import 'package:inversaapp/src/theme/data.dart';
@@ -50,8 +46,6 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(authenticationProvider);
-
     ref.listen(isLoadingProvider, (previous, next) {
       if (next) {
         LoadingScreen().show(context: context, text: "Please wait");
@@ -59,22 +53,11 @@ class MyApp extends ConsumerWidget {
         LoadingScreen().hide();
       }
     });
-
-
-
-    switch (state.authState) {
-      case AuthState.notRegistered:
-        return const SignupScreen();
-      case AuthState.storeLoggedIn:
-        return const StoreNavigationBar();
-      case AuthState.clientLoggedIn:
-        return const ClientNavigationBar();
-      case AuthState.selectRole:
-        return UserRoleScreen();
-      case AuthState.logout:
-        return const LoginScreen();
-      default:
-        return const LoginScreen();
+    final isLoggin = appPrefs?.getBool('isLoggin') ?? false;
+    if (isLoggin) {
+      return UserRoleScreen();
+    } else {
+      return const LoginScreen();
     }
   }
 }

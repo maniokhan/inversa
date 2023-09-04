@@ -10,8 +10,10 @@ import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field_title.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_notifier.dart';
 import 'package:inversaapp/src/features/authentication/presentation/provider/authentication_provider.dart';
+import 'package:inversaapp/src/features/authentication/presentation/screens/signup_screen.dart';
+import 'package:inversaapp/src/features/authentication/presentation/screens/user_role_screen.dart';
+import 'package:inversaapp/src/helpers/loading_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -96,10 +98,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           CommonButton(
             text: "Log In",
             onPress: () async {
-              await ref.read(authenticationProvider.notifier).loginAccount(
-                    _emailController.text,
-                    _passwordController.text,
-                  );
+              try {
+                LoadingScreen()
+                    .show(context: context, text: 'Please wait while login');
+                await ref.read(authenticationProvider.notifier).loginAccount(
+                      _emailController.text,
+                      _passwordController.text,
+                    );
+                await Future.delayed(const Duration(milliseconds: 100), () {
+                  LoadingScreen().hide();
+                  Navigator.pushAndRemoveUntil(
+                      context, UserRoleScreen.route(), (route) => false);
+                });
+              } catch (e) {
+                LoadingScreen().hide();
+              }
             },
           ),
           gapH20,
@@ -114,9 +127,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
               InkWell(
                 onTap: () {
-                  ref.read(authenticationProvider.notifier).changeState(
-                        AuthState.notRegistered,
-                      );
+                  Navigator.push(context, SignupScreen.route());
                 },
                 child: const AppText.paragraphI12(
                   "Register here",
