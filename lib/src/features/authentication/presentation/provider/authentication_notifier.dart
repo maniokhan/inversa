@@ -168,7 +168,10 @@ class AuthenticationNotifier extends StateNotifier<bool> {
     try {
       state = true;
       await FirebaseAuth.instance.signOut();
-      await GoogleSignIn().signOut();
+
+      if (GoogleSignIn().currentUser != null) {
+        await GoogleSignIn().signOut();
+      }
       await FacebookAuth.instance.logOut();
       await appPrefs?.setBool('isLoggin', false);
     } catch (e) {
