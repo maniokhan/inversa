@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,17 +14,27 @@ import 'package:inversaapp/src/features/authentication/presentation/screens/chan
 import 'package:inversaapp/src/features/authentication/presentation/screens/sign_in_screen.dart';
 import 'package:inversaapp/src/features/profile/presentation/provider/user_account_provider.dart';
 import 'package:inversaapp/src/features/profile/presentation/screens/client_business_profile_form_screen.dart';
-import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/orders_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 class ClientProfileScreen extends ConsumerStatefulWidget {
-  static Route<ClientProfileScreen> route() {
-    return MaterialPageRoute(builder: (context) => const ClientProfileScreen());
+  final int currentPageIndex;
+  final Function(int) seeAllStore;
+  static Route<ClientProfileScreen> route(
+      int currentPageIndex, Function(int) seeAllStore) {
+    return MaterialPageRoute(
+        builder: (context) => ClientProfileScreen(
+              currentPageIndex: currentPageIndex,
+              seeAllStore: seeAllStore,
+            ));
   }
 
-  const ClientProfileScreen({super.key});
+  const ClientProfileScreen({
+    super.key,
+    required this.currentPageIndex,
+    required this.seeAllStore,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -111,7 +122,10 @@ class _ClientProfileScreenState extends ConsumerState<ClientProfileScreen> {
                   height: 26,
                   width: 26,
                 ),
-                onTap: () => Navigator.push(context, AllStoresScreen.route()),
+                onTap: () {
+                  widget.seeAllStore(1);
+                  // Navigator.push(context, AllStoresScreen.route());
+                },
               ),
               gapH12,
               CommonProfileListTile(

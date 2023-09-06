@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class CommonOrderPlacementCard extends StatefulWidget {
+class CommonOrderPlacementCard extends ConsumerStatefulWidget {
   final QueryDocumentSnapshot<Object?> product;
   const CommonOrderPlacementCard({
     Key? key,
@@ -14,16 +15,18 @@ class CommonOrderPlacementCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _CommonOrderPlacementCardState();
+  ConsumerState<CommonOrderPlacementCard> createState() =>
+      _CommonOrderPlacementCardState();
 }
 
-class _CommonOrderPlacementCardState extends State<CommonOrderPlacementCard> {
-  // late final Map<String, dynamic> product;
-  // @override
-  // void initState() {
-  //   product = widget.product;
-  //   super.initState();
-  // }
+class _CommonOrderPlacementCardState
+    extends ConsumerState<CommonOrderPlacementCard> {
+  late final QueryDocumentSnapshot<Object?> product;
+  @override
+  void initState() {
+    product = widget.product;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,14 +94,12 @@ class _CommonOrderPlacementCardState extends State<CommonOrderPlacementCard> {
                         //   onTap: () async {
                         //     if (widget.product['isShoppingCart']) {
                         //       await ref
-                        //           .read(
-                        //               shoppingCartNotifierProvider.notifier)
+                        //           .read(shoppingCartNotifierProvider.notifier)
                         //           .deleteProductShoppingCart(
                         //               widget.product['shopping_cart_id']);
                         //     } else {
                         //       await ref
-                        //           .read(
-                        //               shoppingCartNotifierProvider.notifier)
+                        //           .read(shoppingCartNotifierProvider.notifier)
                         //           .createShoppingCart(
                         //         data: {
                         //           'quantity': 01,

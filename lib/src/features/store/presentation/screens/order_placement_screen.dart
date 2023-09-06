@@ -1,16 +1,20 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_order_placement_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/features/store/presentation/provider/all_products_providers.dart';
+import 'package:inversaapp/src/features/store/presentation/provider/search_notifier_provider.dart';
+import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_total_item_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/shopping_cart_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class OrderPlacementScreen extends StatefulWidget {
+class OrderPlacementScreen extends ConsumerStatefulWidget {
   final String storeId;
   static Route<OrderPlacementScreen> route(String id) {
     return MaterialPageRoute(
@@ -23,28 +27,31 @@ class OrderPlacementScreen extends StatefulWidget {
   });
 
   @override
-  State<OrderPlacementScreen> createState() => _OrderPlacementScreenState();
+  ConsumerState<OrderPlacementScreen> createState() =>
+      _OrderPlacementScreenState();
 }
 
-class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
-  // final ValueNotifier<int> shoppingCartTotalItems = ValueNotifier(0);
+class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
+  final ValueNotifier<int> shoppingCartTotalItems = ValueNotifier(0);
 
-  // late final TextEditingController _searchController;
-  // @override
-  // void initState() {
-  //   ref.read(searchNotifierProvider.notifier).productSearch('');
-  //   _searchController = TextEditingController();
-  //   super.initState();
-  // }
+  late final TextEditingController _searchController;
+  @override
+  void initState() {
+    ref.read(searchNotifierProvider.notifier).productSearch('');
+    _searchController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // final products = ref.watch(allProductsProvider(widget.storeId));
-    // final shoppingCartTotalItemValue = ref.watch(shoppingCartTotalItemProvider);
+    final shoppingCartTotalItemValue = ref.watch(shoppingCartTotalItemProvider);
     final productsRef = FirebaseFirestore.instance
         .collection('products')
         .where('user_id', isEqualTo: widget.storeId)
         .snapshots();
+
+
     return CommonScaffold(
       isScaffold: true,
       appBar: AppBar(
@@ -72,29 +79,29 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
                 badgeStyle: const badges.BadgeStyle(
                   badgeColor: ConfigColors.primary2,
                 ),
-                // badgeContent: shoppingCartTotalItemValue.when(
-                //   data: (data) {
-                //     return AppText.paragraphI12(
-                //       data.toString(),
-                //       color: ConfigColors.white,
-                //       fontWeight: FontWeight.w600,
-                //     );
-                //   },
-                //   error: (error, stackTrace) {
-                //     return const AppText.paragraphI12(
-                //       "0",
-                //       color: ConfigColors.white,
-                //       fontWeight: FontWeight.w600,
-                //     );
-                //   },
-                //   loading: () {
-                //     return const AppText.paragraphI12(
-                //       "0",
-                //       color: ConfigColors.white,
-                //       fontWeight: FontWeight.w600,
-                //     );
-                //   },
-                // ),
+                badgeContent: shoppingCartTotalItemValue.when(
+                  data: (data) {
+                    return AppText.paragraphI12(
+                      data.toString(),
+                      color: ConfigColors.white,
+                      fontWeight: FontWeight.w600,
+                    );
+                  },
+                  error: (error, stackTrace) {
+                    return const AppText.paragraphI12(
+                      "0",
+                      color: ConfigColors.white,
+                      fontWeight: FontWeight.w600,
+                    );
+                  },
+                  loading: () {
+                    return const AppText.paragraphI12(
+                      "0",
+                      color: ConfigColors.white,
+                      fontWeight: FontWeight.w600,
+                    );
+                  },
+                ),
                 child: Assets.basketWhite.svg(height: 24),
               ),
             ]),
@@ -107,16 +114,16 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
         child: Column(
           children: [
             CommonTextField(
-              // controller: _searchController,
+              controller: _searchController,
               prefixIcon: Icons.search,
               hintText: 'Search',
               suffixIcon: Icons.close,
               onChanged: (value) {
-                // ref.read(searchNotifierProvider.notifier).productSearch(value);
+                ref.read(searchNotifierProvider.notifier).productSearch(value);
               },
               onSuffixIconPressed: () {
-                // ref.read(searchNotifierProvider.notifier).productSearch('');
-                // _searchController.clear();
+                ref.read(searchNotifierProvider.notifier).productSearch('');
+                _searchController.clear();
               },
             ),
             gapH16,

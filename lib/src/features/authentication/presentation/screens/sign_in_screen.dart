@@ -150,9 +150,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             children: [
               CommonCard(
                 onTap: () async {
-                  await ref
-                      .read(authenticationProvider.notifier)
-                      .loginWithFacebookAccount();
+                  try {
+                    LoadingScreen().show(
+                        context: context, text: 'Please wait while login');
+                    await ref
+                        .read(authenticationProvider.notifier)
+                        .loginWithFacebookAccount();
+                    await Future.delayed(const Duration(milliseconds: 10), () {
+                      LoadingScreen().hide();
+                      Navigator.pushAndRemoveUntil(
+                          context, UserRoleScreen.route(), (route) => false);
+                    });
+                  } catch (e) {
+                    LoadingScreen().hide();
+                  }
                 },
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(14),
@@ -163,9 +174,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               gapW16,
               CommonCard(
                 onTap: () async {
-                  await ref
-                      .read(authenticationProvider.notifier)
-                      .loginWithGoogle();
+                  try {
+                    LoadingScreen().show(
+                        context: context, text: 'Please wait while login');
+                    await ref
+                        .read(authenticationProvider.notifier)
+                        .loginWithGoogle();
+                    await Future.delayed(const Duration(milliseconds: 100), () {
+                      LoadingScreen().hide();
+                      Navigator.pushAndRemoveUntil(
+                          context, UserRoleScreen.route(), (route) => false);
+                    });
+                  } catch (e) {
+                    LoadingScreen().hide();
+                  }
                 },
                 alignment: Alignment.center,
                 customRadius: BorderRadius.circular(14),

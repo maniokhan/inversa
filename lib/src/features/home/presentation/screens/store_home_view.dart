@@ -47,7 +47,7 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
   }
 
   Future<void> calculateTotalSale() async {
-    double total = 0;
+    double total = 0.0;
     if (currentUser == null) {
       print('User not authenticated.');
       return;

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
@@ -6,12 +7,17 @@ import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/user_role_screen.dart';
-import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 class ClientHomeView extends ConsumerWidget {
-  const ClientHomeView({super.key});
+  final int currentPageIndex;
+  final Function(int) seeAllStore;
+  const ClientHomeView({
+    super.key,
+    required this.currentPageIndex,
+    required this.seeAllStore,
+  });
 
   @override
   Widget build(BuildContext context, ref) {
@@ -70,7 +76,10 @@ class ClientHomeView extends ConsumerWidget {
                   height: 123,
                   width: 163,
                   padding: const EdgeInsets.all(16),
-                  onTap: () => Navigator.push(context, AllStoresScreen.route()),
+                  onTap: () {
+                    seeAllStore(1);
+                    // Navigator.push(context, AllStoresScreen.route());
+                  },
                   backgroundColor: const Color(0xFF3AC3AF),
                   customRadius: BorderRadius.circular(20),
                   child: Column(

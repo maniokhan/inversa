@@ -42,17 +42,38 @@ class AuthenticationNotifier extends StateNotifier<bool> {
           (await FirebaseAuth.instance.signInWithCredential(oauthCredentials))
               .user!;
       final String? userId = FirebaseAuth.instance.currentUser?.uid;
+      final QuerySnapshot result = await FirebaseFirestore.instance
+          .collection('user_accounts')
+          .where('user_id', isEqualTo: userId)
+          .get();
+      print('userid: $result');
       final Map<String, dynamic> data = {
         'user_id': userId,
         'name': userDetails.displayName ?? '',
         'address': '',
         'store_name': '',
+        'password': "",
         'email': userDetails.email ?? '',
       };
-      await FirebaseFirestore.instance.collection('user_accounts').add(data);
+      if (result.docs.isEmpty) {
+        // User does not exist, create a new document.
+        await FirebaseFirestore.instance.collection('user_accounts').add(data);
+      }
       await appPrefs?.setBool('isLoggin', true);
     } on FirebaseAuthException catch (e) {
       log('Failed with error code: ${e.code}');
+      // final email = e.email;
+      // final credential = e.credential;
+      // if (e.code == 'account-Exists-With-Different-Credential' &&
+      //     email != null &&
+      //     credential != null) {
+      //   final providers =
+      //       await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      //   if (providers.contains('google.com')) {
+      //     await loginWithGoogle();
+      //     FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
+      //   }
+      // }
     } finally {
       state = false;
     }
@@ -70,20 +91,28 @@ class AuthenticationNotifier extends StateNotifier<bool> {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-
     try {
       state = true;
       final userDetails =
           (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
       final String? userId = FirebaseAuth.instance.currentUser?.uid;
+      final QuerySnapshot result = await FirebaseFirestore.instance
+          .collection('user_accounts')
+          .where('user_id', isEqualTo: userId)
+          .get();
+
       final Map<String, dynamic> data = {
         'user_id': userId,
         'name': userDetails.displayName ?? '',
         'address': '',
         'store_name': '',
+        'password': "",
         'email': userDetails.email ?? '',
       };
-      await FirebaseFirestore.instance.collection('user_accounts').add(data);
+      if (result.docs.isEmpty) {
+        // User does not exist, create a new document.
+        await FirebaseFirestore.instance.collection('user_accounts').add(data);
+      }
       await appPrefs?.setBool('isLoggin', true);
     } on FirebaseAuthException catch (e) {
       log('Failed with error code: ${e.code}');
@@ -121,16 +150,11 @@ class AuthenticationNotifier extends StateNotifier<bool> {
   }
 
   Future<void> changePassword(
-    String currentPassword,
     String newPassword,
-    String confirmPassword,
   ) async {
     try {
       state = true;
       var currentUser = FirebaseAuth.instance.currentUser;
-      if (newPassword != confirmPassword) {
-        throw "New password and confirm password do not match.";
-      }
       await currentUser!.updatePassword(newPassword);
       log("Password changed successfully.");
     } catch (e) {
@@ -144,8 +168,8 @@ class AuthenticationNotifier extends StateNotifier<bool> {
     try {
       state = true;
       await FirebaseAuth.instance.signOut();
-      // await GoogleSignIn().signOut();
-      // await FacebookAuth.instance.logOut();
+      await GoogleSignIn().signOut();
+      await FacebookAuth.instance.logOut();
       await appPrefs?.setBool('isLoggin', false);
     } catch (e) {
       throw Exception('Something went wrong while logout');
