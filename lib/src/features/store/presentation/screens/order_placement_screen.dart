@@ -7,7 +7,6 @@ import 'package:inversaapp/src/common_widgets/common_order_placement_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/all_products_providers.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/search_notifier_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_total_item_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/shopping_cart_screen.dart';
