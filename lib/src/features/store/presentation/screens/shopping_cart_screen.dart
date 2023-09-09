@@ -9,25 +9,47 @@ import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/extensions/try_parse_to_int.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_notifier_provider.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/check_out_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class ShoppingCartScreen extends ConsumerWidget {
-  static Route<ShoppingCartScreen> route() {
-    return MaterialPageRoute(builder: (context) => const ShoppingCartScreen());
+class ShoppingCartScreen extends StatefulWidget {
+  final List<Map<String, dynamic>> cartProducts;
+  static Route<ShoppingCartScreen> route(
+      List<Map<String, dynamic>> cartProducts) {
+    return MaterialPageRoute(
+        builder: (context) => ShoppingCartScreen(
+              cartProducts: cartProducts,
+            ));
   }
 
-  const ShoppingCartScreen({
-    super.key,
-  });
+  const ShoppingCartScreen({super.key, required this.cartProducts});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  State<ShoppingCartScreen> createState() => _ShoppingCartScreenState();
+}
+
+class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
+  plusQuantity(int quantity) {
+    setState(() {
+      quantity++;
+    });
+  }
+
+  minusQuantity(int quantity) {
+    if (quantity > 1) {
+      setState(() {
+        quantity--;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    AsyncValue<Iterable<Map<String, dynamic>>> shopingCart =
+        AsyncValue.data(widget.cartProducts);
     double subtotal = 0;
-    final shoopingCart = ref.watch(shoppingCartProvider);
+    // final shoopingCart = ref.watch(shoppingCartProvider);
     return CommonScaffold(
       isScaffold: true,
       appBar: CommonAppBar(
@@ -41,7 +63,7 @@ class ShoppingCartScreen extends ConsumerWidget {
         ),
         title: 'My Cart',
       ),
-      body: shoopingCart.when(
+      body: shopingCart.when(
         data: (data) {
           if (data.isNotEmpty) {
             for (var product in data) {
@@ -113,7 +135,7 @@ class ShoppingCartScreen extends ConsumerWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         AppText.paragraphS16(
-                                          item['title'],
+                                          item['name'],
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -123,60 +145,92 @@ class ShoppingCartScreen extends ConsumerWidget {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             AppText.paragraphS16(
-                                              "\$${item['total_price_quantity']}",
+                                              "\$${item["total_price_quantity"]}",
                                               fontWeight: FontWeight.w600,
                                               color: ConfigColors.primary2,
                                             ),
                                             CommonCounter(
                                               value:
                                                   item["quantity"].toString(),
-                                              onMinus: () async {
+                                              onMinus: () {
                                                 if (item["quantity"] > 1) {
-                                                  await ref
-                                                      .read(
-                                                          shoppingCartNotifierProvider
-                                                              .notifier)
-                                                      .updateShoppingCart(
-                                                    documentId:
-                                                        item["documentId"],
-                                                    data: {
-                                                      'quantity':
-                                                          item['quantity'] - 1,
-                                                      'total_price_quantity': item[
-                                                                  'price']
+                                                  setState(() {
+                                                    item.update(
+                                                        'quantity',
+                                                        (value) =>
+                                                            item['quantity'] -
+                                                            1);
+                                                    item.update(
+                                                      'total_price_quantity',
+                                                      (value) =>
+                                                          item['price']
                                                               .toString()
                                                               .tryParseToInt() *
                                                           (item['quantity'] -
                                                               1),
-                                                    },
-                                                  );
-                                                } else {
-                                                  await ref
-                                                      .read(
-                                                          shoppingCartNotifierProvider
-                                                              .notifier)
-                                                      .deleteProductShoppingCart(
-                                                          item["documentId"]);
+                                                    );
+                                                  });
                                                 }
+                                                // if (item["quantity"] > 1) {
+                                                //   await ref
+                                                //       .read(
+                                                //           shoppingCartNotifierProvider
+                                                //               .notifier)
+                                                //       .updateShoppingCart(
+                                                //     documentId:
+                                                //         item["documentId"],
+                                                //     data: {
+                                                //       'quantity':
+                                                //           item['quantity'] - 1,
+                                                //       'total_price_quantity': item[
+                                                //                   'price']
+                                                //               .toString()
+                                                //               .tryParseToInt() *
+                                                //           (item['quantity'] -
+                                                //               1),
+                                                //     },
+                                                //   );
+                                                // } else {
+                                                //   await ref
+                                                //       .read(
+                                                //           shoppingCartNotifierProvider
+                                                //               .notifier)
+                                                //       .deleteProductShoppingCart(
+                                                //           item["documentId"]);
+                                                // }
                                               },
-                                              onPlus: () async {
-                                                await ref
-                                                    .read(
-                                                        shoppingCartNotifierProvider
-                                                            .notifier)
-                                                    .updateShoppingCart(
-                                                  documentId:
-                                                      item["documentId"],
-                                                  data: {
-                                                    'quantity':
-                                                        item['quantity'] + 1,
-                                                    'total_price_quantity': item[
-                                                                'price']
+                                              onPlus: () {
+                                                setState(() {
+                                                  item.update(
+                                                      'quantity',
+                                                      (value) =>
+                                                          item['quantity'] + 1);
+                                                  item.update(
+                                                    'total_price_quantity',
+                                                    (value) =>
+                                                        item['price']
                                                             .toString()
                                                             .tryParseToInt() *
                                                         (item['quantity'] + 1),
-                                                  },
-                                                );
+                                                  );
+                                                });
+                                                // await ref
+                                                //     .read(
+                                                //         shoppingCartNotifierProvider
+                                                //             .notifier)
+                                                //     .updateShoppingCart(
+                                                //   documentId:
+                                                //       item["documentId"],
+                                                //   data: {
+                                                //     'quantity':
+                                                //         item['quantity'] + 1,
+                                                //     'total_price_quantity': item[
+                                                //                 'price']
+                                                //             .toString()
+                                                //             .tryParseToInt() *
+                                                //         (item['quantity'] + 1),
+                                                //   },
+                                                //   );
                                               },
                                             ),
                                           ],

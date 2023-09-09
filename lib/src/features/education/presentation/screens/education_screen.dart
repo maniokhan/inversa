@@ -1,3 +1,4 @@
+import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
@@ -65,8 +66,8 @@ class _EducationScreenState extends ConsumerState<EducationScreen> {
               itemBuilder: (context, index) {
                 final educationdata = data.elementAt(index);
                 final url = educationdata['url'].toString();
-              _videoPlayerController = VideoPlayerController.networkUrl(
-                  Uri.parse(url),
+                _videoPlayerController = VideoPlayerController.network(
+                  url,
                 )..initialize().then((_) {
                     _videoPlayerController!.pause();
                   });

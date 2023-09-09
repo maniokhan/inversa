@@ -6,9 +6,9 @@ import 'package:inversaapp/src/common_widgets/common_order_placement_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/common_widgets/common_text_field.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/extensions/try_parse_to_int.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/all_products_providers.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/search_notifier_provider.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_total_item_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/shopping_cart_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
@@ -41,11 +41,35 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
     super.initState();
   }
 
+  List<Map<String, dynamic>> cart = [];
+  bool isInCart(Map<String, dynamic> product) {
+    return cart.contains(product);
+  }
+
+  void addToCart(Map<String, dynamic> product) {
+    setState(() {
+      cart.add(product);
+    });
+  }
+
+  void removeFromCart(Map<String, dynamic> product) {
+    setState(() {
+      cart.remove(product);
+    });
+  }
+//   void removeFromCart(String fieldToRemove, dynamic valueToRemove) {
+//   setState(() {
+//     cart.removeWhere((product) =>
+//         product.containsKey(fieldToRemove) &&
+//         product[fieldToRemove] == valueToRemove);
+//   });
+// }
+
   @override
   Widget build(BuildContext context) {
     final products = ref.watch(allProductsProvider(widget.storeId));
 
-    final shoppingCartTotalItemValue = ref.watch(shoppingCartTotalItemProvider);
+    // final shoppingCartTotalItemValue = ref.watch(shoppingCartTotalItemProvider);
 
     return CommonScaffold(
       isScaffold: true,
@@ -68,35 +92,41 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
         ),
         actions: [
           InkWell(
-            onTap: () => Navigator.push(context, ShoppingCartScreen.route()),
+            onTap: () =>
+                Navigator.push(context, ShoppingCartScreen.route(cart)),
             child: Stack(alignment: AlignmentDirectional.center, children: [
               badges.Badge(
                 badgeStyle: const badges.BadgeStyle(
                   badgeColor: ConfigColors.primary2,
                 ),
-                badgeContent: shoppingCartTotalItemValue.when(
-                  data: (data) {
-                    return AppText.paragraphI12(
-                      data.toString(),
-                      color: ConfigColors.white,
-                      fontWeight: FontWeight.w600,
-                    );
-                  },
-                  error: (error, stackTrace) {
-                    return const AppText.paragraphI12(
-                      "0",
-                      color: ConfigColors.white,
-                      fontWeight: FontWeight.w600,
-                    );
-                  },
-                  loading: () {
-                    return const AppText.paragraphI12(
-                      "0",
-                      color: ConfigColors.white,
-                      fontWeight: FontWeight.w600,
-                    );
-                  },
+                badgeContent: AppText.paragraphI12(
+                  cart.length.toString(),
+                  color: ConfigColors.white,
+                  fontWeight: FontWeight.w600,
                 ),
+                // shoppingCartTotalItemValue.when(
+                //   data: (data) {
+                //     return AppText.paragraphI12(
+                //       data.toString(),
+                //       color: ConfigColors.white,
+                //       fontWeight: FontWeight.w600,
+                //     );
+                //   },
+                //   error: (error, stackTrace) {
+                //     return const AppText.paragraphI12(
+                //       "0",
+                //       color: ConfigColors.white,
+                //       fontWeight: FontWeight.w600,
+                //     );
+                //   },
+                //   loading: () {
+                //     return const AppText.paragraphI12(
+                //       "0",
+                //       color: ConfigColors.white,
+                //       fontWeight: FontWeight.w600,
+                //     );
+                //   },
+                //),
                 child: Assets.basketWhite.svg(height: 24),
               ),
             ]),
@@ -141,6 +171,26 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
                             final product = data.elementAt(index);
                             return CommonOrderPlacementCard(
                               product: product,
+                              isInCart: isInCart(product),
+                              onTap: () async {
+                                if (isInCart(product)) {
+                                  removeFromCart(product);
+                                } else {
+                                  final newFields = {
+                                    'quantity': 01,
+                                    'image': product["image"],
+                                    'title': product['name'],
+                                    'price': product['price'],
+                                    'total_price_quantity': product['price']
+                                        .toString()
+                                        .tryParseToInt(),
+                                    'product_id': product['documentId'],
+                                  };
+                                  product.addAll(newFields);
+                                  addToCart(product);
+                                  print(product);
+                                }
+                              },
                             );
                           },
                         )

@@ -4,16 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
-import 'package:inversaapp/src/extensions/try_parse_to_int.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_notifier_provider.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 class CommonOrderPlacementCard extends ConsumerStatefulWidget {
   final Map<String, dynamic> product;
+  final Function() onTap;
+  final bool isInCart;
   const CommonOrderPlacementCard({
     Key? key,
     required this.product,
+    required this.onTap,
+    required this.isInCart,
   }) : super(key: key);
 
   @override
@@ -67,17 +69,15 @@ class _CommonOrderPlacementCardState
                   AppText.paragraphI14(
                     widget.product['name'],
                     fontWeight: FontWeight.w600,
-                    textDecoration: widget.product['isShoppingCart']
-                        ? TextDecoration.lineThrough
-                        : null,
+                    textDecoration:
+                        widget.isInCart ? TextDecoration.lineThrough : null,
                   ),
                   gapH4,
                   AppText.paragraphI14(
                     '${widget.product['units']['value']} ${widget.product['units']['name']} ',
                     fontWeight: FontWeight.w400,
-                    textDecoration: widget.product['isShoppingCart']
-                        ? TextDecoration.lineThrough
-                        : null,
+                    textDecoration:
+                        widget.isInCart ? TextDecoration.lineThrough : null,
                   ),
                   gapH12,
                   Padding(
@@ -88,39 +88,40 @@ class _CommonOrderPlacementCardState
                         AppText.paragraphI16(
                           widget.product['price'],
                           fontWeight: FontWeight.w600,
-                          textDecoration: widget.product['isShoppingCart']
+                          textDecoration: widget.isInCart
                               ? TextDecoration.lineThrough
                               : null,
                         ),
                         CommonCard(
-                          onTap: () async {
-                            if (widget.product['isShoppingCart']) {
-                              await ref
-                                  .read(shoppingCartNotifierProvider.notifier)
-                                  .deleteProductShoppingCart(
-                                      widget.product['shopping_cart_id']);
-                            } else {
-                              await ref
-                                  .read(shoppingCartNotifierProvider.notifier)
-                                  .createShoppingCart(
-                                data: {
-                                  'quantity': 01,
-                                  'image': product["image"],
-                                  'title': product['name'],
-                                  'price': product['price'],
-                                  'total_price_quantity': product['price']
-                                      .toString()
-                                      .tryParseToInt(),
-                                  'product_id': product['documentId'],
-                                },
-                              );
-                            }
-                          },
+                          onTap: widget.onTap,
+                          // () async {
+                          //   if (widget.product['isShoppingCart']) {
+                          //     await ref
+                          //         .read(shoppingCartNotifierProvider.notifier)
+                          //         .deleteProductShoppingCart(
+                          //             widget.product['shopping_cart_id']);
+                          //   } else {
+                          //     await ref
+                          //         .read(shoppingCartNotifierProvider.notifier)
+                          //         .createShoppingCart(
+                          //       data: {
+                          //         'quantity': 01,
+                          //         'image': product["image"],
+                          //         'title': product['name'],
+                          //         'price': product['price'],
+                          //         'total_price_quantity': product['price']
+                          //             .toString()
+                          //             .tryParseToInt(),
+                          //         'product_id': product['documentId'],
+                          //       },
+                          //     );
+                          //   }
+                          // },
                           customRadius: BorderRadius.circular(6),
                           backgroundColor: ConfigColors.primary2,
                           padding: const EdgeInsets.all(6),
                           showShadow: false,
-                          child: !product['isShoppingCart']
+                          child: !widget.isInCart
                               ? Assets.basketWhite.svg(height: 16)
                               : const Icon(
                                   Icons.delete,

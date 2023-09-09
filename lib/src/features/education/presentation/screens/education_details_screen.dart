@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
@@ -30,7 +31,7 @@ class _EducationDetailsScreenState
   late final VideoPlayerController _videoPlayerController;
 
   @override
-  void initState() {
+ void initState() {
     _videoPlayerController = VideoPlayerController.networkUrl(
         Uri.parse(widget.educationdata['url'].toString()));
     _videoPlayerController.addListener(() {
