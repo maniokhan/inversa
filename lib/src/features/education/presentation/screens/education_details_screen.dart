@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
@@ -7,6 +6,7 @@ import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
+import 'package:video_player/video_player.dart';
 
 class EducationDetailsScreen extends ConsumerStatefulWidget {
   const EducationDetailsScreen({
@@ -27,12 +27,12 @@ class EducationDetailsScreen extends ConsumerStatefulWidget {
 
 class _EducationDetailsScreenState
     extends ConsumerState<EducationDetailsScreen> {
-  late final CachedVideoPlayerController _videoPlayerController;
+  late final VideoPlayerController _videoPlayerController;
 
   @override
   void initState() {
-    _videoPlayerController = CachedVideoPlayerController.network(
-        widget.educationdata['url'].toString());
+    _videoPlayerController = VideoPlayerController.networkUrl(
+        Uri.parse(widget.educationdata['url'].toString()));
     _videoPlayerController.addListener(() {
       setState(() {});
     });
@@ -80,7 +80,7 @@ class _EducationDetailsScreenState
               children: [
                 AspectRatio(
                   aspectRatio: 16 / 9,
-                  child: CachedVideoPlayer(
+                  child: VideoPlayer(
                     _videoPlayerController,
                   ),
                 ),

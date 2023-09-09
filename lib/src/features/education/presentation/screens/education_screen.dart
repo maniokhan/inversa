@@ -1,4 +1,3 @@
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
@@ -7,6 +6,7 @@ import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/features/education/presentation/provider/education_provider.dart';
 import 'package:inversaapp/src/features/education/presentation/screens/education_details_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
+import 'package:video_player/video_player.dart';
 
 class EducationScreen extends ConsumerStatefulWidget {
   static Route<EducationScreen> route() {
@@ -20,7 +20,7 @@ class EducationScreen extends ConsumerStatefulWidget {
 }
 
 class _EducationScreenState extends ConsumerState<EducationScreen> {
-  CachedVideoPlayerController? _videoPlayerController;
+  VideoPlayerController? _videoPlayerController;
 
   @override
   void initState() {
@@ -65,8 +65,8 @@ class _EducationScreenState extends ConsumerState<EducationScreen> {
               itemBuilder: (context, index) {
                 final educationdata = data.elementAt(index);
                 final url = educationdata['url'].toString();
-                _videoPlayerController = CachedVideoPlayerController.network(
-                  url,
+              _videoPlayerController = VideoPlayerController.networkUrl(
+                  Uri.parse(url),
                 )..initialize().then((_) {
                     _videoPlayerController!.pause();
                   });
@@ -80,7 +80,7 @@ class _EducationScreenState extends ConsumerState<EducationScreen> {
                     children: [
                       AspectRatio(
                         aspectRatio: 3 / 2,
-                        child: CachedVideoPlayer(_videoPlayerController!),
+                        child: VideoPlayer(_videoPlayerController!),
                       ),
                       const Icon(Icons.play_circle, color: Colors.white),
                     ],
