@@ -16,5 +16,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   appPrefs = await SharedPreferences.getInstance();
-  runApp(const ProviderScope(child: App()));
+  runApp(const ProviderScope(
+    child: App(),
+  ));
 }
