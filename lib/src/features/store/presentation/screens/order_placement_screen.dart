@@ -20,10 +20,7 @@ class OrderPlacementScreen extends ConsumerStatefulWidget {
         builder: (context) => OrderPlacementScreen(storeId: id));
   }
 
-  const OrderPlacementScreen({
-    super.key,
-    required this.storeId,
-  });
+  const OrderPlacementScreen({super.key, required this.storeId});
 
   @override
   ConsumerState<OrderPlacementScreen> createState() =>
