@@ -4,6 +4,9 @@
 	<dict>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
+		<key>NSCameraUsageDescription</key>
+<string>We need access to your camera to take photos.</string>
+
 		<key>CFBundleDisplayName</key>
 		<string>com.inversaapp</string>
 		<key>CFBundleExecutable</key>
@@ -19,7 +22,7 @@
 		        <string>Editor</string>
 		        <key>CFBundleURLSchemes</key>
 		        <array> 
-				    <string>1315776359021855</string>
+				    <string>fb1315776359021855</string>
 			        <string>com.googleusercontent.apps.381911750010-destcvcni2mkjmhmiokb39lspq3d4snq</string>
 		        </array>
 	        </dict>
@@ -36,7 +39,7 @@
           <string>fb-messenger-share-api</string>
         </array>
 		<key>CFBundleName</key>
-		<string>com.inversaapp</string>
+		<string>inversa_app</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>

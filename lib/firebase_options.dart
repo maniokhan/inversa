@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '52687758327',
     projectId: 'inversappmx',
     storageBucket: 'inversappmx.appspot.com',
-    iosClientId: '52687758327-v2kt24ad84os2h5q3djskqcnccibm7qm.apps.googleusercontent.com',
+    iosClientId:
+        '52687758327-v2kt24ad84os2h5q3djskqcnccibm7qm.apps.googleusercontent.com',
     iosBundleId: 'com.abubakar.inversaapp',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '52687758327',
     projectId: 'inversappmx',
     storageBucket: 'inversappmx.appspot.com',
-    iosClientId: '52687758327-6tudi88nm2e80qjcnnqtfvocang6aljd.apps.googleusercontent.com',
+    iosClientId:
+        '52687758327-6tudi88nm2e80qjcnnqtfvocang6aljd.apps.googleusercontent.com',
     iosBundleId: 'com.abubakar.inversaapp.RunnerTests',
   );
 }
