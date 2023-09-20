@@ -8,7 +8,7 @@
 <string>We need access to your camera to take photos.</string>
 
 		<key>CFBundleDisplayName</key>
-		<string>com.inversaapp</string>
+		<string>Inversa App</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -23,7 +23,7 @@
 		        <key>CFBundleURLSchemes</key>
 		        <array> 
 				    <string>fb1315776359021855</string>
-			        <string>com.googleusercontent.apps.381911750010-destcvcni2mkjmhmiokb39lspq3d4snq</string>
+			        <string>com.googleusercontent.apps.52687758327-v2kt24ad84os2h5q3djskqcnccibm7qm</string>
 		        </array>
 	        </dict>
         </array>
