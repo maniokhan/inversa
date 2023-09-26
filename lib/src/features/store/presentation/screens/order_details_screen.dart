@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/order_details_provider.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -17,9 +18,10 @@ class OrderDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final orderDetailsValue = ref.watch(orderDetailsProvider(orderId));
-    return Scaffold(
+    return CommonScaffold(
+      isScaffold: true,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF2AB0B6),
+        backgroundColor: ConfigColors.primary,
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -100,7 +102,7 @@ class OrderDetailsScreen extends ConsumerWidget {
           );
         },
         error: (error, stackTrace) {
-          return null;
+          return const Text("Something went wrong");
         },
         loading: () {
           return const Center(

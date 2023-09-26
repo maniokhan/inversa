@@ -53,7 +53,8 @@ class ConfirmOrderPlaceScreen extends StatelessWidget {
           const SizedBox(height: 154),
           CommonButton(
             text: "Check Details",
-            onPress: () => Navigator.push(context, ClientNavigationBar.route()),
+            onPress: () => Navigator.pushAndRemoveUntil(
+                context, ClientNavigationBar.route(), (route) => false),
             synappButtonColor: SynappButtonColor.secondary,
           ),
           gapH16,

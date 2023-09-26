@@ -51,270 +51,269 @@ class _OtherExpensesScreenState extends ConsumerState<OtherExpensesScreen> {
         Navigator.pop(context);
       }
     });
-    return Scaffold(
-      body: CommonScaffold(
-        appBar: CommonAppBar(
-          showleading: true,
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(
-              Icons.arrow_back_ios_new_outlined,
-              color: ConfigColors.white,
+    return CommonScaffold(
+      isScaffold: true,
+      appBar: CommonAppBar(
+        showleading: true,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
+        ),
+        title: "Other Expenses",
+      ),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+        children: [
+          Row(
+            children: [
+              Assets.sort.image(height: 18),
+              gapW8,
+              const AppText.paragraphI16(
+                "Sort By",
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+              gapW12,
+              const CommonDropDown(),
+            ],
+          ),
+          gapH20,
+          CommonListTile(
+            onTap: () {},
+            leading: CommonCard(
+              customRadius: BorderRadius.circular(10),
+              showShadow: false,
+              backgroundColor: const Color.fromRGBO(195, 121, 255, 0.10),
+              padding: const EdgeInsets.all(10),
+              // TODO : change icon with bank icon
+              child: Assets.rent.image(height: 25),
+            ),
+            gap: 10,
+            title: const AppText.paragraphI16(
+              "Rent",
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            trailing: SizedBox(
+              height: 38,
+              width: 110,
+              child: CommonTextField(
+                controller: _rentTextEditingController,
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
+              ),
             ),
           ),
-          title: "Other Expenses",
-        ),
-        body: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
-          children: [
-            Row(
+          gapH12,
+          CommonListTile(
+            onTap: () {},
+            leading: CommonCard(
+              customRadius: BorderRadius.circular(10),
+              showShadow: false,
+              backgroundColor: ConfigColors.lightPink,
+              padding: const EdgeInsets.all(10),
+              // TODO : change icon with bank icon
+              child: Assets.lightbulb.image(height: 25),
+            ),
+            gap: 10,
+            title: const AppText.paragraphI16(
+              "Electricity",
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            trailing: SizedBox(
+              height: 38,
+              width: 110,
+              child: CommonTextField(
+                controller: _electricityTextEditingController,
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
+              ),
+            ),
+          ),
+          gapH12,
+          CommonListTile(
+            onTap: () {},
+            leading: CommonCard(
+              customRadius: BorderRadius.circular(10),
+              showShadow: false,
+              backgroundColor: ConfigColors.lightOrange,
+              padding: const EdgeInsets.all(10),
+              // TODO : change icon with bank icon
+              child: Assets.waterFlash.image(height: 25),
+            ),
+            gap: 10,
+            title: const AppText.paragraphI16(
+              "Water",
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            trailing: SizedBox(
+              height: 38,
+              width: 110,
+              child: CommonTextField(
+                controller: _waterTextEditingController,
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
+              ),
+            ),
+          ),
+          gapH12,
+          CommonListTile(
+            onTap: () {},
+            leading: CommonCard(
+              customRadius: BorderRadius.circular(10),
+              showShadow: false,
+              backgroundColor: ConfigColors.lightGreen,
+              padding: const EdgeInsets.all(10),
+              // TODO : change icon with bank icon
+              child: Assets.maintenance.image(height: 24),
+            ),
+            gap: 10,
+            title: const AppText.paragraphI16(
+              "Maintenance",
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            trailing: SizedBox(
+              height: 38,
+              width: 110,
+              child: CommonTextField(
+                controller: _maintenanceTextEditingController,
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
+              ),
+            ),
+          ),
+          gapH12,
+          CommonListTile(
+            onTap: () {},
+            leading: CommonCard(
+              customRadius: BorderRadius.circular(10),
+              showShadow: false,
+              backgroundColor: ConfigColors.lightFerozi,
+              padding: const EdgeInsets.all(10),
+              // TODO : change icon with bank icon
+              child: Assets.employees.image(height: 25),
+            ),
+            gap: 10,
+            title: const AppText.paragraphI16(
+              "Employees",
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            trailing: SizedBox(
+              height: 38,
+              width: 110,
+              child: CommonTextField(
+                controller: _employeesTextEditingController,
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
+                ),
+                hintText: 'Add Price',
+              ),
+            ),
+          ),
+          gapH12,
+          CommonListTile(
+            onTap: () {},
+            leading: CommonCard(
+              customRadius: BorderRadius.circular(10),
+              showShadow: false,
+              backgroundColor: ConfigColors.lightRed,
+              padding: const EdgeInsets.all(10),
+              child: Assets.others.image(height: 25),
+            ),
+            gap: 10,
+            title: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Assets.sort.image(height: 18),
-                gapW8,
                 const AppText.paragraphI16(
-                  "Sort By",
+                  "Others",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
-                gapW12,
-                const CommonDropDown(),
+                gapW4,
+                IconButton(
+                  onPressed: () {
+                    infoDialogBox(context);
+                  },
+                  icon: const Icon(
+                    Icons.info,
+                    color: ConfigColors.primary2,
+                  ),
+                ),
               ],
             ),
-            gapH20,
-            CommonListTile(
-              onTap: () {},
-              leading: CommonCard(
-                customRadius: BorderRadius.circular(10),
-                showShadow: false,
-                backgroundColor: const Color.fromRGBO(195, 121, 255, 0.10),
-                padding: const EdgeInsets.all(10),
-                // TODO : change icon with bank icon
-                child: Assets.rent.image(height: 25),
-              ),
-              gap: 10,
-              title: const AppText.paragraphI16(
-                "Rent",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-              trailing: SizedBox(
-                height: 38,
-                width: 110,
-                child: CommonTextField(
-                  controller: _rentTextEditingController,
-                  autofocus: false,
-                  focusNode: FocusNode(),
-                  hintStyle: const TextStyle(
-                    fontFamily: FontFamily.montserrat,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ConfigColors.slateGray,
-                  ),
-                  hintText: 'Add Price',
+            trailing: SizedBox(
+              height: 38,
+              width: 110,
+              child: CommonTextField(
+                controller: _othersTextEditingController,
+                autofocus: false,
+                focusNode: FocusNode(),
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.montserrat,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ConfigColors.slateGray,
                 ),
+                hintText: 'Add Price',
               ),
             ),
-            gapH12,
-            CommonListTile(
-              onTap: () {},
-              leading: CommonCard(
-                customRadius: BorderRadius.circular(10),
-                showShadow: false,
-                backgroundColor: ConfigColors.lightPink,
-                padding: const EdgeInsets.all(10),
-                // TODO : change icon with bank icon
-                child: Assets.lightbulb.image(height: 25),
-              ),
-              gap: 10,
-              title: const AppText.paragraphI16(
-                "Electricity",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-              trailing: SizedBox(
-                height: 38,
-                width: 110,
-                child: CommonTextField(
-                  controller: _electricityTextEditingController,
-                  autofocus: false,
-                  focusNode: FocusNode(),
-                  hintStyle: const TextStyle(
-                    fontFamily: FontFamily.montserrat,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ConfigColors.slateGray,
-                  ),
-                  hintText: 'Add Price',
-                ),
-              ),
-            ),
-            gapH12,
-            CommonListTile(
-              onTap: () {},
-              leading: CommonCard(
-                customRadius: BorderRadius.circular(10),
-                showShadow: false,
-                backgroundColor: ConfigColors.lightOrange,
-                padding: const EdgeInsets.all(10),
-                // TODO : change icon with bank icon
-                child: Assets.waterFlash.image(height: 25),
-              ),
-              gap: 10,
-              title: const AppText.paragraphI16(
-                "Water",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-              trailing: SizedBox(
-                height: 38,
-                width: 110,
-                child: CommonTextField(
-                  controller: _waterTextEditingController,
-                  autofocus: false,
-                  focusNode: FocusNode(),
-                  hintStyle: const TextStyle(
-                    fontFamily: FontFamily.montserrat,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ConfigColors.slateGray,
-                  ),
-                  hintText: 'Add Price',
-                ),
-              ),
-            ),
-            gapH12,
-            CommonListTile(
-              onTap: () {},
-              leading: CommonCard(
-                customRadius: BorderRadius.circular(10),
-                showShadow: false,
-                backgroundColor: ConfigColors.lightGreen,
-                padding: const EdgeInsets.all(10),
-                // TODO : change icon with bank icon
-                child: Assets.maintenance.image(height: 24),
-              ),
-              gap: 10,
-              title: const AppText.paragraphI16(
-                "Maintenance",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-              trailing: SizedBox(
-                height: 38,
-                width: 110,
-                child: CommonTextField(
-                  controller: _maintenanceTextEditingController,
-                  autofocus: false,
-                  focusNode: FocusNode(),
-                  hintStyle: const TextStyle(
-                    fontFamily: FontFamily.montserrat,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ConfigColors.slateGray,
-                  ),
-                  hintText: 'Add Price',
-                ),
-              ),
-            ),
-            gapH12,
-            CommonListTile(
-              onTap: () {},
-              leading: CommonCard(
-                customRadius: BorderRadius.circular(10),
-                showShadow: false,
-                backgroundColor: ConfigColors.lightFerozi,
-                padding: const EdgeInsets.all(10),
-                // TODO : change icon with bank icon
-                child: Assets.employees.image(height: 25),
-              ),
-              gap: 10,
-              title: const AppText.paragraphI16(
-                "Employees",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-              trailing: SizedBox(
-                height: 38,
-                width: 110,
-                child: CommonTextField(
-                  controller: _employeesTextEditingController,
-                  autofocus: false,
-                  focusNode: FocusNode(),
-                  hintStyle: const TextStyle(
-                    fontFamily: FontFamily.montserrat,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ConfigColors.slateGray,
-                  ),
-                  hintText: 'Add Price',
-                ),
-              ),
-            ),
-            gapH12,
-            CommonListTile(
-              onTap: () {},
-              leading: CommonCard(
-                customRadius: BorderRadius.circular(10),
-                showShadow: false,
-                backgroundColor: ConfigColors.lightRed,
-                padding: const EdgeInsets.all(10),
-                child: Assets.others.image(height: 25),
-              ),
-              gap: 10,
-              title: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const AppText.paragraphI16(
-                    "Others",
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  gapW4,
-                  IconButton(
-                    onPressed: () {
-                      infoDialogBox(context);
-                    },
-                    icon: const Icon(
-                      Icons.info,
-                      color: ConfigColors.primary2,
-                    ),
-                  ),
-                ],
-              ),
-              trailing: SizedBox(
-                height: 38,
-                width: 110,
-                child: CommonTextField(
-                  controller: _othersTextEditingController,
-                  autofocus: false,
-                  focusNode: FocusNode(),
-                  hintStyle: const TextStyle(
-                    fontFamily: FontFamily.montserrat,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ConfigColors.slateGray,
-                  ),
-                  hintText: 'Add Price',
-                ),
-              ),
-            ),
-            gapH28,
-            CommonButton(
-              onPress: () async {
-                await ref.read(expenseNotifierProvider.notifier).createExpense(
-                      rent: _rentTextEditingController.text,
-                      electricity: _electricityTextEditingController.text,
-                      water: _waterTextEditingController.text,
-                      maintenance: _maintenanceTextEditingController.text,
-                      employees: _employeesTextEditingController.text,
-                      other: _othersTextEditingController.text,
-                    );
-              },
-              synappButtonColor: SynappButtonColor.primary,
-              text: 'Add',
-            ),
-          ],
-        ),
+          ),
+          gapH28,
+          CommonButton(
+            onPress: () async {
+              await ref.read(expenseNotifierProvider.notifier).createExpense(
+                    rent: _rentTextEditingController.text,
+                    electricity: _electricityTextEditingController.text,
+                    water: _waterTextEditingController.text,
+                    maintenance: _maintenanceTextEditingController.text,
+                    employees: _employeesTextEditingController.text,
+                    other: _othersTextEditingController.text,
+                  );
+            },
+            synappButtonColor: SynappButtonColor.primary,
+            text: 'Add',
+          ),
+        ],
       ),
     );
   }

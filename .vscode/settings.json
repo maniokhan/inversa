@@ -1,15 +1,4 @@
 {
-<<<<<<< HEAD
-    // "editor.fontSize": 30,
-    // "terminal.integrated.fontSize": 30,
-    "editor.lineNumbers": "on",
-    "window.zoomLevel": 0,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": true,
-        "source.fixAll": true,
-    },
-}
-=======
   // "editor.fontSize": 30,
   // "terminal.integrated.fontSize": 30,
   "editor.lineNumbers": "on",
@@ -17,6 +6,55 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true,
     "source.fixAll": true
-  }
+  },
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "todohighlight.keywords": [
+    "DEBUG:",
+    "REVIEW:",
+    {
+      "text": "TODO",
+      "color": "green",
+      "backgroundColor": "white",
+      "overviewRulerColor": "#ffab00",
+      "isWholeLine": false
+    },
+    {
+      "text": "ONGOING",
+      "color": "white",
+      "backgroundColor": "orange",
+      "overviewRulerColor": "#ffab00",
+      "isWholeLine": false
+    },
+    {
+      "text": "DONE",
+      "color": "white",
+      "backgroundColor": "green",
+      "overviewRulerColor": "#ffab00",
+      "isWholeLine": false
+    },
+    {
+      "text": "PROGRESS",
+      "color": "red",
+      "backgroundColor": "yellow",
+      "overviewRulerColor": "#ffab00",
+      "isWholeLine": false
+    },
+    {
+      "text": "FIXME",
+      "color": "red",
+      "backgroundColor": "yellow",
+      "overviewRulerColor": "#ffab00",
+      "isWholeLine": false
+    },
+    {
+      "text": "QUESTION",
+      "color": "white",
+      "backgroundColor": "green",
+      "overviewRulerColor": "#ffab00",
+      "isWholeLine": false
+    }
+  ],
+  "todohighlight.maxFilesForSearch": 5120,
+  "todohighlight.toggleURI": false
 }
->>>>>>> caf2ea1113a170e15b1e3d6c3e77a8f6ca1a57b6

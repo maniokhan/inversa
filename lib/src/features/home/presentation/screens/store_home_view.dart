@@ -453,7 +453,7 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
                   width: 163,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                  onTap: () => Navigator.push(context, OrdersScreen.route()),
+                  onTap: () => Navigator.push(context, OrdersScreen.route(false)),
                   backgroundColor: ConfigColors.primary,
                   customRadius: BorderRadius.circular(20),
                   child: Column(

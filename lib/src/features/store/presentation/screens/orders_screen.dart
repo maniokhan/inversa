@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
+import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/extensions/try_parse_to_int.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/order_provider.dart';
@@ -13,19 +14,21 @@ import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 class OrdersScreen extends ConsumerWidget {
-  static Route<OrdersScreen> route() {
-    return MaterialPageRoute(builder: (context) => const OrdersScreen());
+  final bool value;
+  static Route<OrdersScreen> route(bool userType) {
+    return MaterialPageRoute(builder: (context) => OrdersScreen(userType));
   }
 
-  const OrdersScreen({super.key});
+  const OrdersScreen(this.value, {super.key});
 
   @override
   Widget build(BuildContext context, ref) {
     double subtotal = 0;
-    final ordersValue = ref.watch(orderProvider(false));
-    return Scaffold(
+    final ordersValue = ref.watch(orderProvider(value));
+    return CommonScaffold(
+      isScaffold: true,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF2AB0B6),
+        backgroundColor: ConfigColors.primary,
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),

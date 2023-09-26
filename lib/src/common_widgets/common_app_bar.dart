@@ -27,6 +27,7 @@ class CommonAppBar extends StatelessWidget {
             title,
             color: ConfigColors.white,
             fontWeight: FontWeight.w600,
+            textAlign: TextAlign.center,
           ),
           const Spacer(flex: 3),
         ],

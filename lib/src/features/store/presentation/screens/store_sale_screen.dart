@@ -96,294 +96,292 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
       counterSaleSubTotal += ((double.tryParse(item['price']) ?? 0) *
           item['counter_sale_quantity']);
     }
-    return Scaffold(
-      body: CommonScaffold(
-        appBar: CommonAppBar(
-          showleading: true,
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(
-              Icons.arrow_back_ios_new_outlined,
-              color: ConfigColors.white,
-            ),
+    return CommonScaffold(
+      isScaffold: true,
+      appBar: CommonAppBar(
+        showleading: true,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
           ),
-          title: "Sale",
         ),
-        body: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 32),
-          children: [
-            CommonDottedBorderCard(
-              borderColor: ConfigColors.lightText,
-              strokeWidth: 0.5,
-              onTap: () {
-                scanBarcode();
-              },
-              padding: const EdgeInsets.all(32),
-              customRadius: const Radius.circular(6),
-              alignment: Alignment.center,
-              backgroundColor: ConfigColors.backgroundGrey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CommonCard(
-                    showShadow: false,
-                    padding: const EdgeInsets.all(5),
-                    backgroundColor: ConfigColors.lightGreen,
-                    shape: BoxShape.circle,
-                    child: Assets.scanCodeLightScreen.svg(),
-                  ),
-                  gapH12,
-                  const AppText.paragraphI16(
-                    "Scan code",
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    color: ConfigColors.slateGray,
-                  ),
-                ],
-              ),
-            ),
-            gapH20,
-            Row(
+        title: "Sale",
+      ),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 32),
+        children: [
+          CommonDottedBorderCard(
+            borderColor: ConfigColors.lightText,
+            strokeWidth: 0.5,
+            onTap: () {
+              scanBarcode();
+            },
+            padding: const EdgeInsets.all(32),
+            customRadius: const Radius.circular(6),
+            alignment: Alignment.center,
+            backgroundColor: ConfigColors.backgroundGrey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                productsValue.when(
-                  data: (data) {
-                    return CommonCard(
-                      onTap: () async {
-                        final product = await showSearch(
-                          context: context,
-                          delegate: CommonSearchDelegate(
-                            searchTerms: data.toList(),
-                            onChanged: (List<Map<String, dynamic>> items) {},
-                          ),
-                        );
-                        setState(() {
-                          products.add(product);
-                        });
-                        print(product.toString());
-                      },
-                      child: const AppText.paragraphS16('search'),
-                    );
-                  },
-                  error: (error, stackTrace) {
-                    return const Center(
-                      child: AppText.paragraphI16('something went wrong'),
-                    );
-                  },
-                  loading: () {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
+                CommonCard(
+                  showShadow: false,
+                  padding: const EdgeInsets.all(5),
+                  backgroundColor: ConfigColors.lightGreen,
+                  shape: BoxShape.circle,
+                  child: Assets.scanCodeLightScreen.svg(),
+                ),
+                gapH12,
+                const AppText.paragraphI16(
+                  "Scan code",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                  color: ConfigColors.slateGray,
                 ),
               ],
             ),
-            gapH20,
-            CommonDottedBorderCard(
-              borderColor: ConfigColors.lightText,
-              strokeWidth: 0.5,
-              onTap: () {},
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-              customRadius: const Radius.circular(6),
-              backgroundColor: ConfigColors.lightGreen,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: products.isNotEmpty
-                      ? List.generate(
-                          products.length,
-                          (index) {
-                            final item = products[index];
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CommonCard(
-                                    height: 91,
-                                    width: 343,
-                                    padding: const EdgeInsets.all(10),
-                                    customRadius: BorderRadius.circular(16),
-                                    child: Row(
-                                      children: [
-                                        CommonCard(
-                                          height: 71,
-                                          width: 76,
-                                          padding: const EdgeInsets.all(10),
-                                          backgroundColor:
-                                              const Color(0xFFf2f2f2),
-                                          child: CachedNetworkImage(
-                                            imageUrl: item['image'],
-                                            placeholder: (context, url) =>
-                                                Container(
-                                              color: Colors.black12,
-                                            ),
+          ),
+          gapH20,
+          Row(
+            children: [
+              productsValue.when(
+                data: (data) {
+                  return CommonCard(
+                    onTap: () async {
+                      final product = await showSearch(
+                        context: context,
+                        delegate: CommonSearchDelegate(
+                          searchTerms: data.toList(),
+                          onChanged: (List<Map<String, dynamic>> items) {},
+                        ),
+                      );
+                      setState(() {
+                        products.add(product);
+                      });
+                      print(product.toString());
+                    },
+                    child: const AppText.paragraphS16('search'),
+                  );
+                },
+                error: (error, stackTrace) {
+                  return const Center(
+                    child: AppText.paragraphI16('something went wrong'),
+                  );
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            ],
+          ),
+          gapH20,
+          CommonDottedBorderCard(
+            borderColor: ConfigColors.lightText,
+            strokeWidth: 0.5,
+            onTap: () {},
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+            customRadius: const Radius.circular(6),
+            backgroundColor: ConfigColors.lightGreen,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: products.isNotEmpty
+                    ? List.generate(
+                        products.length,
+                        (index) {
+                          final item = products[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CommonCard(
+                                  height: 91,
+                                  width: 343,
+                                  padding: const EdgeInsets.all(10),
+                                  customRadius: BorderRadius.circular(16),
+                                  child: Row(
+                                    children: [
+                                      CommonCard(
+                                        height: 71,
+                                        width: 76,
+                                        padding: const EdgeInsets.all(10),
+                                        backgroundColor:
+                                            const Color(0xFFf2f2f2),
+                                        child: CachedNetworkImage(
+                                          imageUrl: item['image'],
+                                          placeholder: (context, url) =>
+                                              Container(
+                                            color: Colors.black12,
                                           ),
                                         ),
-                                        gapW16,
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              AppText.paragraphS16(
-                                                item['name'],
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                              gapH4,
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  AppText.paragraphS16(
-                                                    "\$ ${item['price']}",
-                                                    fontWeight: FontWeight.w600,
-                                                    color:
-                                                        ConfigColors.primary2,
-                                                  ),
-                                                  CommonCounter(
-                                                    value: item[
-                                                            "counter_sale_quantity"]
-                                                        .toString(),
-                                                    onMinus: () async {
-                                                      if (item[
-                                                              "counter_sale_quantity"] >
-                                                          1) {
-                                                        setState(() {
-                                                          item[
-                                                              "counter_sale_quantity"]--;
-                                                        });
-                                                      } else {
-                                                        setState(() {
-                                                          products.remove(item);
-                                                        });
-                                                      }
-                                                    },
-                                                    onPlus: () async {
+                                      ),
+                                      gapW16,
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            AppText.paragraphS16(
+                                              item['name'],
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            gapH4,
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                AppText.paragraphS16(
+                                                  "\$ ${item['price']}",
+                                                  fontWeight: FontWeight.w600,
+                                                  color: ConfigColors.primary2,
+                                                ),
+                                                CommonCounter(
+                                                  value: item[
+                                                          "counter_sale_quantity"]
+                                                      .toString(),
+                                                  onMinus: () async {
+                                                    if (item[
+                                                            "counter_sale_quantity"] >
+                                                        1) {
                                                       setState(() {
                                                         item[
-                                                            "counter_sale_quantity"]++;
+                                                            "counter_sale_quantity"]--;
                                                       });
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                    } else {
+                                                      setState(() {
+                                                        products.remove(item);
+                                                      });
+                                                    }
+                                                  },
+                                                  onPlus: () async {
+                                                    setState(() {
+                                                      item[
+                                                          "counter_sale_quantity"]++;
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            );
-                          },
-                        )
-                      : [],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      )
+                    : [],
+              ),
+            ),
+          ),
+          gapH20,
+          CommonDottedBorderCard(
+            customRadius: const Radius.circular(6),
+            backgroundColor: ConfigColors.lightGreen,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const AppText.paragraphS16(
+                  "Total",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
-              ),
-            ),
-            gapH20,
-            CommonDottedBorderCard(
-              customRadius: const Radius.circular(6),
-              backgroundColor: ConfigColors.lightGreen,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const AppText.paragraphS16(
-                    "Total",
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  AppText.paragraphS16(
-                    "\$$counterSaleSubTotal",
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: ConfigColors.primary2,
-                  ),
-                ],
-              ),
-            ),
-            gapH20,
-            const AppText.paragraphS16(
-              "Select payment method ",
-              fontWeight: FontWeight.w500,
-            ),
-            gapH16,
-            CommonListTile(
-              leading: CommonCard(
-                customRadius: BorderRadius.circular(10),
-                showShadow: false,
-                backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
-                padding: const EdgeInsets.all(10),
-                child: Assets.paymentcard.svg(),
-              ),
-              title: const AppText.paragraphI16(
-                "Payment by card",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-              trailing: Transform.scale(
-                scale: 1.2,
-                child: Radio(
-                  activeColor: ConfigColors.primary,
-                  value: PaymentMethod.card,
-                  groupValue: _method,
-                  onChanged: (value) {
-                    setState(() {
-                      _method = value!;
-                    });
-                  },
-                ),
-              ),
-            ),
-            gapH16,
-            CommonListTile(
-              leading: CommonCard(
-                customRadius: BorderRadius.circular(10),
-                showShadow: false,
-                backgroundColor: ConfigColors.lightFerozi,
-                padding: const EdgeInsets.all(10),
-                child: Assets.cash.image(
-                  height: 18,
+                AppText.paragraphS16(
+                  "\$$counterSaleSubTotal",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                   color: ConfigColors.primary2,
                 ),
-              ),
-              title: const AppText.paragraphI16(
-                "Cash",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-              trailing: Transform.scale(
-                scale: 1.2,
-                child: Radio(
-                  activeColor: ConfigColors.primary,
-                  value: PaymentMethod.cash,
-                  groupValue: _method,
-                  onChanged: (value) {
-                    setState(() {
-                      _method = value!;
-                    });
-                  },
-                ),
+              ],
+            ),
+          ),
+          gapH20,
+          const AppText.paragraphS16(
+            "Select payment method ",
+            fontWeight: FontWeight.w500,
+          ),
+          gapH16,
+          CommonListTile(
+            leading: CommonCard(
+              customRadius: BorderRadius.circular(10),
+              showShadow: false,
+              backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
+              padding: const EdgeInsets.all(10),
+              child: Assets.paymentcard.svg(),
+            ),
+            title: const AppText.paragraphI16(
+              "Payment by card",
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            trailing: Transform.scale(
+              scale: 1.2,
+              child: Radio(
+                activeColor: ConfigColors.primary,
+                value: PaymentMethod.card,
+                groupValue: _method,
+                onChanged: (value) {
+                  setState(() {
+                    _method = value!;
+                  });
+                },
               ),
             ),
-            gapH48,
-            CommonButton(
-              onPress: () async {
-                await ref.read(ordersNotifierProvider.notifier).createOrder(
-                  data: {},
-                  products: products,
-                );
-              },
-              synappButtonColor: SynappButtonColor.primary,
-              text: 'Sell',
+          ),
+          gapH16,
+          CommonListTile(
+            leading: CommonCard(
+              customRadius: BorderRadius.circular(10),
+              showShadow: false,
+              backgroundColor: ConfigColors.lightFerozi,
+              padding: const EdgeInsets.all(10),
+              child: Assets.cash.image(
+                height: 18,
+                color: ConfigColors.primary2,
+              ),
             ),
-          ],
-        ),
+            title: const AppText.paragraphI16(
+              "Cash",
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            trailing: Transform.scale(
+              scale: 1.2,
+              child: Radio(
+                activeColor: ConfigColors.primary,
+                value: PaymentMethod.cash,
+                groupValue: _method,
+                onChanged: (value) {
+                  setState(() {
+                    _method = value!;
+                  });
+                },
+              ),
+            ),
+          ),
+          gapH48,
+          CommonButton(
+            onPress: () async {
+              await ref.read(ordersNotifierProvider.notifier).createOrder(
+                data: {},
+                products: products,
+              );
+            },
+            synappButtonColor: SynappButtonColor.primary,
+            text: 'Sell',
+          ),
+        ],
       ),
     );
   }

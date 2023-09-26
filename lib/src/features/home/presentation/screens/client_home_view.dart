@@ -7,16 +7,17 @@ import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/authentication/presentation/screens/user_role_screen.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/all_stores_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 class ClientHomeView extends ConsumerWidget {
-  final int currentPageIndex;
-  final Function(int) seeAllStore;
+  // final int currentPageIndex;
+  // final Function(int) seeAllStore;
   const ClientHomeView({
     super.key,
-    required this.currentPageIndex,
-    required this.seeAllStore,
+    // required this.currentPageIndex,
+    // required this.seeAllStore,
   });
 
   @override
@@ -48,7 +49,9 @@ class ClientHomeView extends ConsumerWidget {
                   height: 123,
                   width: 163,
                   padding: const EdgeInsets.all(16),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context, AllStoresScreen.route());
+                  },
                   backgroundColor: const Color(0xFF14BEF0),
                   customRadius: BorderRadius.circular(20),
                   child: Column(
@@ -76,10 +79,7 @@ class ClientHomeView extends ConsumerWidget {
                   height: 123,
                   width: 163,
                   padding: const EdgeInsets.all(16),
-                  onTap: () {
-                    seeAllStore(1);
-                    // Navigator.push(context, AllStoresScreen.route());
-                  },
+                  onTap: () {},
                   backgroundColor: const Color(0xFF3AC3AF),
                   customRadius: BorderRadius.circular(20),
                   child: Column(

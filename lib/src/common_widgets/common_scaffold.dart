@@ -19,11 +19,12 @@ class CommonScaffold extends StatelessWidget {
         body: Container(
           color: ConfigColors.primary,
           child: SafeArea(
+            bottom: false,
             child: Column(
               children: [
                 appBar,
                 Expanded(
-                  child: DecoratedBox(
+                  child: Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(

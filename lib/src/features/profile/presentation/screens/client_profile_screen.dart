@@ -135,7 +135,7 @@ class _ClientProfileScreenState extends ConsumerState<ClientProfileScreen> {
                   height: 26,
                   width: 26,
                 ),
-                onTap: () => Navigator.push(context, OrdersScreen.route()),
+                onTap: () => Navigator.push(context, OrdersScreen.route(true)),
               ),
               gapH12,
               CommonProfileListTile(

@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "52687758327-5sc036lavtvv9churc7aj1fijrlpdpvq.apps.googleusercontent.com",
+          "client_id": "52687758327-jeg0708fft45ikdta4oeicijs3rtit0a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abubakar.inversaapp",
+            "certificate_hash": "fc45bdd35269ebb731759a4e27e45dce548beb6f"
+          }
+        },
+        {
+          "client_id": "52687758327-4i00iuuuf6a6lbl5tsqtlatjtmgavj35.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,8 +35,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "52687758327-5sc036lavtvv9churc7aj1fijrlpdpvq.apps.googleusercontent.com",
+              "client_id": "52687758327-4i00iuuuf6a6lbl5tsqtlatjtmgavj35.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "52687758327-6tudi88nm2e80qjcnnqtfvocang6aljd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.abubakar.inversaapp.RunnerTests"
+              }
             }
           ]
         }

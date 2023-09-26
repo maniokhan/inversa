@@ -118,7 +118,7 @@ class _ClientBusinessProfileFormScreenState
 
   @override
   Widget build(BuildContext context) {
-    final userAccount = ref.watch(userAccountProvider);
+    final userAccount = ref.watch(userAccountProvider.select((value) => value));
 
     ref.listen(userAccountNotifierProvider, (previous, next) {
       if (!next) {

@@ -72,7 +72,7 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
       isScaffold: true,
       appBar: AppBar(
         toolbarHeight: 65,
-        backgroundColor: const Color(0xFF2AB0B6),
+        backgroundColor: ConfigColors.primary,
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),

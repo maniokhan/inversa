@@ -27,157 +27,156 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: CommonScaffold(
-        appBar: CommonAppBar(
-          showleading: true,
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(
-              Icons.arrow_back_ios_new_outlined,
-              color: ConfigColors.white,
+    return CommonScaffold(
+      isScaffold: true,
+      appBar: CommonAppBar(
+        showleading: true,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: ConfigColors.white,
+          ),
+        ),
+        title: "Statistics",
+      ),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+        children: [
+          // const AppText.paragraphI16(
+          //   "Overall sales by week sharing \na month",
+          //   fontWeight: FontWeight.w600,
+          // ),
+          // gapH20,
+          // const CommonCard(
+          //   height: 246,
+          //   width: 343,
+          //   alignment: Alignment.center,
+          //   child: Text("This Week"),
+          // ),
+          // gapH24,
+          // const AppText.paragraphI16(
+          //   "Overall Expenses",
+          //   fontWeight: FontWeight.w600,
+          // ),
+          // gapH16,
+          // const PieChart(),
+          // gapH32,
+          // const AppText.paragraphI16(
+          //   "Gross margin",
+          //   fontWeight: FontWeight.w600,
+          // ),
+          // gapH20,
+          // const CommonCard(
+          //   height: 187,
+          //   width: 343,
+          //   alignment: Alignment.center,
+          //   child: Text("Gross Margin"),
+          // ),
+          // gapH24,
+          // const AppText.paragraphI16(
+          //   "Top clients",
+          //   fontWeight: FontWeight.w600,
+          // ),
+          // gapH20,
+          // const CommonCard(
+          //   showBorder: true,
+          //   padding: EdgeInsets.all(0),
+          //   height: 187,
+          //   width: 343,
+          //   child: TopClientChart(),
+          // ),
+          // gapH24,
+          // const AppText.paragraphI16(
+          //   "Profitability",
+          //   fontWeight: FontWeight.w600,
+          // ),
+          // gapH20,
+          // const CommonCard(
+          //   padding: EdgeInsets.all(0),
+          //   height: 187,
+          //   width: 343,
+          //   showBorder: true,
+          //   child: ProfitabilityChart(),
+          // ),
+          // gapH24,
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const AppText.paragraphI14(
+          //       "Inventory levels that \ncould charge by category",
+          //       fontSize: 14,
+          //       fontWeight: FontWeight.w600,
+          //     ),
+          //     gapW12,
+          //     CommonDropDown(
+          //       value: 'Category',
+          //       onChange: (value) {},
+          //       items: <String>[
+          //         'Category',
+          //       ].map((String value) {
+          //         return DropdownMenuItem<String>(
+          //           value: value,
+          //           child: Text(value),
+          //         );
+          //       }).toList(),
+          //     ),
+          //   ],
+          // ),
+          // gapH20,
+          // const CommonCard(
+          //   height: 205,
+          //   width: 343,
+          //   showBorder: true,
+          //   customBoxShadow: [
+          //     BoxShadow(
+          //       color: Color(0xFFD2E6F1),
+          //       blurRadius: 20,
+          //     )
+          //   ],
+          //   child: StatisticBarChart(),
+          // ),
+          // gapH20,
+          Row(
+            children: [
+              const AppText.paragraphI14(
+                "Sales by products",
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+              gapW64,
+              CommonDropDown(
+                value: 'Product',
+                onChange: (value) {},
+                items: <String>[
+                  'Product',
+                ].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+          gapH20,
+          const CommonCard(
+            height: 250,
+            width: 343,
+            showBorder: true,
+            customBoxShadow: [
+              BoxShadow(
+                color: Color(0xFFD2E6F1),
+                blurRadius: 20,
+              )
+            ],
+            child: AspectRatio(
+              aspectRatio: 2,
+              child: ColumnTrack(),
             ),
           ),
-          title: "Statistics",
-        ),
-        body: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
-          children: [
-            // const AppText.paragraphI16(
-            //   "Overall sales by week sharing \na month",
-            //   fontWeight: FontWeight.w600,
-            // ),
-            // gapH20,
-            // const CommonCard(
-            //   height: 246,
-            //   width: 343,
-            //   alignment: Alignment.center,
-            //   child: Text("This Week"),
-            // ),
-            // gapH24,
-            // const AppText.paragraphI16(
-            //   "Overall Expenses",
-            //   fontWeight: FontWeight.w600,
-            // ),
-            // gapH16,
-            // const PieChart(),
-            // gapH32,
-            // const AppText.paragraphI16(
-            //   "Gross margin",
-            //   fontWeight: FontWeight.w600,
-            // ),
-            // gapH20,
-            // const CommonCard(
-            //   height: 187,
-            //   width: 343,
-            //   alignment: Alignment.center,
-            //   child: Text("Gross Margin"),
-            // ),
-            // gapH24,
-            // const AppText.paragraphI16(
-            //   "Top clients",
-            //   fontWeight: FontWeight.w600,
-            // ),
-            // gapH20,
-            // const CommonCard(
-            //   showBorder: true,
-            //   padding: EdgeInsets.all(0),
-            //   height: 187,
-            //   width: 343,
-            //   child: TopClientChart(),
-            // ),
-            // gapH24,
-            // const AppText.paragraphI16(
-            //   "Profitability",
-            //   fontWeight: FontWeight.w600,
-            // ),
-            // gapH20,
-            // const CommonCard(
-            //   padding: EdgeInsets.all(0),
-            //   height: 187,
-            //   width: 343,
-            //   showBorder: true,
-            //   child: ProfitabilityChart(),
-            // ),
-            // gapH24,
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     const AppText.paragraphI14(
-            //       "Inventory levels that \ncould charge by category",
-            //       fontSize: 14,
-            //       fontWeight: FontWeight.w600,
-            //     ),
-            //     gapW12,
-            //     CommonDropDown(
-            //       value: 'Category',
-            //       onChange: (value) {},
-            //       items: <String>[
-            //         'Category',
-            //       ].map((String value) {
-            //         return DropdownMenuItem<String>(
-            //           value: value,
-            //           child: Text(value),
-            //         );
-            //       }).toList(),
-            //     ),
-            //   ],
-            // ),
-            // gapH20,
-            // const CommonCard(
-            //   height: 205,
-            //   width: 343,
-            //   showBorder: true,
-            //   customBoxShadow: [
-            //     BoxShadow(
-            //       color: Color(0xFFD2E6F1),
-            //       blurRadius: 20,
-            //     )
-            //   ],
-            //   child: StatisticBarChart(),
-            // ),
-            // gapH20,
-            Row(
-              children: [
-                const AppText.paragraphI14(
-                  "Sales by products",
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
-                gapW64,
-                CommonDropDown(
-                  value: 'Product',
-                  onChange: (value) {},
-                  items: <String>[
-                    'Product',
-                  ].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ],
-            ),
-            gapH20,
-            const CommonCard(
-              height: 250,
-              width: 343,
-              showBorder: true,
-              customBoxShadow: [
-                BoxShadow(
-                  color: Color(0xFFD2E6F1),
-                  blurRadius: 20,
-                )
-              ],
-              child: AspectRatio(
-                aspectRatio: 2,
-                child: ColumnTrack(),
-              ),
-            ),
-            gapH20,
-          ],
-        ),
+          gapH20,
+        ],
       ),
     );
   }
