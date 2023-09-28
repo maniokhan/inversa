@@ -99,6 +99,7 @@ class UserRoleScreen extends ConsumerWidget {
                   height: 135,
                   width: 343,
                   onTap: () async {
+                    selcectedRole = Role.store;
                     await ref
                         .read(userAccountNotifierProvider.notifier)
                         .updateUserAccount(
@@ -139,6 +140,7 @@ class UserRoleScreen extends ConsumerWidget {
                   height: 135,
                   width: 343,
                   onTap: () async {
+                    selcectedRole = Role.client;
                     await ref
                         .read(userAccountNotifierProvider.notifier)
                         .updateUserAccount(

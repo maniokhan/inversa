@@ -19,6 +19,7 @@ final allProductsProvider =
         "user_id",
         isEqualTo: userId,
       )
+      .where("quantity", isNotEqualTo: 0)
       .snapshots()
       .listen((event) {
     final allProducts = event.docs.map((doc) {

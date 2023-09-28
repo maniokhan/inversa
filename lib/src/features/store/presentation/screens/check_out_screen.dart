@@ -11,7 +11,6 @@ import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/order_notifier_provider.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/shopping_cart_notifier_provider.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/confirm_order_placed_screen.dart';
 import 'package:inversaapp/src/helpers/loading_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -45,6 +44,34 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
       }
     });
     final userId = FirebaseAuth.instance.currentUser?.uid;
+    void updateProductQuantities(Iterable<Map<String, dynamic>> productList) {
+      // Initialize a batch
+      WriteBatch batch = FirebaseFirestore.instance.batch();
+
+      // Iterate through your list of products and update Firestore documents
+      for (var product in productList) {
+        int buyQuantity = product['buyQuantity'];
+        String productId = product['product_id'];
+
+        // Reference to the Firestore document
+        DocumentReference productRef =
+            FirebaseFirestore.instance.collection('products').doc(productId);
+
+        // Update the "quantity" field by subtracting "buyQuantity"
+        batch.update(
+            productRef, {'quantity': FieldValue.increment(-buyQuantity)});
+      }
+
+      // Commit the batched write
+      batch.commit().then((_) {
+        // Batched write was successful
+        print('Quantity updates completed');
+      }).catchError((error) {
+        // Handle any errors that occur during the batched write
+        print('Error updating quantities: $error');
+      });
+    }
+
     return CommonScaffold(
       isScaffold: true,
       appBar: CommonAppBar(
@@ -245,7 +272,7 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
                 "subtotal": widget.subTotal,
                 "total": widget.subTotal,
               };
-
+              updateProductQuantities(widget.products);
               try {
                 LoadingScreen().show(context: context, text: "Please wait..");
                 await ref.read(ordersNotifierProvider.notifier).createOrder(
@@ -253,9 +280,9 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
                       products: widget.products,
                     );
 
-                await ref
-                    .read(shoppingCartNotifierProvider.notifier)
-                    .deleteShoppingCart();
+                // await ref
+                //     .read(shoppingCartNotifierProvider.notifier)
+                //     .deleteShoppingCart();
               } catch (e) {
                 throw Exception('something went wrong while checkout');
               } finally {

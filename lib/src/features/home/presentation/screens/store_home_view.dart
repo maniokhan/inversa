@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -22,6 +23,8 @@ import 'package:inversaapp/src/theme/text.dart';
 final totalSaleProvider = StateProvider<double>((ref) => 0);
 final totalRestockProvider = StateProvider<double>((ref) => 0);
 final totalExpensesProvider = StateProvider<double>((ref) => 0);
+final dailySalesProvider = StateProvider<List<double>>((ref) => [0.0]);
+final totalDailySalesProvider = StateProvider<double>((ref) => 0);
 
 class StoreHomeView extends ConsumerStatefulWidget {
   static Route<StoreHomeView> route() {
@@ -44,6 +47,7 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
     calculateTotalRestock();
     calculateTotalExpenses();
     calculateTotalSaleByMonth();
+    calculateDailySales();
   }
 
   Future<void> calculateTotalSale() async {
@@ -158,10 +162,51 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
     }
   }
 
+  Future<void> calculateDailySales() async {
+    double total = 0.0;
+    List<double> dailySales = [0.0];
+    DateTime now = DateTime.now();
+    DateTime startOfDay = DateTime(now.year, now.month, now.day, 0, 0, 0);
+    DateTime endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
+    if (currentUser == null) {
+      print('User not authenticated.');
+      return;
+    }
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('orders')
+          .where('store_id', isEqualTo: currentUser!.uid)
+          .where('created_at',
+              isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay))
+          .where('created_at',
+              isLessThanOrEqualTo: Timestamp.fromDate(endOfDay))
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        for (var document in querySnapshot.docs) {
+          Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+
+          if (data.containsKey('total')) {
+            total += data['total'];
+            dailySales.add(data['total']);
+          }
+        }
+      } else {
+        dailySales.add(0.0);
+      }
+
+      ref.read(dailySalesProvider.notifier).update((state) => dailySales);
+      ref.read(totalDailySalesProvider.notifier).update((state) => total);
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double totalSale = ref.watch(totalSaleProvider);
     double totalRestock = ref.watch(totalRestockProvider);
+    double totalDailySales = ref.watch(totalDailySalesProvider);
+    List<double> dailySales = ref.watch(dailySalesProvider);
     return CommonScaffold(
       appBar: CommonAppBar(
         showleading: true,
@@ -307,184 +352,185 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
           ),
           gapH20,
           CommonCard(
-            onTap: () => Navigator.push(context, StatisticsScreen.route()),
+            // onTap: () => Navigator.push(context, StatisticsScreen.route()),
             customRadius: BorderRadius.circular(20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppText.titleS24(
-                      "\$1,05,284",
+                      // "\$1,05,284",
+                      "\$${totalDailySales.toStringAsFixed(0)}",
                       fontWeight: FontWeight.w700,
                     ),
                     gapH8,
-                    AppText.paragraphI14(
+                    const AppText.paragraphI14(
                       "Statistics",
                       fontWeight: FontWeight.w500,
                       color: ConfigColors.slateGray,
                     ),
                   ],
                 ),
-                Assets.statistic.image(height: 66),
+                // Assets.statistic.image(height: 66),
+                SizedBox(
+                    height: 90, width: 160, child: DailySalesGraph(dailySales)),
               ],
             ),
           ),
           gapH16,
-          Row(
-            children: [
-              Expanded(
-                child: CommonCard(
-                  padding: const EdgeInsets.all(16),
-                  onTap: () {},
-                  customRadius: BorderRadius.circular(20),
-                  child: Column(
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: CommonCard(
+          //         padding: const EdgeInsets.all(16),
+          //         onTap: () {},
+          //         customRadius: BorderRadius.circular(20),
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             Row(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //               children: [
+          //                 CommonCard(
+          //                   showBorder: true,
+          //                   borderColor: ConfigColors.primary2,
+          //                   padding: const EdgeInsets.all(8),
+          //                   shape: BoxShape.circle,
+          //                   backgroundColor: ConfigColors.backgroundGreen,
+          //                   child: Assets.paymentcard.svg(
+          //                     color: ConfigColors.primary2,
+          //                   ),
+          //                 ),
+          //                 Assets.outlinedForwardArrow.svg(),
+          //               ],
+          //             ),
+          //             gapH8,
+          //             const AppText.paragraphI14(
+          //               "Virtual Cards",
+          //               fontWeight: FontWeight.w600,
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //     gapW16,
+          Expanded(
+            child: CommonCard(
+              padding: const EdgeInsets.all(16),
+              onTap: () => Navigator.push(context, OtherExpensesScreen.route()),
+              customRadius: BorderRadius.circular(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CommonCard(
-                            showBorder: true,
-                            borderColor: ConfigColors.primary2,
-                            padding: const EdgeInsets.all(8),
-                            shape: BoxShape.circle,
-                            backgroundColor: ConfigColors.backgroundGreen,
-                            child: Assets.paymentcard.svg(
-                              color: ConfigColors.primary2,
-                            ),
-                          ),
-                          Assets.outlinedForwardArrow.svg(),
-                        ],
+                      CommonCard(
+                        showBorder: true,
+                        borderColor: ConfigColors.primary2,
+                        padding: const EdgeInsets.all(8),
+                        shape: BoxShape.circle,
+                        backgroundColor: ConfigColors.backgroundGreen,
+                        child: Assets.priceTag.image(
+                          height: 20,
+                        ),
                       ),
-                      gapH8,
-                      const AppText.paragraphI14(
-                        "Virtual Cards",
-                        fontWeight: FontWeight.w600,
-                      ),
+                      Assets.outlinedForwardArrow.svg(),
                     ],
                   ),
-                ),
-              ),
-              gapW16,
-              Expanded(
-                child: CommonCard(
-                  padding: const EdgeInsets.all(16),
-                  onTap: () =>
-                      Navigator.push(context, OtherExpensesScreen.route()),
-                  customRadius: BorderRadius.circular(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CommonCard(
-                            showBorder: true,
-                            borderColor: ConfigColors.primary2,
-                            padding: const EdgeInsets.all(8),
-                            shape: BoxShape.circle,
-                            backgroundColor: ConfigColors.backgroundGreen,
-                            child: Assets.priceTag.image(
-                              height: 20,
-                            ),
-                          ),
-                          Assets.outlinedForwardArrow.svg(),
-                        ],
-                      ),
-                      gapH8,
-                      const AppText.paragraphI14(
-                        "Expenses",
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ],
+                  gapH8,
+                  const AppText.paragraphI14(
+                    "Expenses",
+                    fontWeight: FontWeight.w600,
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
+          //   ],
+          // ),
           gapH16,
-          Row(
-            children: [
-              Expanded(
-                child: CommonCard(
-                  height: 134,
-                  width: 163,
-                  onTap: () {},
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                  backgroundColor: const Color(0xFF3AC3AF),
-                  customRadius: BorderRadius.circular(20),
-                  child: Column(
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: CommonCard(
+          //         height: 134,
+          //         width: 163,
+          //         onTap: () {},
+          //         padding:
+          //             const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          //         backgroundColor: const Color(0xFF3AC3AF),
+          //         customRadius: BorderRadius.circular(20),
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             Row(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //               children: [
+          //                 CommonCard(
+          //                   showShadow: false,
+          //                   showBorder: true,
+          //                   borderColor: ConfigColors.primary2,
+          //                   padding: const EdgeInsets.all(12),
+          //                   shape: BoxShape.circle,
+          //                   child: Assets.scanCodeLightScreen.svg(height: 20),
+          //                 ),
+          //                 Assets.outlinedForwardArrow.svg(),
+          //               ],
+          //             ),
+          //             gapH20,
+          //             const AppText.paragraphI16(
+          //               "Code Scanner",
+          //               fontWeight: FontWeight.w600,
+          //               color: ConfigColors.white,
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          gapW16,
+          Expanded(
+            child: CommonCard(
+              height: 124,
+              width: 163,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              onTap: () => Navigator.push(context, OrdersScreen.route(false)),
+              backgroundColor: ConfigColors.primary,
+              customRadius: BorderRadius.circular(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CommonCard(
-                            showShadow: false,
-                            showBorder: true,
-                            borderColor: ConfigColors.primary2,
-                            padding: const EdgeInsets.all(12),
-                            shape: BoxShape.circle,
-                            child: Assets.scanCodeLightScreen.svg(height: 20),
-                          ),
-                          Assets.outlinedForwardArrow.svg(),
-                        ],
+                      CommonCard(
+                        showBorder: true,
+                        showShadow: false,
+                        borderColor: ConfigColors.primary2,
+                        padding: const EdgeInsets.all(10),
+                        shape: BoxShape.circle,
+                        child: Assets.profile.image(height: 23),
                       ),
-                      gapH20,
-                      const AppText.paragraphI16(
-                        "Code Scanner",
-                        fontWeight: FontWeight.w600,
-                        color: ConfigColors.white,
-                      ),
+                      Assets.outlinedForwardArrow.svg(),
                     ],
                   ),
-                ),
-              ),
-              gapW16,
-              Expanded(
-                child: CommonCard(
-                  height: 134,
-                  width: 163,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                  onTap: () => Navigator.push(context, OrdersScreen.route(false)),
-                  backgroundColor: ConfigColors.primary,
-                  customRadius: BorderRadius.circular(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CommonCard(
-                            showBorder: true,
-                            showShadow: false,
-                            borderColor: ConfigColors.primary2,
-                            padding: const EdgeInsets.all(10),
-                            shape: BoxShape.circle,
-                            child: Assets.profile.image(height: 23),
-                          ),
-                          Assets.outlinedForwardArrow.svg(),
-                        ],
-                      ),
-                      gapH20,
-                      const AppText.paragraphI16(
-                        "Orders Placed",
-                        fontWeight: FontWeight.w600,
-                        color: ConfigColors.white,
-                      ),
-                    ],
+                  gapH20,
+                  const AppText.paragraphI16(
+                    "Orders Placed",
+                    fontWeight: FontWeight.w600,
+                    color: ConfigColors.white,
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
+            //   ),
+            // ],
           ),
           gapH16,
           CommonCard(
@@ -514,6 +560,49 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DailySalesGraph extends StatelessWidget {
+  final List<double> dailySalesData;
+
+  const DailySalesGraph(this.dailySalesData, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      child: LineChart(
+        LineChartData(
+          gridData: const FlGridData(show: false),
+          titlesData: const FlTitlesData(show: false),
+          borderData: FlBorderData(
+            show: false,
+          ),
+          minX: 0,
+          maxX: dailySalesData.length.toDouble() - 1,
+          minY: 0,
+          maxY: dailySalesData.reduce(
+                  (value, element) => value > element ? value : element) *
+              1.2,
+          lineBarsData: [
+            LineChartBarData(
+              spots: List.generate(
+                dailySalesData.length,
+                (index) => FlSpot(index.toDouble(), dailySalesData[index]),
+              ),
+              isCurved: false,
+              color: const Color(0xFF2AB0B6),
+              dotData: const FlDotData(show: false),
+              belowBarData: BarAreaData(
+                  show: true,
+                  color: const Color(0xFF2AB0B6)
+                      .withOpacity(0.2)), // Show shadow under the graph line
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -52,7 +52,7 @@ class OldListTabView extends ConsumerWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
                   ),
-                  subTitle: AppText.paragraphI14(
+                  subTitle: AppText.paragraphI12(
                     "Exp Date: ${products[index]['expDate'] ?? '10/06/2023'}",
                     fontWeight: FontWeight.w400,
                     color: ConfigColors.slateGray,
@@ -66,44 +66,44 @@ class OldListTabView extends ConsumerWidget {
               );
             },
           ),
-        gapH24,
-        Row(
-          children: [
-            Expanded(
-              child: CommonButton(
-                onPress: () {},
-                text: "Download",
-              ),
-            ),
-            gapW20,
-            Expanded(
-              child: CommonButton(
-                onPress: () {},
-                text: "Accept",
-              ),
-            ),
-          ],
-        ),
-        gapH24,
-        const AppText.paragraphS16(
-          "Summary",
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-        ),
-        gapH16,
-        CommonDottedBorderCard(
-          height: 119,
-          width: 343,
-          onTap: () {},
-          borderColor: ConfigColors.primary2,
-          backgroundColor: ConfigColors.backgroundGreen,
-          padding: const EdgeInsets.all(16),
-          customRadius: const Radius.circular(6),
-          child: const AppText.paragraphI12(
-            "Lorem ipsum dolor sit amet consectetur. Sit vehicula in enim volutpat est faucibus tempus erat nibh. Pretium velit eu velit tristique ac. Lectus posuere mi tempor ultricies bibendum ac eget.",
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+        // gapH24,
+        // Row(
+        //   children: [
+        //     Expanded(
+        //       child: CommonButton(
+        //         onPress: () {},
+        //         text: "Download",
+        //       ),
+        //     ),
+        //     gapW20,
+        //     Expanded(
+        //       child: CommonButton(
+        //         onPress: () {},
+        //         text: "Accept",
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        // gapH24,
+        // const AppText.paragraphS16(
+        //   "Summary",
+        //   fontSize: 18,
+        //   fontWeight: FontWeight.w600,
+        // ),
+        // gapH16,
+        // CommonDottedBorderCard(
+        //   height: 119,
+        //   width: 343,
+        //   onTap: () {},
+        //   borderColor: ConfigColors.primary2,
+        //   backgroundColor: ConfigColors.backgroundGreen,
+        //   padding: const EdgeInsets.all(16),
+        //   customRadius: const Radius.circular(6),
+        //   child: const AppText.paragraphI12(
+        //     "Lorem ipsum dolor sit amet consectetur. Sit vehicula in enim volutpat est faucibus tempus erat nibh. Pretium velit eu velit tristique ac. Lectus posuere mi tempor ultricies bibendum ac eget.",
+        //     fontWeight: FontWeight.w400,
+        //   ),
+        // ),
       ],
     );
 

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:inversaapp/main.dart';
 
@@ -42,6 +43,11 @@ class AuthenticationNotifier extends StateNotifier<bool> {
           (await FirebaseAuth.instance.signInWithCredential(oauthCredentials))
               .user!;
       final String? userId = FirebaseAuth.instance.currentUser?.uid;
+      await Geolocator.requestPermission();
+
+      final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
       final QuerySnapshot result = await FirebaseFirestore.instance
           .collection('user_accounts')
           .where('user_id', isEqualTo: userId)
@@ -54,6 +60,10 @@ class AuthenticationNotifier extends StateNotifier<bool> {
         'store_name': '',
         'password': "",
         'email': userDetails.email ?? '',
+        'store_location': GeoPoint(
+          position.latitude,
+          position.longitude,
+        ),
       };
       if (result.docs.isEmpty) {
         // User does not exist, create a new document.
@@ -96,6 +106,11 @@ class AuthenticationNotifier extends StateNotifier<bool> {
       final userDetails =
           (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
       final String? userId = FirebaseAuth.instance.currentUser?.uid;
+      await Geolocator.requestPermission();
+
+      final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
       final QuerySnapshot result = await FirebaseFirestore.instance
           .collection('user_accounts')
           .where('user_id', isEqualTo: userId)
@@ -108,6 +123,10 @@ class AuthenticationNotifier extends StateNotifier<bool> {
         'store_name': '',
         'password': "",
         'email': userDetails.email ?? '',
+        'store_location': GeoPoint(
+          position.latitude,
+          position.longitude,
+        ),
       };
       if (result.docs.isEmpty) {
         // User does not exist, create a new document.
@@ -134,11 +153,20 @@ class AuthenticationNotifier extends StateNotifier<bool> {
         email: email,
         password: password,
       );
+      await Geolocator.requestPermission();
+
+      final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
 
       final String? userId = FirebaseAuth.instance.currentUser?.uid;
       data['user_id'] = userId;
       data['address'] = "";
       data['store_name'] = "";
+      data['store_location'] = GeoPoint(
+        position.latitude,
+        position.longitude,
+      );
 
       await FirebaseFirestore.instance.collection('user_accounts').add(data);
       await appPrefs?.setBool('isLoggin', true);

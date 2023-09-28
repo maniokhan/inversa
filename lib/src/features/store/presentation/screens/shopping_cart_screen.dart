@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
@@ -30,20 +31,6 @@ class ShoppingCartScreen extends StatefulWidget {
 }
 
 class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
-  plusQuantity(int quantity) {
-    setState(() {
-      quantity++;
-    });
-  }
-
-  minusQuantity(int quantity) {
-    if (quantity > 1) {
-      setState(() {
-        quantity--;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     AsyncValue<Iterable<Map<String, dynamic>>> shopingCart =
@@ -69,7 +56,9 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
             for (var product in data) {
               subtotal +=
                   product["total_price_quantity"].toString().tryParseToInt();
+              print(product);
             }
+
             return Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 30),
               child: Column(
@@ -150,27 +139,27 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                               color: ConfigColors.primary2,
                                             ),
                                             CommonCounter(
-                                              value:
-                                                  item["quantity"].toString(),
+                                              value: item["buyQuantity"]
+                                                  .toString(),
                                               onMinus: () {
-                                                if (item["quantity"] > 1) {
-                                                  setState(() {
+                                                setState(() {
+                                                  if (item["buyQuantity"] > 1) {
                                                     item.update(
-                                                        'quantity',
-                                                        (value) =>
-                                                            item['quantity'] -
-                                                            1);
+                                                      'buyQuantity',
+                                                      (value) =>
+                                                          item['buyQuantity'] -
+                                                          1,
+                                                    );
                                                     item.update(
                                                       'total_price_quantity',
                                                       (value) =>
                                                           item['price']
                                                               .toString()
                                                               .tryParseToInt() *
-                                                          (item['quantity'] -
-                                                              1),
+                                                          (item['buyQuantity']),
                                                     );
-                                                  });
-                                                }
+                                                  }
+                                                });
                                                 // if (item["quantity"] > 1) {
                                                 //   await ref
                                                 //       .read(
@@ -200,20 +189,29 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                                 // }
                                               },
                                               onPlus: () {
-                                                setState(() {
-                                                  item.update(
-                                                      'quantity',
+                                                if (item["buyQuantity"] <
+                                                    item["quantity"]) {
+                                                  setState(() {
+                                                    item.update(
+                                                        'buyQuantity',
+                                                        (value) =>
+                                                            item[
+                                                                'buyQuantity'] +
+                                                            1);
+                                                    item.update(
+                                                      'total_price_quantity',
                                                       (value) =>
-                                                          item['quantity'] + 1);
-                                                  item.update(
-                                                    'total_price_quantity',
-                                                    (value) =>
-                                                        item['price']
-                                                            .toString()
-                                                            .tryParseToInt() *
-                                                        (item['quantity'] + 1),
-                                                  );
-                                                });
+                                                          item['price']
+                                                              .toString()
+                                                              .tryParseToInt() *
+                                                          (item['buyQuantity']),
+                                                    );
+                                                  });
+                                                } else {
+                                                  showCupertinoDialog(
+                                                      item["quantity"]);
+                                                }
+
                                                 // await ref
                                                 //     .read(
                                                 //         shoppingCartNotifierProvider
@@ -301,6 +299,36 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
           );
         },
       ),
+    );
+  }
+
+  void showCupertinoDialog(availableStock) async {
+    await showDialog(
+      context: context,
+      builder: ((context) {
+        return CupertinoAlertDialog(
+          title: const AppText.paragraphI16(
+            "Out of Stock",
+            fontWeight: FontWeight.w600,
+          ),
+          content: AppText.paragraphI14(
+            "Sorry, we have only $availableStock units in stock.",
+            color: ConfigColors.slateGray,
+          ),
+          actions: [
+            CupertinoDialogAction(
+              child: const AppText.paragraphI16(
+                "OK",
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+              ),
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+            ),
+          ],
+        );
+      }),
     );
   }
 }

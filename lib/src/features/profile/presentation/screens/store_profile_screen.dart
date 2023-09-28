@@ -94,17 +94,17 @@ class StoreProfileScreen extends ConsumerWidget {
                 fontWeight: FontWeight.w600,
               ),
               gapH16,
-              CommonProfileListTile(
-                backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
-                title: 'Client',
-                icon: Assets.clientPng.image(
-                  color: const Color(0xFFC379FF),
-                  height: 26,
-                  width: 26,
-                ),
-                onTap: () {},
-              ),
-              gapH12,
+              // CommonProfileListTile(
+              //   backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
+              //   title: 'Client',
+              //   icon: Assets.clientPng.image(
+              //     color: const Color(0xFFC379FF),
+              //     height: 26,
+              //     width: 26,
+              //   ),
+              //   onTap: () {},
+              // ),
+              //gapH12,
               CommonProfileListTile(
                 backgroundColor: const Color.fromRGBO(195, 121, 255, 0.1),
                 title: "Change Password",
@@ -112,27 +112,27 @@ class StoreProfileScreen extends ConsumerWidget {
                 onTap: () =>
                     Navigator.push(context, ChangePasswordScreen.route()),
               ),
-              gapH12,
-              CommonProfileListTile(
-                backgroundColor: ConfigColors.lightPink,
-                title: 'Bank',
-                icon: Assets.bankLightOrange.svg(color: ConfigColors.pink700),
-                onTap: () {},
-              ),
-              gapH12,
-              CommonProfileListTile(
-                backgroundColor: ConfigColors.backgroundGreen,
-                title: "Help",
-                icon: Assets.helpLightGreen.svg(),
-                onTap: () {},
-              ),
-              gapH12,
-              CommonProfileListTile(
-                backgroundColor: ConfigColors.lightFerozi,
-                title: "Terms & Conditions",
-                icon: Assets.termConditionFerozi.svg(),
-                onTap: () {},
-              ),
+              // gapH12,
+              // CommonProfileListTile(
+              //   backgroundColor: ConfigColors.lightPink,
+              //   title: 'Bank',
+              //   icon: Assets.bankLightOrange.svg(color: ConfigColors.pink700),
+              //   onTap: () {},
+              // ),
+              // gapH12,
+              // CommonProfileListTile(
+              //   backgroundColor: ConfigColors.backgroundGreen,
+              //   title: "Help",
+              //   icon: Assets.helpLightGreen.svg(),
+              //   onTap: () {},
+              // ),
+              // gapH12,
+              // CommonProfileListTile(
+              //   backgroundColor: ConfigColors.lightFerozi,
+              //   title: "Terms & Conditions",
+              //   icon: Assets.termConditionFerozi.svg(),
+              //   onTap: () {},
+              // ),
               gapH12,
               CommonProfileListTile(
                 showTrailing: false,

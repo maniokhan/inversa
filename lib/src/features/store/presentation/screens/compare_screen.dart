@@ -8,15 +8,18 @@ import 'package:inversaapp/src/features/store/presentation/widgets/new_list_tab_
 import 'package:inversaapp/src/features/store/presentation/widgets/old_list_tab_view.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 
-final newListProvider = StateProvider<List<Map<String, dynamic>>>((ref) => []);
 final oldListProvider = StateProvider<List<Map<String, dynamic>>>((ref) => []);
 
 class CompareScreen extends ConsumerStatefulWidget {
-  static Route<CompareScreen> route() {
-    return MaterialPageRoute(builder: (context) => const CompareScreen());
+  static Route<CompareScreen> route(List<Map<String, dynamic>> products) {
+    return MaterialPageRoute(
+        builder: (context) => CompareScreen(
+              products: products,
+            ));
   }
 
-  const CompareScreen({super.key});
+  const CompareScreen({super.key, required this.products});
+  final List<Map<String, dynamic>> products;
 
   @override
   ConsumerState<CompareScreen> createState() => _CompareScreenState();
@@ -31,22 +34,12 @@ class _CompareScreenState extends ConsumerState<CompareScreen>
       QuerySnapshot<Map<String, dynamic>> snapshot =
           await FirebaseFirestore.instance.collection('products').get();
 
-      DateTime currentTime = DateTime.now();
-      DateTime twentyFourHoursAgo =
-          currentTime.subtract(const Duration(hours: 24));
-
       List<Map<String, dynamic>> fetchedProducts = snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data();
-        data['timestamp'] = (data['timestamp'] as Timestamp).toDate();
         return data;
       }).toList();
 
-      ref.read(newListProvider.notifier).update((state) => fetchedProducts
-          .where((product) => product['timestamp'].isAfter(twentyFourHoursAgo))
-          .toList());
-      ref.read(oldListProvider.notifier).update((state) => fetchedProducts
-          .where((product) => product['timestamp'].isBefore(twentyFourHoursAgo))
-          .toList());
+      ref.read(oldListProvider.notifier).update((state) => fetchedProducts);
     } on FirebaseException catch (e) {
       print("Error fetching data: $e");
     }
@@ -115,9 +108,11 @@ class _CompareScreenState extends ConsumerState<CompareScreen>
           Expanded(
             child: TabBarView(
               controller: tabController,
-              children: const [
-                OldListTabView(),
-                NewListTabView(),
+              children: [
+                const OldListTabView(),
+                NewListTabView(
+                  products: widget.products,
+                ),
               ],
             ),
           ),

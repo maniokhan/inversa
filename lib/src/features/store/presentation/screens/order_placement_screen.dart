@@ -173,8 +173,9 @@ class _OrderPlacementScreenState extends ConsumerState<OrderPlacementScreen> {
                                 if (isInCart(product)) {
                                   removeFromCart(product);
                                 } else {
+                                  print(product);
                                   final newFields = {
-                                    'quantity': 01,
+                                    'buyQuantity': 01,
                                     'image': product["image"],
                                     'title': product['name'],
                                     'price': product['price'],

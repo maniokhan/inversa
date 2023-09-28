@@ -24,7 +24,14 @@ class _ClientNavigationBarState extends State<ClientNavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: <Widget>[
-        const ClientHomeView(),
+        ClientHomeView(
+          currentPageIndex: currentPageIndex,
+          seeAllStore: (int newIndex) {
+            setState(() {
+              currentPageIndex = newIndex;
+            });
+          },
+        ),
         const AllStoresScreen(),
         ClientProfileScreen(
           currentPageIndex: currentPageIndex,

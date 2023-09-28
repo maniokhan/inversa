@@ -34,6 +34,8 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   fl_chart: ^0.63.0
   intl: ^0.18.0
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.1.0
   # cached_video_player: ^2.0.4
   # git:
   #  url: git@github.com:Abubakarshaikh/inversa_sdk.git

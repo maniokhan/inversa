@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,14 +9,22 @@ import 'package:inversaapp/src/common_widgets/common_check_box.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/all_products_providers.dart';
+import 'package:inversaapp/src/features/store/presentation/screens/compare_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
-class ListTabView extends ConsumerWidget {
+class ListTabView extends ConsumerStatefulWidget {
   const ListTabView({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
+  ConsumerState<ListTabView> createState() => _ListTabViewState();
+}
+
+class _ListTabViewState extends ConsumerState<ListTabView> {
+  List<Map<String, dynamic>> checkedProducts = [];
+
+  @override
+  Widget build(BuildContext context) {
     final String? userId = FirebaseAuth.instance.currentUser?.uid;
     final allItems = ref.watch(allProductsProvider(userId));
     return allItems.when(
@@ -39,6 +48,7 @@ class ListTabView extends ConsumerWidget {
                 separatorBuilder: (context, index) => gapH16,
                 itemBuilder: (context, index) {
                   final product = data.elementAt(index);
+
                   return CommonListTile(
                     padding: const EdgeInsets.all(10),
                     leading: CommonCard(
@@ -60,50 +70,67 @@ class ListTabView extends ConsumerWidget {
                       fontWeight: FontWeight.w400,
                       color: ConfigColors.slateGray,
                     ),
-                    trailing: const CommonCheckBox(),
+                    trailing: CommonCheckBox(
+                      onChange: (checked) {
+                        setState(() {
+                          if (checked!) {
+                            checkedProducts.add(product);
+                          } else {
+                            checkedProducts.remove(product);
+                          }
+                        });
+                      },
+                    ),
                   );
                 },
               ),
             gapH26,
-            Center(
-              child: CommonCard(
-                height: 33,
-                width: 132,
-                borderColor: const Color(0xFF4794F9),
-                onTap: () {},
-                customRadius: BorderRadius.circular(6),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-                backgroundColor: ConfigColors.backgroundGreen,
-                showBorder: true,
-                alignment: Alignment.center,
-                child: const AppText.paragraphI12(
-                  "Download List",
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF4794F9),
-                ),
+            // Center(
+            //   child: CommonCard(
+            //     height: 33,
+            //     width: 132,
+            //     borderColor: const Color(0xFF4794F9),
+            //     onTap: () {},
+            //     customRadius: BorderRadius.circular(6),
+            //     padding:
+            //         const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+            //     backgroundColor: ConfigColors.backgroundGreen,
+            //     showBorder: true,
+            //     alignment: Alignment.center,
+            //     child: const AppText.paragraphI12(
+            //       "Download List",
+            //       fontWeight: FontWeight.w600,
+            //       color: Color(0xFF4794F9),
+            //     ),
+            //   ),
+            // ),
+            //  gapH26,
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: CommonButton(
+            //         onPress: () {},
+            //         prefixIcon: true,
+            //         prefixIconData: Icons.search,
+            //         text: "Search",
+            //       ),
+            //     ),
+            //     gapW20,
+            Expanded(
+              child: CommonButton(
+                onPress: () {
+                  // if (checkedProducts.isNotEmpty) {
+                  //   updateQuantitiesForCheckedProducts(checkedProducts);
+                  // } else {
+                  //   print('Select product first');
+                  // }
+                  Navigator.push(context, CompareScreen.route(checkedProducts));
+                },
+                text: "Compare",
               ),
             ),
-            gapH26,
-            Row(
-              children: [
-                Expanded(
-                  child: CommonButton(
-                    onPress: () {},
-                    prefixIcon: true,
-                    prefixIconData: Icons.search,
-                    text: "Search",
-                  ),
-                ),
-                gapW20,
-                Expanded(
-                  child: CommonButton(
-                    onPress: () {},
-                    text: "Save",
-                  ),
-                ),
-              ],
-            ),
+            //   ],
+            // ),
           ],
         );
       },

@@ -25,16 +25,16 @@ class AllStoresScreen extends StatelessWidget {
         .snapshots();
     return CommonScaffold(
         isScaffold: true,
-        appBar: CommonAppBar(
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(
-              Icons.arrow_back_ios_new_outlined,
-              color: ConfigColors.white,
-            ),
-          ),
+        appBar: const CommonAppBar(
+          // leading: IconButton(
+          //   onPressed: () => Navigator.pop(context),
+          //   icon: const Icon(
+          //     Icons.arrow_back_ios_new_outlined,
+          //     color: ConfigColors.white,
+          //   ),
+          // ),
           title: 'All Stores',
-          showleading: true,
+          // showleading: true,
         ),
         body: StreamBuilder<QuerySnapshot>(
             stream: productsRef,

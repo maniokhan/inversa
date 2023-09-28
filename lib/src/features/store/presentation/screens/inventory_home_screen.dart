@@ -72,7 +72,7 @@ class _InventoryHomeScreenState extends State<InventoryHomeScreen>
               tabs: const [
                 Tab(text: 'Category'),
                 Tab(text: 'List'),
-                Tab(text: 'Scan')
+                Tab(text: 'Scan'),
               ],
             ),
           ),

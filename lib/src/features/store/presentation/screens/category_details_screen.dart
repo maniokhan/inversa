@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
-import 'package:inversaapp/src/common_widgets/common_counter.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/common_widgets/common_scaffold.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/provider/category_products_provider.dart';
-import 'package:inversaapp/src/features/store/presentation/provider/product_notifier_provider.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -62,31 +60,39 @@ class CategoryDetailsScreen extends ConsumerWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
                   ),
-                  trailing: CommonCounter(
-                    value: product['quantity'].toString(),
-                    onMinus: () async {
-                      if (product["quantity"] > 0) {
-                        await ref
-                            .read(productNotifierProvider.notifier)
-                            .updateProduct(
-                          documentId: product["documentId"],
-                          data: {
-                            "quantity": product["quantity"] - 1,
-                          },
-                        );
-                      }
-                    },
-                    onPlus: () async {
-                      await ref
-                          .read(productNotifierProvider.notifier)
-                          .updateProduct(
-                        documentId: product["documentId"],
-                        data: {
-                          "quantity": product["quantity"] + 1,
-                        },
-                      );
-                    },
+                  trailing: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: AppText.paragraphS16(
+                      "${product['quantity']}",
+                      fontWeight: FontWeight.w600,
+                      color: ConfigColors.primary2,
+                    ),
                   ),
+                  // CommonCounter(
+                  //   value: product['quantity'].toString(),
+                  //   onMinus: () async {
+                  //     if (product["quantity"] > 0) {
+                  //       await ref
+                  //           .read(productNotifierProvider.notifier)
+                  //           .updateProduct(
+                  //         documentId: product["documentId"],
+                  //         data: {
+                  //           "quantity": product["quantity"] - 1,
+                  //         },
+                  //       );
+                  //     }
+                  //   },
+                  //   onPlus: () async {
+                  //     await ref
+                  //         .read(productNotifierProvider.notifier)
+                  //         .updateProduct(
+                  //       documentId: product["documentId"],
+                  //       data: {
+                  //         "quantity": product["quantity"] + 1,
+                  //       },
+                  //     );
+                  //   },
+                  // ),
                 );
               },
             );
