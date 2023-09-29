@@ -17,7 +17,8 @@ import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
 final StateProvider<LatLng> currentLatLng = StateProvider<LatLng>(
-  (StateProviderRef<Object?> ref) => const LatLng(25.4292516, 68.3461768),
+  (StateProviderRef<Object?> ref) =>
+      const LatLng(25.42889724901859, 68.28036623326824),
 );
 
 class ClientHomeView extends ConsumerStatefulWidget {
@@ -35,7 +36,6 @@ class ClientHomeView extends ConsumerStatefulWidget {
 
 class _ClientHomeViewState extends ConsumerState<ClientHomeView> {
   late GoogleMapController googleMapController;
-  LatLng currentPosition = const LatLng(25.4292516, 68.3461768);
   Set<Marker> _markers = {};
 
   @override
@@ -127,8 +127,8 @@ class _ClientHomeViewState extends ConsumerState<ClientHomeView> {
             ),
             position: LatLng(storeLocation.latitude, storeLocation.longitude),
             infoWindow: InfoWindow(
-              title: data['name'] as String,
-              snippet: data['address'] as String,
+              title: data['name'] ?? "",
+              snippet: data['address'] ?? "",
               onTap: () {
                 Navigator.push(
                     context, OrderPlacementScreen.route(data["user_id"]));
@@ -159,6 +159,7 @@ class _ClientHomeViewState extends ConsumerState<ClientHomeView> {
 
   @override
   Widget build(BuildContext context) {
+    var currentPosition = ref.watch(currentLatLng);
     return CommonScaffold(
       appBar: CommonAppBar(
         showleading: true,
