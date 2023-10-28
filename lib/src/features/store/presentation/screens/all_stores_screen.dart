@@ -63,7 +63,7 @@ class AllStoresScreen extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                       titleGap: 6,
-                      subTitle: const Row(
+                      subTitle:  Row(
                         children: [
                           Icon(
                             Icons.location_on_rounded,

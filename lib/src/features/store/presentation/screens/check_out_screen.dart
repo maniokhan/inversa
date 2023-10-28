@@ -223,7 +223,7 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
                     ),
                   ],
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     AppText.paragraphI16(

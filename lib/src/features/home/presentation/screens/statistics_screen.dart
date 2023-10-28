@@ -11,7 +11,7 @@ import 'package:inversaapp/src/theme/text.dart';
 
 final totalSaleByMonthProvider = StateProvider((ref) => {});
 
-final class StatisticsScreen extends ConsumerStatefulWidget {
+class StatisticsScreen extends ConsumerStatefulWidget {
   static Route<StatisticsScreen> route() {
     return MaterialPageRoute(builder: (context) => const StatisticsScreen());
   }
