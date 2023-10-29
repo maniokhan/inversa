@@ -58,12 +58,12 @@ class AllStoresScreen extends StatelessWidget {
                       gap: 18,
                       title: AppText.paragraphI16(
                         store["name"],
-                        fontSize: 15,
+                        fontSize: 14,
                         maxLines: 2,
                         fontWeight: FontWeight.w600,
                       ),
                       titleGap: 6,
-                      subTitle:  Row(
+                      subTitle: Row(
                         children: [
                           Icon(
                             Icons.location_on_rounded,

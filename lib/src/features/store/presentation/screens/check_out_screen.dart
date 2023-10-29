@@ -55,7 +55,7 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
 
         // Reference to the Firestore document
         DocumentReference productRef =
-            FirebaseFirestore.instance.collection('products').doc(productId);
+            FirebaseFirestore.instance.collection('store_stock').doc(productId);
 
         // Update the "quantity" field by subtracting "buyQuantity"
         batch.update(

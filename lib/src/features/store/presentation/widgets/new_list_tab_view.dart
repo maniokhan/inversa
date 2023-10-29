@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
 import 'package:inversaapp/src/common_widgets/common_counter.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
+import 'package:inversaapp/src/helpers/loading_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
 import 'package:inversaapp/src/theme/text.dart';
 
@@ -20,29 +23,88 @@ class NewListTabView extends StatefulWidget {
 }
 
 class _NewListTabViewState extends State<NewListTabView> {
-  // List<Map<String, dynamic>> products = [];
-
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  Future<void> updateQuantity(String productId, int newQuantity) async {
+  Map<String, int> initialQuantities = {};
+  Future<void> updateQuantity(String productId, int productLeft,
+      String storeProductId, Map<String, dynamic> storeProductData) async {
     try {
+      DocumentReference documentReference =
+          firestore.collection('store_stock').doc(storeProductId);
+
+// Check if the document exists
+      documentReference.get().then((documentSnapshot) {
+        if (documentSnapshot.exists) {
+          Map<String, dynamic> productData =
+              documentSnapshot.data() as Map<String, dynamic>;
+          int currentQuantity = productData['quantity'] as int;
+          num newQuantity =
+              currentQuantity.toInt() + storeProductData['quantity'];
+
+          // Update only the quantity field
+          documentReference.update({'quantity': newQuantity}).then((value) {
+            print('Quantity updated successfully');
+          }).catchError((error) {
+            print('Error updating quantity: $error');
+          });
+        } else {
+          // Document doesn't exist, set a new document
+          documentReference.set(storeProductData).then((value) {
+            print('New document created successfully');
+          }).catchError((error) {
+            print('Error creating new document: $error');
+          });
+        }
+      });
+      // await firestore
+      //     .collection('store_stock')
+      //     .doc(storeProductId)
+      //     .set(storeProductData);
+
       await firestore.collection('products').doc(productId).update({
-        'quantity': newQuantity,
+        'quantity': productLeft,
       });
       print('Product quantity updated successfully.');
     } on FirebaseException catch (e) {
       print('Error updating product quantity: $e');
+      LoadingScreen().hide();
     }
   }
 
   Future<void> updateProductsQuantity(
       List<Map<String, dynamic>> checkedProducts) async {
-    for (var product in checkedProducts) {
-      String productId = product['product_id'];
-      int newQuantity = product['quantity'];
-      await updateQuantity(productId, newQuantity);
+    LoadingScreen().show(context: context, text: 'please wait');
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) {
+      return;
     }
+
+    for (var product in checkedProducts) {
+      final List<String> ids = <String>[currentUser.uid, product['product_id']];
+      ids.sort();
+      final String stockProductId = ids.join('_');
+      int newQuantityStockProduct = product['quantity'];
+      String productId = product['product_id'];
+      num productLeft =
+          initialQuantities[product['product_id']]! - product['quantity'];
+      final Map<String, dynamic> stockProductDetails = product;
+      stockProductDetails['product_id'] = stockProductId;
+      stockProductDetails['user_id'] = currentUser.uid;
+
+      await updateQuantity(
+          productId, productLeft.toInt(), stockProductId, stockProductDetails);
+    }
+    LoadingScreen().hide();
     Navigator.pop(context);
     Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for (var product in widget.products) {
+      initialQuantities[product['product_id']] = product['quantity'];
+    }
   }
 
   @override
@@ -66,6 +128,9 @@ class _NewListTabViewState extends State<NewListTabView> {
             itemCount: widget.products.length,
             itemBuilder: (context, index) {
               // widget.products[index]['quantity'] = 1;
+              final maxQuantity =
+                  initialQuantities[widget.products[index]['product_id']];
+              print(maxQuantity);
               return Padding(
                 padding: const EdgeInsets.only(
                   bottom: 16,
@@ -102,13 +167,17 @@ class _NewListTabViewState extends State<NewListTabView> {
                       }
                     },
                     onPlus: () {
-                      setState(() {
-                        widget.products[index]
-                            ['quantity']++; // Decrease the quantity.
-                        // Increase the quantity.
-                        // widget.products[index]['quantity'] =
-                        //     quantity; // Update the quantity in the data source.
-                      });
+                      if (widget.products[index]['quantity'] < maxQuantity) {
+                        setState(() {
+                          widget.products[index]
+                              ['quantity']++; // Decrease the quantity.
+                          // Increase the quantity.
+                          // widget.products[index]['quantity'] =
+                          //     quantity; // Update the quantity in the data source.
+                        });
+                      } else {
+                        showCupertinoDialog(maxQuantity);
+                      }
                     },
                   ),
                 ),
@@ -156,6 +225,36 @@ class _NewListTabViewState extends State<NewListTabView> {
         //   ),
         // ),
       ],
+    );
+  }
+
+  void showCupertinoDialog(availableStock) async {
+    await showDialog(
+      context: context,
+      builder: ((context) {
+        return CupertinoAlertDialog(
+          title: const AppText.paragraphI16(
+            "Out of Stock",
+            fontWeight: FontWeight.w600,
+          ),
+          content: AppText.paragraphI14(
+            "Sorry, we have only $availableStock units in stock.",
+            color: ConfigColors.slateGray,
+          ),
+          actions: [
+            CupertinoDialogAction(
+              child: const AppText.paragraphI16(
+                "OK",
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+              ),
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+            ),
+          ],
+        );
+      }),
     );
   }
 }

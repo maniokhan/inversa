@@ -86,7 +86,7 @@ class _CommonOrderPlacementCardState
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AppText.paragraphI16(
-                          widget.product['price'],
+                          '${widget.product['price']}',
                           fontWeight: FontWeight.w600,
                           textDecoration: widget.isInCart
                               ? TextDecoration.lineThrough

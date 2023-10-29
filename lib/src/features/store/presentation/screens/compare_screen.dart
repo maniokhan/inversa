@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
@@ -30,9 +31,17 @@ class _CompareScreenState extends ConsumerState<CompareScreen>
   late TabController tabController;
 
   Future<void> fetchProducts(WidgetRef ref) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) {
+      return;
+    }
+
     try {
-      QuerySnapshot<Map<String, dynamic>> snapshot =
-          await FirebaseFirestore.instance.collection('products').get();
+      QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection('store_stock')
+          .where('user_id', isEqualTo: currentUser.uid)
+          .get();
 
       List<Map<String, dynamic>> fetchedProducts = snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data();
@@ -97,10 +106,10 @@ class _CompareScreenState extends ConsumerState<CompareScreen>
               ),
               tabs: const [
                 Tab(
-                  text: 'Old List',
+                  text: 'New List',
                 ),
                 Tab(
-                  text: 'New List',
+                  text: 'Old List',
                 ),
               ],
             ),
@@ -109,10 +118,10 @@ class _CompareScreenState extends ConsumerState<CompareScreen>
             child: TabBarView(
               controller: tabController,
               children: [
-                const OldListTabView(),
                 NewListTabView(
                   products: widget.products,
                 ),
+                const OldListTabView(),
               ],
             ),
           ),

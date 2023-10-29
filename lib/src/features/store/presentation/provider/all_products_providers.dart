@@ -14,7 +14,7 @@ final allProductsProvider =
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? shoppingCartSub;
 
   final sub = FirebaseFirestore.instance
-      .collection("products")
+      .collection("store_stock")
       .where(
         "user_id",
         isEqualTo: userId,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
-import 'package:inversaapp/src/common_widgets/common_dotted_border_card.dart';
 import 'package:inversaapp/src/common_widgets/common_list_tile.dart';
 import 'package:inversaapp/src/constants/app_sizes.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/compare_screen.dart';
@@ -52,10 +50,22 @@ class OldListTabView extends ConsumerWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
                   ),
-                  subTitle: AppText.paragraphI12(
-                    "Exp Date: ${products[index]['expDate'] ?? '10/06/2023'}",
-                    fontWeight: FontWeight.w400,
-                    color: ConfigColors.slateGray,
+                  subTitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      gapH4,
+                      AppText.paragraphI12(
+                        "Exp Date: ${products[index]['expDate'] ?? '10/06/2023'}",
+                        fontWeight: FontWeight.w400,
+                        color: ConfigColors.slateGray,
+                      ),
+                      gapH4,
+                      AppText.paragraphI12(
+                        "Quantity: ${products[index]['quantity'] ?? '0'}",
+                        fontWeight: FontWeight.w400,
+                        color: ConfigColors.slateGray,
+                      ),
+                    ],
                   ),
                   trailing: AppText.paragraphI16(
                     "\$${products[index]['price'] ?? 'N/A'}",

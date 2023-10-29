@@ -12,7 +12,7 @@ final allCategoryProvider =
 
   final sub = FirebaseFirestore.instance
       .collection("categories")
-      .where("user_id", isEqualTo: userId)
+      // .where("user_id", isEqualTo: userId)
       .snapshots()
       .listen((snapshot) {
     if (snapshot.docs.isNotEmpty) {
