@@ -90,7 +90,7 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
   @override
   Widget build(BuildContext context) {
     final userId = FirebaseAuth.instance.currentUser?.uid;
-    final productsValue = ref.watch(allProductsProvider(userId));
+    final productsValue = ref.watch(allStoreStockProductsProvider(userId));
     counterSaleSubTotal = 0;
     for (var item in products) {
       counterSaleSubTotal += ((double.tryParse(item['price']) ?? 0) *

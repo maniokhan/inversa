@@ -108,7 +108,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
         },
       };
       await FirebaseFirestore.instance
-          .collection('products')
+          .collection('store_stock')
           .doc(selectedProduct['product_id'])
           .collection('history')
           .add(oldData)
@@ -178,7 +178,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
   @override
   Widget build(BuildContext context) {
     final String? userId = FirebaseAuth.instance.currentUser?.uid;
-    final productsValue = ref.watch(allProductsProvider(userId));
+    final productsValue = ref.watch(allStoreStockProductsProvider(userId));
     final selectedProduct = ref.watch(selectedProductProvider);
     return CommonScaffold(
       isScaffold: true,
