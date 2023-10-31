@@ -95,7 +95,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
         },
       };
       await FirebaseFirestore.instance
-          .collection('products')
+          .collection('store_stock')
           .doc(selectedProduct['product_id'])
           .update(updatedData);
       Map<String, dynamic> oldData = {
@@ -139,7 +139,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
 
     if (scanResult != '-1') {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('products')
+          .collection('store_stock')
           .doc(scanResult)
           .get();
 

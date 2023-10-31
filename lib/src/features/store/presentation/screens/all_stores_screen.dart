@@ -15,6 +15,18 @@ class AllStoresScreen extends StatelessWidget {
   }
 
   const AllStoresScreen({super.key});
+  String createNameInitials(String name) {
+    final List<String> nameParts = name.split(' ');
+    String initials = '';
+
+    for (final String part in nameParts) {
+      if (part.isNotEmpty) {
+        initials += part[0].toUpperCase();
+      }
+    }
+
+    return initials;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +58,24 @@ class AllStoresScreen extends StatelessWidget {
                   separatorBuilder: (context, index) => gapH16,
                   itemBuilder: (context, index) {
                     final store = snapshot.data!.docs[index];
+                    final storeNameInitials =
+                        createNameInitials(store["name"].toString());
                     return CommonListTile(
                       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                       onTap: () => Navigator.push(context,
                           OrderPlacementScreen.route(store["user_id"])),
-                      leading: SizedBox(
-                        height: 71,
-                        width: 76,
-                        child: Image.asset("assets/images/store_1.png"),
+                      leading: Container(
+                        height: 65,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          color: ConfigColors.primary,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        alignment: Alignment.center,
+                        child: AppText.paragraphI16(
+                          storeNameInitials,
+                          color: Colors.white,
+                        ),
                       ),
                       gap: 18,
                       title: AppText.paragraphI16(
@@ -63,7 +85,7 @@ class AllStoresScreen extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                       titleGap: 6,
-                      subTitle: Row(
+                      subTitle: const Row(
                         children: [
                           Icon(
                             Icons.location_on_rounded,

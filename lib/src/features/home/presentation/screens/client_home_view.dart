@@ -91,8 +91,8 @@ class _ClientHomeViewState extends ConsumerState<ClientHomeView> {
 
     // The following calculations are approximate and based on latitude.
     // For more precise calculations, consider using a library like "geodesy".
-    const double latRange = 0.009; // Approximately 1 km in latitude
-    const double lonRange = 0.014; // Approximately 1 km in longitude
+    const double latRange = 0.018; // Approximately 2 km in latitude
+    const double lonRange = 0.028; // Approximately 2 km in longitude
 
     final double lowerLat = lat - latRange;
     final double upperLat = lat + latRange;
@@ -320,7 +320,7 @@ class _ClientHomeViewState extends ConsumerState<ClientHomeView> {
               myLocationEnabled: true,
               initialCameraPosition: CameraPosition(
                 target: currentPosition,
-                zoom: 13.8,
+                zoom: 12.8,
               ),
               onMapCreated: (controller) {
                 setState(() {
@@ -332,7 +332,7 @@ class _ClientHomeViewState extends ConsumerState<ClientHomeView> {
                 Circle(
                   circleId: const CircleId('1'),
                   center: currentPosition,
-                  radius: 1000,
+                  radius: 2000,
                   strokeWidth: 1,
                   fillColor: const Color(0xFF006491).withOpacity(0.2),
                 ),

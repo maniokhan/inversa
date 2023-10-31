@@ -83,7 +83,7 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
     }
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('products')
+          .collection('store_stock')
           .where('user_id', isEqualTo: currentUser!.uid)
           .get();
 
@@ -172,6 +172,7 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
       print('User not authenticated.');
       return;
     }
+
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('orders')
@@ -184,7 +185,6 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
       if (querySnapshot.docs.isNotEmpty) {
         for (var document in querySnapshot.docs) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-
           if (data.containsKey('total')) {
             total += data['total'];
             dailySales.add(data['total']);
