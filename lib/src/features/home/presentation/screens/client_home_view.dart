@@ -90,7 +90,6 @@ class _ClientHomeViewState extends ConsumerState<ClientHomeView> {
     final double lon = userLocation.longitude;
 
     // The following calculations are approximate and based on latitude.
-    // For more precise calculations, consider using a library like "geodesy".
     const double latRange = 0.018; // Approximately 2 km in latitude
     const double lonRange = 0.028; // Approximately 2 km in longitude
 
