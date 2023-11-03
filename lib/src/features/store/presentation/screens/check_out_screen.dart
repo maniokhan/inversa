@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:inversaapp/notification_services.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
@@ -70,6 +71,27 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
         // Handle any errors that occur during the batched write
         print('Error updating quantities: $error');
       });
+    }
+
+    Future<void> sendOrderNotification(String storeID) async {
+      try {
+        CollectionReference userAccountsCollection =
+            FirebaseFirestore.instance.collection('user_accounts');
+
+        QuerySnapshot querySnapshot = await userAccountsCollection
+            .where('user_id', isEqualTo: storeID)
+            .get();
+        if (querySnapshot.docs.isNotEmpty) {
+          final QueryDocumentSnapshot document = querySnapshot.docs.first;
+          final Map<String, dynamic> data =
+              document.data() as Map<String, dynamic>;
+          print("device_token ${data['device_token'].toString()}");
+          NotificationService.sendNotification('New order placed!',
+              'A new order has been placed', data['device_token'].toString());
+        }
+      } catch (e) {
+        print('Error fetching document: $e');
+      }
     }
 
     return CommonScaffold(
@@ -223,7 +245,7 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
                     ),
                   ],
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     AppText.paragraphI16(
@@ -279,7 +301,8 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
                       data: order,
                       products: widget.products,
                     );
-
+                await sendOrderNotification(
+                    widget.products.first['user_id'].toString());
                 // await ref
                 //     .read(shoppingCartNotifierProvider.notifier)
                 //     .deleteShoppingCart();
