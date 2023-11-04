@@ -17,7 +17,7 @@ void main() async {
     name: 'inversappmx',
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  NotificationService.initialize();
+  await NotificationService.initialize();
   appPrefs = await SharedPreferences.getInstance();
   final LocationPermission permission = await Geolocator.checkPermission();
 

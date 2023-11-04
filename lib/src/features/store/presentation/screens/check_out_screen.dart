@@ -301,8 +301,9 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
                       data: order,
                       products: widget.products,
                     );
-                await sendOrderNotification(
-                    widget.products.first['user_id'].toString());
+                // TODO (abubakar): open notification
+                // await sendOrderNotification(
+                //     widget.products.first['user_id'].toString());
                 // await ref
                 //     .read(shoppingCartNotifierProvider.notifier)
                 //     .deleteShoppingCart();
