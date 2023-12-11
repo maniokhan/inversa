@@ -115,18 +115,16 @@ class _ListTabViewState extends ConsumerState<ListTabView> {
             //       ),
             //     ),
             //     gapW20,
-            Expanded(
-              child: CommonButton(
-                onPress: () {
-                  // if (checkedProducts.isNotEmpty) {
-                  //   updateQuantitiesForCheckedProducts(checkedProducts);
-                  // } else {
-                  //   print('Select product first');
-                  // }
-                  Navigator.push(context, CompareScreen.route(checkedProducts));
-                },
-                text: "Compare",
-              ),
+            CommonButton(
+              onPress: () {
+                // if (checkedProducts.isNotEmpty) {
+                //   updateQuantitiesForCheckedProducts(checkedProducts);
+                // } else {
+                //   print('Select product first');
+                // }
+                Navigator.push(context, CompareScreen.route(checkedProducts));
+              },
+              text: "Compare",
             ),
             //   ],
             // ),

@@ -1,7 +1,7 @@
 name: inversaapp
 description: A new Flutter project.
 publish_to: "none"
-version: 9.0.0+1
+version: 14.0.0+1
 
 environment:
   sdk: ">=3.0.2 <4.0.0"
@@ -13,13 +13,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  firebase_core: ^2.13.1
+  firebase_core: ^2.21.0
   font_awesome_flutter: ^10.4.0
   syncfusion_flutter_charts: ^22.2.5
-  firebase_auth: ^4.6.2
+  firebase_auth: ^4.12.1
   flutter_facebook_auth:
   google_sign_in: ^6.1.4
-  cloud_firestore: ^4.8.0
+  cloud_firestore: ^4.12.1
   cached_network_image: ^3.2.3
   flutter_svg: ^2.0.7
   freezed_annotation: ^2.2.0
@@ -37,7 +37,7 @@ dependencies:
   google_maps_flutter: ^2.5.0
   geolocator: ^10.1.0
   http: ^1.1.0
-  firebase_messaging: ^14.7.3
+  # firebase_messaging: ^14.7.3
   # cached_video_player: ^2.0.4
   # git:
   #  url: git@github.com:Abubakarshaikh/inversa_sdk.git

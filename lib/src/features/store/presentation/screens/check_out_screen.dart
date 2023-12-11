@@ -86,8 +86,8 @@ class _CheckOutScreenState extends ConsumerState<CheckOutScreen> {
           final Map<String, dynamic> data =
               document.data() as Map<String, dynamic>;
           print("device_token ${data['device_token'].toString()}");
-          NotificationService.sendNotification('New order placed!',
-              'A new order has been placed', data['device_token'].toString());
+          // NotificationService.sendNotification('New order placed!',
+              // 'A new order has been placed', data['device_token'].toString());
         }
       } catch (e) {
         print('Error fetching document: $e');

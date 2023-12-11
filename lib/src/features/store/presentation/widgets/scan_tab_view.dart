@@ -39,14 +39,18 @@ class _ScanTabViewState extends ConsumerState<ScanTabView> {
     if (!mounted) return;
 
     if (scanResult != '-1') {
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('products')
-          .doc(scanResult)
-          .get();
+      print('------------$scanResult------------');
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await FirebaseFirestore.instance
+              .collection('products')
+              .where('barcode', isEqualTo: scanResult)
+              .get();
 
-      if (snapshot.exists) {
-        Map<String, dynamic> productData =
-            snapshot.data() as Map<String, dynamic>;
+      print('---------${snapshot.docs.length}---------');
+
+      if (snapshot.docs.isNotEmpty) {
+        final data = snapshot.docs.map((e) => e.data()).toList();
+        Map<String, dynamic> productData = data.first;
 
         // bool isProductAlreadyAdded = scanProducts.any((product) {
         //   return product['productId'] == productData['productId'];
@@ -81,38 +85,35 @@ class _ScanTabViewState extends ConsumerState<ScanTabView> {
       children: [
         // Row(
         //   children: [
-        Expanded(
-          flex: 4,
-          child: CommonDottedBorderCard(
-            height: 118,
-            //  width: 263,
-            borderColor: ConfigColors.lightText,
-            strokeWidth: 0.5,
-            onTap: () {
-              scanBarcode();
-            },
-            customRadius: const Radius.circular(6),
-            alignment: Alignment.center,
-            backgroundColor: ConfigColors.backgroundGrey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CommonCard(
-                  showShadow: false,
-                  padding: const EdgeInsets.all(5),
-                  backgroundColor: ConfigColors.lightGreen,
-                  shape: BoxShape.circle,
-                  child: Assets.scanCodeLightScreen.svg(),
-                ),
-                gapH12,
-                const AppText.paragraphI16(
-                  "Scan code",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
-                  color: ConfigColors.slateGray,
-                ),
-              ],
-            ),
+        CommonDottedBorderCard(
+          height: 118,
+          //  width: 263,
+          borderColor: ConfigColors.lightText,
+          strokeWidth: 0.5,
+          onTap: () {
+            scanBarcode();
+          },
+          customRadius: const Radius.circular(6),
+          alignment: Alignment.center,
+          backgroundColor: ConfigColors.backgroundGrey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CommonCard(
+                showShadow: false,
+                padding: const EdgeInsets.all(5),
+                backgroundColor: ConfigColors.lightGreen,
+                shape: BoxShape.circle,
+                child: Assets.scanCodeLightScreen.svg(),
+              ),
+              gapH12,
+              const AppText.paragraphI16(
+                "Scan code",
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+                color: ConfigColors.slateGray,
+              ),
+            ],
           ),
         ),
         // gapW16,

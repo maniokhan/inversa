@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
@@ -16,31 +16,36 @@ class AuthenticationNotifier extends StateNotifier<bool> {
     String email,
     String password,
   ) async {
-    log('LOGIN ACCOUT');
+    print('LOGIN ACCOUT');
     try {
       state = true;
+      // final String? deviceToken = await FirebaseMessaging.instance.getToken();
+      print('LOGINED ACCOUT');
+
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      await appPrefs?.setBool('isLoggin', true);
-      final String? deviceToken = await FirebaseMessaging.instance.getToken();
-      final String userId = FirebaseAuth.instance.currentUser!.uid;
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('user_accounts')
-          .where('user_id', isEqualTo: userId)
-          .get();
-      if (querySnapshot.docs.isNotEmpty) {
-        String docId = querySnapshot.docs.first.id;
 
-        FirebaseFirestore.instance
-            .collection('user_accounts')
-            .doc(docId)
-            .update({'device_token': deviceToken ?? ''});
-      } else {
-        // Handle the case where no matching document is found
-        return;
-      }
+      await appPrefs?.setBool('isLoggin', true);
+      // final String userId = FirebaseAuth.instance.currentUser!.uid;
+
+      // QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      //     .collection('user_accounts')
+      //     .where('user_id', isEqualTo: userId)
+      //     .get();
+
+      // if (querySnapshot.docs.isNotEmpty) {
+      //   String docId = querySnapshot.docs.first.id;
+
+      //   FirebaseFirestore.instance
+      //       .collection('user_accounts')
+      //       .doc(docId)
+      //       .update({'device_token': deviceToken ?? ''});
+      // } else {
+      //   // Handle the case where no matching document is found
+      //   return;
+      // }
     } catch (e) {
       throw Exception('something went wrong while login $e');
     } finally {
@@ -66,7 +71,7 @@ class AuthenticationNotifier extends StateNotifier<bool> {
       final Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
-      final String? deviceToken = await FirebaseMessaging.instance.getToken();
+      // final String? deviceToken = await FirebaseMessaging.instance.getToken();
       final QuerySnapshot result = await FirebaseFirestore.instance
           .collection('user_accounts')
           .where('user_id', isEqualTo: userId)
@@ -83,7 +88,7 @@ class AuthenticationNotifier extends StateNotifier<bool> {
           position.latitude,
           position.longitude,
         ),
-        'device_token': deviceToken ?? '',
+        // 'device_token': deviceToken ?? '',
       };
       if (result.docs.isEmpty) {
         // User does not exist, create a new document.
@@ -131,7 +136,7 @@ class AuthenticationNotifier extends StateNotifier<bool> {
       final Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
-      final String? deviceToken = await FirebaseMessaging.instance.getToken();
+      // final String? deviceToken = await FirebaseMessaging.instance.getToken();
       final QuerySnapshot result = await FirebaseFirestore.instance
           .collection('user_accounts')
           .where('user_id', isEqualTo: userId)
@@ -148,7 +153,7 @@ class AuthenticationNotifier extends StateNotifier<bool> {
           position.latitude,
           position.longitude,
         ),
-        'device_token': deviceToken ?? '',
+        // 'device_token': deviceToken ?? '',
       };
       if (result.docs.isEmpty) {
         // User does not exist, create a new document.
@@ -171,6 +176,7 @@ class AuthenticationNotifier extends StateNotifier<bool> {
   }) async {
     try {
       state = true;
+      // final String? deviceToken = await FirebaseMessaging.instance.getToken();
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -185,6 +191,7 @@ class AuthenticationNotifier extends StateNotifier<bool> {
       data['user_id'] = userId;
       data['address'] = "";
       data['store_name'] = "";
+      // data['device_token'] = deviceToken ?? '';
       data['store_location'] = GeoPoint(
         position.latitude,
         position.longitude,
