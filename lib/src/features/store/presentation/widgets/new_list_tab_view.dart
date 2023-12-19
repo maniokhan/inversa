@@ -194,13 +194,11 @@ class _NewListTabViewState extends State<NewListTabView> {
         //       ),
         //     ),
         gapW20,
-        Expanded(
-          child: CommonButton(
-            onPress: () {
-              updateProductsQuantity(widget.products);
-            },
-            text: "Accept",
-          ),
+        CommonButton(
+          onPress: () {
+            updateProductsQuantity(widget.products);
+          },
+          text: "Accept",
         ),
         //   ],
         // ),

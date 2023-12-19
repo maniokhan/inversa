@@ -143,14 +143,17 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
     if (!mounted) return;
 
     if (scanResult != '-1') {
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('store_stock')
-          .doc(scanResult)
-          .get();
+      print('------------$scanResult------------');
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await FirebaseFirestore.instance
+              .collection('products')
+              .where('barcode', isEqualTo: scanResult)
+              .get();
 
-      if (snapshot.exists) {
+      if (snapshot.docs.isNotEmpty) {
         setState(() {
-          scanProduct = snapshot.data() as Map<String, dynamic>;
+          final data = snapshot.docs.map((e) => e.data()).toList();
+          scanProduct = data.first;
         });
 
         if (scanProduct != null) {

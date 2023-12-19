@@ -56,14 +56,18 @@ class _SaleScreenState extends ConsumerState<SaleScreen> {
     if (!mounted) return;
 
     if (scanResult != '-1') {
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('products')
-          .doc(scanResult)
-          .get();
+      print('------------$scanResult------------');
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await FirebaseFirestore.instance
+              .collection('store_stock')
+              .where('barcode', isEqualTo: scanResult)
+              .get();
 
-      if (snapshot.exists) {
+      if (snapshot.docs.isNotEmpty) {
+        final data = snapshot.docs.map((e) => e.data()).toList();
+        Map<String, dynamic> productData = data.first;
         setState(() {
-          scanProduct = snapshot.data() as Map<String, dynamic>;
+          scanProduct = productData;
           scanProduct!["counter_sale_quantity"] = 1;
           scanProduct!["isShoppingCart"] = false;
         });

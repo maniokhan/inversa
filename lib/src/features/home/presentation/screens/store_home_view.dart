@@ -14,7 +14,6 @@ import 'package:inversaapp/src/features/education/presentation/screens/education
 import 'package:inversaapp/src/features/expenses/presentation/screens/other_expenses_screen.dart';
 import 'package:inversaapp/src/features/home/presentation/screens/statistics_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/inventory_home_screen.dart';
-import 'package:inversaapp/src/features/store/presentation/screens/orders_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/store_restock_screen.dart';
 import 'package:inversaapp/src/features/store/presentation/screens/store_sale_screen.dart';
 import 'package:inversaapp/src/theme/config_colors.dart';
@@ -417,38 +416,37 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
           //       ),
           //     ),
           //     gapW16,
-          Expanded(
-            child: CommonCard(
-              padding: const EdgeInsets.all(16),
-              onTap: () => Navigator.push(context, OtherExpensesScreen.route()),
-              customRadius: BorderRadius.circular(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CommonCard(
-                        showBorder: true,
-                        borderColor: ConfigColors.primary2,
-                        padding: const EdgeInsets.all(8),
-                        shape: BoxShape.circle,
-                        backgroundColor: ConfigColors.backgroundGreen,
-                        child: Assets.priceTag.image(
-                          height: 20,
-                        ),
+          // TODD (abubakar): Don't use expanded
+          CommonCard(
+            padding: const EdgeInsets.all(16),
+            onTap: () => Navigator.push(context, OtherExpensesScreen.route()),
+            customRadius: BorderRadius.circular(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CommonCard(
+                      showBorder: true,
+                      borderColor: ConfigColors.primary2,
+                      padding: const EdgeInsets.all(8),
+                      shape: BoxShape.circle,
+                      backgroundColor: ConfigColors.backgroundGreen,
+                      child: Assets.priceTag.image(
+                        height: 20,
                       ),
-                      Assets.outlinedForwardArrow.svg(),
-                    ],
-                  ),
-                  gapH8,
-                  const AppText.paragraphI14(
-                    "Expenses",
-                    fontWeight: FontWeight.w600,
-                  ),
-                ],
-              ),
+                    ),
+                    Assets.outlinedForwardArrow.svg(),
+                  ],
+                ),
+                gapH8,
+                const AppText.paragraphI14(
+                  "Expenses",
+                  fontWeight: FontWeight.w600,
+                ),
+              ],
             ),
           ),
           //   ],
@@ -493,45 +491,42 @@ class _StoreHomeViewState extends ConsumerState<StoreHomeView> {
           //         ),
           //       ),
           //     ),
-          gapW16,
-          Expanded(
-            child: CommonCard(
-              height: 124,
-              width: 163,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              onTap: () => Navigator.push(context, OrdersScreen.route(false)),
-              backgroundColor: ConfigColors.primary,
-              customRadius: BorderRadius.circular(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CommonCard(
-                        showBorder: true,
-                        showShadow: false,
-                        borderColor: ConfigColors.primary2,
-                        padding: const EdgeInsets.all(10),
-                        shape: BoxShape.circle,
-                        child: Assets.profile.image(height: 23),
-                      ),
-                      Assets.outlinedForwardArrow.svg(),
-                    ],
-                  ),
-                  gapH20,
-                  const AppText.paragraphI16(
-                    "Orders Placed",
-                    fontWeight: FontWeight.w600,
-                    color: ConfigColors.white,
-                  ),
-                ],
-              ),
-            ),
-            //   ),
-            // ],
-          ),
+          // gapW16,
+          // TODO (abubakar): Don't use expanded
+          // CommonCard(
+          //   height: 124,
+          //   width: 163,
+          //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          //   onTap: () => Navigator.push(context, OrdersScreen.route(false)),
+          //   backgroundColor: ConfigColors.primary,
+          //   customRadius: BorderRadius.circular(20),
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       Row(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: [
+          //           CommonCard(
+          //             showBorder: true,
+          //             showShadow: false,
+          //             borderColor: ConfigColors.primary2,
+          //             padding: const EdgeInsets.all(10),
+          //             shape: BoxShape.circle,
+          //             child: Assets.profile.image(height: 23),
+          //           ),
+          //           Assets.outlinedForwardArrow.svg(),
+          //         ],
+          //       ),
+          //       gapH20,
+          //       const AppText.paragraphI16(
+          //         "Orders Placed",
+          //         fontWeight: FontWeight.w600,
+          //         color: ConfigColors.white,
+          //       ),
+          //     ],
+          //   ),
+          // ),
           gapH16,
           CommonCard(
             onTap: () => Navigator.push(context, InventoryHomeScreen.route()),

@@ -105,6 +105,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       _emailController.text,
                       _passwordController.text,
                     );
+                  
                 await Future.delayed(const Duration(milliseconds: 100), () {
                   LoadingScreen().hide();
                   Navigator.pushAndRemoveUntil(
