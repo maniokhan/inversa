@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:inversaapp/src/assets/assets.gen.dart';
+import 'package:inversaapp/src/assets/fonts.gen.dart';
 import 'package:inversaapp/src/common_widgets/common_app_bar.dart';
 import 'package:inversaapp/src/common_widgets/common_button.dart';
 import 'package:inversaapp/src/common_widgets/common_card.dart';
@@ -40,7 +42,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
   TextEditingController? productPriceController;
   TextEditingController? productQuantityController;
   TextEditingController? unitValueController;
-  TextEditingController? unitNameController;
+  // TextEditingController? unitNameController;
   TextEditingController? expDateController;
 
   @override
@@ -49,7 +51,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
     productPriceController = TextEditingController();
     productQuantityController = TextEditingController();
     unitValueController = TextEditingController();
-    unitNameController = TextEditingController();
+    // unitNameController = TextEditingController();
     expDateController = TextEditingController();
   }
 
@@ -68,8 +70,10 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
       productPriceController?.text = selectedProduct['price'] ?? '';
       productQuantityController?.text = selectedProduct['quantity'].toString();
       unitValueController?.text = selectedProduct['units']['value'];
-      unitNameController?.text = selectedProduct['units']['name'];
-      expDateController?.text = selectedProduct['expDate'];
+      // unitNameController?.text = selectedProduct['units']['name'];
+      selectedValue = selectedProduct['units']['name'];
+      // expDateController?.text = selectedProduct['expDate'];
+      oldExpDate = selectedProduct['expDate'];
     });
   }
 
@@ -78,7 +82,7 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
     productPriceController?.dispose();
     productQuantityController?.dispose();
     unitValueController?.dispose();
-    unitNameController?.dispose();
+    // unitNameController?.dispose();
     expDateController?.dispose();
     super.dispose();
   }
@@ -88,9 +92,10 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
       Map<String, dynamic> updatedData = {
         'price': productPriceController!.text,
         'quantity': int.parse(productQuantityController!.text),
-        'expDate': expDateController!.text,
+        // 'expDate': expDateController!.text,
+        'expDate': getExpDate(),
         'units': {
-          'name': unitNameController!.text,
+          'name': selectedValue,
           'value': unitValueController!.text,
         },
       };
@@ -157,8 +162,10 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
             productQuantityController?.text =
                 selectedProduct['quantity'].toString();
             unitValueController?.text = selectedProduct['units']['value'];
-            unitNameController?.text = selectedProduct['units']['name'];
-            expDateController?.text = selectedProduct['expDate'];
+            // unitNameController?.text = selectedProduct['units']['name'];
+            selectedValue = selectedProduct['units']['name'];
+            // expDateController?.text = selectedProduct['expDate'];
+            oldExpDate = selectedProduct['expDate'];
           });
         } else {
           // when scanProduct is null
@@ -174,7 +181,62 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
     }
   }
 
+  DateTime? dateTime;
+  String oldExpDate = '';
+  String getExpDate() {
+    if (dateTime == null) {
+      if (oldExpDate == '') {
+        return 'Add Expiration Date';
+      } else {
+        return oldExpDate;
+      }
+    } else {
+      return DateFormat('yyyy/MM/dd').format(dateTime!);
+    }
+  }
+
+  Future pickDate(BuildContext context) async {
+    final DateTime? date = await _pickDate(context);
+    if (date == null) return;
+
+    setState(() {
+      dateTime = DateTime(
+        date.year,
+        date.month,
+        date.day,
+      );
+    });
+  }
+
+  Future<DateTime?> _pickDate(BuildContext context) async {
+    final DateTime initialDate = DateTime.now();
+    final DateTime? newDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: ConfigColors.primary, // Your desired primary color
+            colorScheme: const ColorScheme.light(
+              primary: ConfigColors.primary,
+            ),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (newDate == null) return null;
+
+    return newDate;
+  }
+
   String? scanResult;
+  String selectedValue = '';
   @override
   Widget build(BuildContext context) {
     final String? userId = FirebaseAuth.instance.currentUser?.uid;
@@ -365,12 +427,53 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
               ),
               gapW16,
               Expanded(
-                child: CommonTextField(
-                  suffixIcon: Icons.keyboard_arrow_down_sharp,
-                  textInputType: TextInputType.number,
-                  hintText: 'Select Unit',
-                  controller: unitNameController,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  height: 48,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: ConfigColors.backgroundGrey,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          selectedValue == '' ? 'Type' : selectedValue,
+                          style: TextStyle(
+                            height: 1.0,
+                            fontSize: 18,
+                            fontFamily: FontFamily.montserrat,
+                            color: selectedValue == ''
+                                ? ConfigColors.blueGrey
+                                : ConfigColors.black,
+                          ),
+                        ),
+                      ),
+                      DropdownButton<String>(
+                        icon: const Icon(Icons.keyboard_arrow_down_sharp),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedValue = newValue!;
+                          });
+                        },
+                        items: <String>['ml', 'L', 'gm', 'Kg']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
                 ),
+                // CommonTextField(
+                //   suffixIcon: Icons.keyboard_arrow_down_sharp,
+                //   textInputType: TextInputType.number,
+                //   hintText: 'Select Unit',
+                //   controller: unitNameController,
+                // ),
               ),
             ],
           ),
@@ -380,11 +483,39 @@ class _StoreRestockScreenState extends ConsumerState<StoreRestockScreen> {
             text: 'Expiration Date',
           ),
           gapH8,
-          CommonTextField(
-            textInputType: TextInputType.number,
-            hintText: 'Add Expiration Date',
-            controller: expDateController,
+          GestureDetector(
+            onTap: () {
+              pickDate(context);
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              height: 48,
+              decoration: BoxDecoration(
+                color: ConfigColors.backgroundGrey,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    getExpDate(),
+                    style: TextStyle(
+                      height: 1.0,
+                      fontSize: 18,
+                      fontFamily: FontFamily.montserrat,
+                      color: getExpDate() == 'Add Expiration Date'
+                          ? ConfigColors.blueGrey
+                          : ConfigColors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
+          // CommonTextField(
+          //   textInputType: TextInputType.number,
+          //   hintText: 'Add Expiration Date',
+          //   controller: expDateController,
+          // ),
           gapH32,
           CommonButton(
             onPress: () {
